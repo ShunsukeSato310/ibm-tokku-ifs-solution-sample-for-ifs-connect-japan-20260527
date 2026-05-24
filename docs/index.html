@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IFS Cloud ソリューションサンプル</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-brand">
+    <span>IFS Cloud Solution Samples</span>
+  </div>
+  <nav class="site-header-nav">
+    <a href="#solutions">ソリューション一覧</a>
+    <a href="#about">このサイトについて</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">IFS Cloud — Solution Sample Catalog</div>
+    <h1>IFS Cloud で実現できること</h1>
+    <p>各ソリューションの活用シナリオ・導入効果・操作イメージをまとめたサンプル集です。導入検討・提案活動にご活用ください。</p>
+    <a href="#solutions" class="hero-cta">ソリューションを見る →</a>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-value" id="stat-solutions">—</div>
+      <div class="stat-label">ソリューションサンプル</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">IFS Cloud</div>
+      <div class="stat-label">対応バージョン</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">日本語</div>
+      <div class="stat-label">対応言語</div>
+    </div>
+  </div>
+</div>
+
+<main class="container">
+
+  <div id="solutions" class="section-label">ソリューションサンプル一覧</div>
+
+  <div class="solution-grid" id="solution-grid">
+
+    <a href="https://tokku.github.io/kanku-pkg-ifs-solution-sample-training-manual/" class="solution-card" style="--card-color: #0f62fe;" target="_blank">
+      <div class="card-body">
+        <div class="card-category">人材育成 / トレーニング</div>
+        <div class="card-title">研修マニュアル自動生成</div>
+        <div class="card-desc">IFS Cloud の操作手順を AI が自動でマニュアル化。スクリーンショット付きで現場担当者がすぐに使えるドキュメントを生成します。</div>
+        <div class="card-tags">
+          <span class="tag">AI生成</span>
+          <span class="tag">ドキュメント</span>
+          <span class="tag">業務効率化</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-arrow">詳細を見る →</span>
+        <span class="badge badge-new">NEW</span>
+      </div>
+    </a>
+
+    <div class="solution-card coming-soon" style="--card-color: #009d9a; opacity: 0.55;">
+      <div class="card-body">
+        <div class="card-category">調達 / 購買</div>
+        <div class="card-title">購買プロセス自動化</div>
+        <div class="card-desc">発注・承認・納品までの購買フローを AI がアシスト。ルーティン作業を自動化し、担当者は例外対応に集中できます。</div>
+        <div class="card-tags">
+          <span class="tag">購買</span>
+          <span class="tag">承認フロー</span>
+          <span class="tag">自動化</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-arrow" style="color: var(--text-03);">準備中</span>
+        <span class="badge badge-beta">COMING SOON</span>
+      </div>
+    </div>
+
+    <div class="solution-card coming-soon" style="--card-color: #8a3ffc; opacity: 0.55;">
+      <div class="card-body">
+        <div class="card-category">保守 / メンテナンス</div>
+        <div class="card-title">設備保全計画支援</div>
+        <div class="card-desc">点検履歴・故障パターンを AI が分析し、最適なメンテナンス計画を提案。予防保全の精度を高めます。</div>
+        <div class="card-tags">
+          <span class="tag">保全</span>
+          <span class="tag">予防保全</span>
+          <span class="tag">分析</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-arrow" style="color: var(--text-03);">準備中</span>
+        <span class="badge badge-beta">COMING SOON</span>
+      </div>
+    </div>
+
+    <div class="solution-card coming-soon" style="--card-color: #ff832b; opacity: 0.55;">
+      <div class="card-body">
+        <div class="card-category">会計 / 財務</div>
+        <div class="card-title">仕訳・会計データ移行支援</div>
+        <div class="card-desc">旧システムの会計データを IFS Cloud 形式へ自動変換。マッピング・バリデーション・エラー検出をAIが担います。</div>
+        <div class="card-tags">
+          <span class="tag">データ移行</span>
+          <span class="tag">会計</span>
+          <span class="tag">変換</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-arrow" style="color: var(--text-03);">準備中</span>
+        <span class="badge badge-beta">COMING SOON</span>
+      </div>
+    </div>
+
+    <div class="solution-card coming-soon" style="--card-color: #24a148; opacity: 0.55;">
+      <div class="card-body">
+        <div class="card-category">プロジェクト / 工程管理</div>
+        <div class="card-title">プロジェクト進捗サマリー</div>
+        <div class="card-desc">IFS プロジェクトモジュールのデータを AI が集計・可視化。遅延リスク・コスト超過を早期に検知します。</div>
+        <div class="card-tags">
+          <span class="tag">プロジェクト</span>
+          <span class="tag">進捗管理</span>
+          <span class="tag">レポート</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-arrow" style="color: var(--text-03);">準備中</span>
+        <span class="badge badge-beta">COMING SOON</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="about" class="section-label" style="margin-top: 56px;">このサイトについて</div>
+  <div style="background: var(--white); border: 1px solid var(--gray-20); padding: 24px; max-width: 720px;">
+    <p style="font-size: 13px; color: var(--text-02); line-height: 1.8; margin-bottom: 12px;">
+      本サイトは IFS Cloud の活用シナリオをご紹介するソリューションサンプル集です。各ページでは実際の画面イメージ・操作フロー・期待効果をご確認いただけます。
+    </p>
+    <p style="font-size: 13px; color: var(--text-02); line-height: 1.8;">
+      導入検討・提案資料作成にご活用ください。詳細なデモや個別相談については、担当 SE までお問い合わせください。
+    </p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">IFS Cloud Solution Samples</div>
+      <div class="footer-copy">© 2026 Tokku Team. All rights reserved.</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/Tokku/kanku-pkg-ifs-solution-sample" target="_blank">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const cards = document.querySelectorAll('.solution-card:not(.coming-soon)');
+  const el = document.getElementById('stat-solutions');
+  if (el) el.textContent = cards.length;
+</script>
+
+</body>
+</html>
