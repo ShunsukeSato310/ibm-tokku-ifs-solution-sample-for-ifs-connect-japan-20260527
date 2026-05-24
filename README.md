@@ -4,7 +4,7 @@ IFS Cloud の活用シナリオをご紹介するソリューションサンプ�
 
 ## GitHub Pages
 
-公開URL: https://tokku.github.io/kanku-pkg-ifs-solution-sample/
+公開URL: https://pages.github.ibm.com/Tokku/kanku-pkg-ifs-solution-sample/
 
 ## 構成
 
@@ -19,7 +19,7 @@ docs/
 
 | ソリューション | リポジトリ |
 |---|---|
-| 研修マニュアル自動生成 | [kanku-pkg-ifs-solution-sample-training-manual](https://github.com/Tokku/kanku-pkg-ifs-solution-sample-training-manual) |
+| 研修マニュアル自動生成 | [kanku-pkg-ifs-solution-sample-training-manual](https://github.ibm.com/Tokku/kanku-pkg-ifs-solution-sample-training-manual) |
 
 ## GitHub Pages 設定
 
