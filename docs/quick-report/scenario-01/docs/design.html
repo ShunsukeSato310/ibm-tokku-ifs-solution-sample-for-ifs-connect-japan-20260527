@@ -94,7 +94,7 @@
   <table class="sc-test-table">
     <thead><tr><th>項目</th><th>設計判断と根拠</th></tr></thead>
     <tbody>
-      <tr><td>結合方式</td><td>カンマ結合（ANSI JOIN ではなく FROM 句列挙）— IFS Cloud クイックレポートの制約上、サブクエリや OUTER JOIN は一部環境で非サポートのためシンプルな内部結合を採用</td></tr>
+      <tr><td>結合方式</td><td>カンマ結合（ANSI JOIN ではなく FROM 句列挙）— IFS Cloud クイックレポートで動作確認済みのシンプルな内部結合を採用</td></tr>
       <tr><td>OBJSTATE フィルタ</td><td><code>l.OBJSTATE = 'Released'</code> で発注済み明細のみ抽出。'Closed'（完了）・'Cancelled'（キャンセル）を除外</td></tr>
       <tr><td>入荷済数量</td><td>PURCHASE_RECEIPT（入庫トランザクション）は本環境でデータが未登録のため <code>0</code> 固定。実運用では <code>SUM(r.QTY_INVOICED)</code> のサブクエリへ変更可能</td></tr>
       <tr><td>日付フォーマット</td><td><code>TO_CHAR(..., 'YYYY-MM-DD')</code> で文字列化。クイックレポートの DATE 型は環境ロケールで表示が変わるため明示的にフォーマット</td></tr>
