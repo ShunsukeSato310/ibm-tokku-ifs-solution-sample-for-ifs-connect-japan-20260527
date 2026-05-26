@@ -127,24 +127,79 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',sans-serif;background:#000;col
   </div>
 </div>
 
-<!-- scene5: エンディング (105-120s) -->
-<div class="scene" id="s5" style="background:linear-gradient(135deg,#001141,#001d6c);">
+<!-- scene5: ソリューション① Fit to Standard (105-135s) -->
+<div class="scene" id="s5" style="background:linear-gradient(135deg,#2d1400,#ff832b22);">
+  <div class="eyebrow" style="color:#ff832b;">Solution Sample 01 / 4</div>
+  <div class="headline" style="font-size:clamp(22px,3vw,40px);">Fit to Standard 分析</div>
+  <div class="sub">顧客要件を IFS 標準プロセスと照合。<br>Fit / Config / Dev を AI が自動判定し、開発工数を最適化します。</div>
+  <div style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:720px;width:100%;">
+    <div style="background:rgba(36,161,72,.15);border:1px solid #24a148;padding:14px;text-align:center;border-radius:4px;"><div style="font-size:28px;font-weight:700;color:#24a148;">55%</div><div style="font-size:11px;color:rgba(255,255,255,.6);">Fit（開発不要）</div></div>
+    <div style="background:rgba(15,98,254,.15);border:1px solid #0f62fe;padding:14px;text-align:center;border-radius:4px;"><div style="font-size:28px;font-weight:700;color:#78a9ff;">25%</div><div style="font-size:11px;color:rgba(255,255,255,.6);">Config（設定のみ）</div></div>
+    <div style="background:rgba(218,30,40,.15);border:1px solid #da1e28;padding:14px;text-align:center;border-radius:4px;"><div style="font-size:28px;font-weight:700;color:#ff8389;">20%</div><div style="font-size:11px;color:rgba(255,255,255,.6);">Dev（開発必要）</div></div>
+  </div>
+  <div style="margin-top:16px;font-size:12px;color:rgba(255,255,255,.5);">1,200+ 標準プロセスと照合 — 仮想プロジェクト 20要件のサンプル</div>
+</div>
+
+<!-- scene6: ソリューション② 移行ジョブ作成 (135-165s) -->
+<div class="scene" id="s6" style="background:linear-gradient(135deg,#1a0a2e,#6929c422);">
+  <div class="eyebrow" style="color:#8a3ffc;">Solution Sample 02 / 4</div>
+  <div class="headline" style="font-size:clamp(22px,3vw,40px);">移行ジョブ自動作成</div>
+  <div class="sub">ビュー名を入力するだけで FNDMIG 標準 7ジョブセットを自動生成。<br>テスト実行・定義書出力まですべて自律実行します。</div>
+  <div style="margin-top:24px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:700px;">
+    <div style="background:rgba(138,63,252,.2);border:1px solid #8a3ffc;padding:8px 16px;border-radius:2px;font-size:12px;font-family:monospace;">_EXTRACT</div>
+    <div style="background:rgba(255,131,43,.2);border:1px solid #ff832b;padding:8px 16px;border-radius:2px;font-size:12px;font-family:monospace;">_INS_INPUT</div>
+    <div style="background:rgba(36,161,72,.2);border:1px solid #24a148;padding:8px 16px;border-radius:2px;font-size:12px;font-family:monospace;">_INS</div>
+    <div style="background:rgba(255,131,43,.2);border:1px solid #ff832b;padding:8px 16px;border-radius:2px;font-size:12px;font-family:monospace;">_UPD_INPUT</div>
+    <div style="background:rgba(15,98,254,.2);border:1px solid #0f62fe;padding:8px 16px;border-radius:2px;font-size:12px;font-family:monospace;">_UPD</div>
+    <div style="background:rgba(255,131,43,.2);border:1px solid #ff832b;padding:8px 16px;border-radius:2px;font-size:12px;font-family:monospace;">_DEL_INPUT</div>
+    <div style="background:rgba(218,30,40,.2);border:1px solid #da1e28;padding:8px 16px;border-radius:2px;font-size:12px;font-family:monospace;">_DEL</div>
+  </div>
+  <div style="margin-top:16px;font-size:13px;color:rgba(255,255,255,.6);">ビュー名入力 → 7ジョブ自動生成 → テスト → 定義書出力　<span style="color:#8a3ffc;font-weight:700;">全自動</span></div>
+</div>
+
+<!-- scene7: ソリューション③ エラー分析 (165-195s) -->
+<div class="scene" id="s7" style="background:linear-gradient(135deg,#1a0000,#da1e2822);">
+  <div class="eyebrow" style="color:#ff8389;">Solution Sample 03 / 4</div>
+  <div class="headline" style="font-size:clamp(22px,3vw,40px);">エラー分析</div>
+  <div class="sub">エラー画面のスクリーンショットを入力するだけ。<br>AI が PL/SQL ソースコードまで遡り、根本原因と対処手順を即座に生成します。</div>
+  <div style="margin-top:24px;display:flex;gap:0;align-items:center;justify-content:center;flex-wrap:wrap;font-size:13px;">
+    <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);padding:10px 20px;border-radius:2px;">📸 スクリーンショット</div>
+    <div style="padding:0 12px;color:rgba(255,255,255,.4);font-size:20px;">→</div>
+    <div style="background:rgba(218,30,40,.15);border:1px solid #da1e28;padding:10px 20px;border-radius:2px;">🔍 エラーコード特定</div>
+    <div style="padding:0 12px;color:rgba(255,255,255,.4);font-size:20px;">→</div>
+    <div style="background:rgba(218,30,40,.15);border:1px solid #da1e28;padding:10px 20px;border-radius:2px;">⚙️ PL/SQL 解析</div>
+    <div style="padding:0 12px;color:rgba(255,255,255,.4);font-size:20px;">→</div>
+    <div style="background:rgba(36,161,72,.15);border:1px solid #24a148;padding:10px 20px;border-radius:2px;">✅ 対処手順生成</div>
+  </div>
+  <div style="margin-top:16px;font-size:12px;color:rgba(255,255,255,.5);">PURCHASE_ORDER_APPROVAL_API ソース解析・承認グループ設定誘導まで自動</div>
+</div>
+
+<!-- scene8: ソリューション④ 大量データセットアップ (195-225s) -->
+<div class="scene" id="s8" style="background:linear-gradient(135deg,#0a001a,#6929c422);">
+  <div class="eyebrow" style="color:#d4bbff;">Solution Sample 04 / 4</div>
+  <div class="headline" style="font-size:clamp(22px,3vw,40px);">大量データセットアップ</div>
+  <div class="sub">Script-A-Rest（TAR）スクリプトを AI が自動生成。<br>プロトタイプ・テスト環境を高並列で一括投入し、45日リセットにも即対応。</div>
+  <div style="margin-top:24px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;max-width:700px;width:100%;">
+    <div style="text-align:center;"><div style="font-size:22px;font-weight:700;color:#d4bbff;">500</div><div style="font-size:11px;color:rgba(255,255,255,.5);">仕入先</div></div>
+    <div style="text-align:center;"><div style="font-size:22px;font-weight:700;color:#d4bbff;">2,000</div><div style="font-size:11px;color:rgba(255,255,255,.5);">品目</div></div>
+    <div style="text-align:center;"><div style="font-size:22px;font-weight:700;color:#d4bbff;">5,000</div><div style="font-size:11px;color:rgba(255,255,255,.5);">発注</div></div>
+    <div style="text-align:center;"><div style="font-size:22px;font-weight:700;color:#d4bbff;">10,000</div><div style="font-size:11px;color:rgba(255,255,255,.5);">明細</div></div>
+    <div style="text-align:center;"><div style="font-size:22px;font-weight:700;color:#d4bbff;">約30分</div><div style="font-size:11px;color:rgba(255,255,255,.5);">（並列最適化）</div></div>
+  </div>
+</div>
+
+<!-- scene9: エンディング (225-240s) -->
+<div class="scene" id="s9" style="background:linear-gradient(135deg,#001141,#001d6c);">
   <div class="bob-badge" style="width:80px;height:80px;font-size:32px;">B</div>
   <div class="headline">お客様と IBM が一丸となって<br>AI 前提のプロジェクトへ</div>
   <div class="sub" style="margin-top:16px;">まずは「AI 前提のプロジェクト準備」から一緒に始めましょう</div>
   <div style="margin-top:32px;display:flex;gap:24px;flex-wrap:wrap;justify-content:center;">
     <a href="https://www.ibm.com/jp-ja/products/ai-coding-agent" target="_blank"
-       style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;padding:10px 24px;border-radius:2px;font-size:13px;font-weight:700;text-decoration:none;">
-      IBM Bob について →
-    </a>
+       style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;padding:10px 24px;border-radius:2px;font-size:13px;font-weight:700;text-decoration:none;">IBM Bob →</a>
     <a href="https://jp.newsroom.ibm.com/2026-04-14-AI-Lifecycle-Shared-Engineering-Artifacts-ALSEA" target="_blank"
-       style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;padding:10px 24px;border-radius:2px;font-size:13px;font-weight:700;text-decoration:none;">
-      ALSEA について →
-    </a>
+       style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;padding:10px 24px;border-radius:2px;font-size:13px;font-weight:700;text-decoration:none;">ALSEA →</a>
     <a href="../index.html"
-       style="background:#0f62fe;color:#fff;padding:10px 24px;border-radius:2px;font-size:13px;font-weight:700;text-decoration:none;">
-      ソリューション一覧 →
-    </a>
+       style="background:#0f62fe;color:#fff;padding:10px 24px;border-radius:2px;font-size:13px;font-weight:700;text-decoration:none;">ソリューション一覧 →</a>
   </div>
 </div>
 
@@ -154,28 +209,44 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',sans-serif;background:#000;col
 <div id="ctrl" onclick="togglePause()">⏸ 一時停止</div>
 
 <script>
-const TOTAL = 120; // 2分
+const TOTAL = 240; // 4分
 const scenes = [
-  {id:'s1', start:0,  end:15},
-  {id:'s2', start:15, end:45},
-  {id:'s3', start:45, end:75},
-  {id:'s4', start:75, end:105},
-  {id:'s5', start:105,end:120},
+  {id:'s1', start:0,   end:15},
+  {id:'s2', start:15,  end:45},
+  {id:'s3', start:45,  end:75},
+  {id:'s4', start:75,  end:105},
+  {id:'s5', start:105, end:135},
+  {id:'s6', start:135, end:165},
+  {id:'s7', start:165, end:195},
+  {id:'s8', start:195, end:225},
+  {id:'s9', start:225, end:240},
 ];
 const captions = [
-  {t:0,  d:6,  text:'IBM Bob はあらゆるプロジェクトに導入可能な AI 開発支援エージェントです。IFS Cloud プロジェクトでもその能力をフルに活用できます。'},
-  {t:6,  d:9,  text:'要件定義から開発・テスト・マニュアル作成まで、プロジェクト全体をワンストップで支援します。'},
-  {t:15, d:8,  text:'IBM Bob は4つの役割でプロジェクトを支えます。'},
-  {t:23, d:10, text:'業務要件のヒアリングから Fit to Standard を目指した設計、そして IFS Cloud ナレッジを活用したシステム設計支援。'},
-  {t:33, d:12, text:'仕様書から自動開発を行い、あなたの作業を記録して業務マニュアルも自動で生成します。'},
-  {t:45, d:10, text:'IBM Bob の背後には IFS Cloud に特化した膨大なナレッジベースがあります。'},
-  {t:55, d:12, text:'1,200以上の標準プロセス、12,000以上の画面構造、8,000以上のデータモデルを参照して、高精度な支援を実現します。'},
-  {t:67, d:8,  text:'Fit to Standard 分析・移行ジョブ自動生成・エラー分析など、多彩なソリューションで導入を加速します。'},
-  {t:75, d:10, text:'そして今、開発の常識が変わります。「仕様書駆動開発」の時代が到来しました。'},
-  {t:85, d:12, text:'AI が仕様書を自動生成し、人間はレビューと意思決定に集中する。この変革を ALSEA が支えます。'},
-  {t:97, d:8,  text:'ただし、ツールを入れるだけでは全体効率化は実現しません。'},
-  {t:105,d:7,  text:'プロセス・体制・文化、すべてを変革する覚悟が必要です。'},
-  {t:112,d:8,  text:'IBM はお客様と一丸となって、AI 前提のプロジェクト体制づくりから一緒に取り組みます。'},
+  {t:0,   d:7,  text:'IBM Bob はあらゆるプロジェクトに導入可能な AI 開発支援エージェントです。IFS Cloud プロジェクトでもその能力をフルに活用できます。'},
+  {t:7,   d:8,  text:'要件定義から開発・テスト・マニュアル作成まで、プロジェクト全体をワンストップで支援します。'},
+  {t:15,  d:8,  text:'IBM Bob は4つの役割でプロジェクトを支えます。'},
+  {t:23,  d:10, text:'業務要件のヒアリングから Fit to Standard を目指した設計、そして IFS Cloud ナレッジを活用したシステム設計支援。'},
+  {t:33,  d:12, text:'AI が仕様書を自動生成し、あなたの作業を記録して業務マニュアルも自動で生成します。'},
+  {t:45,  d:10, text:'IBM Bob の背後には IFS Cloud に特化した膨大なナレッジベースがあります。'},
+  {t:55,  d:12, text:'1,200以上の標準プロセス、12,000以上の画面構造、8,000以上のデータモデルを参照して、高精度な支援を実現します。'},
+  {t:67,  d:8,  text:'では、具体的なソリューションサンプルをご覧ください。'},
+  {t:75,  d:10, text:'そして今、開発の常識が変わります。AI が仕様書を自動生成し、人間はレビューと意思決定に集中する。'},
+  {t:85,  d:12, text:'部分的な AI 活用では全体効率化は実現しません。プロセス・体制・文化、すべてを一体で変革することが重要です。'},
+  {t:97,  d:8,  text:'IBM の ALSEA がこの変革を支える共通アセット基盤として機能します。'},
+  {t:105, d:10, text:'ソリューション 1 つ目：Fit to Standard 分析。顧客要件を IFS 標準プロセスと照合し、Fit / Config / Dev を自動判定します。'},
+  {t:115, d:10, text:'調達領域 20要件を分析した結果、55%は標準機能そのまま、25%は設定のみで対応可能でした。開発コストを大幅に削減できます。'},
+  {t:125, d:10, text:'PL/SQL ソース解析や実際のプロセスモデルを参照した詳細レポートも自動生成します。'},
+  {t:135, d:10, text:'ソリューション 2 つ目：移行ジョブ自動作成。FNDMIG 標準の 7ジョブセットをビュー名入力だけで自動生成します。'},
+  {t:145, d:10, text:'抽出・登録・更新・削除の各フェーズに必要なジョブを、IFS の命名規則・制約・設定ルールを守りながら全自動で構築します。'},
+  {t:155, d:10, text:'テスト実行・定義書出力まですべて AI が自律実行。移行作業の工数を大幅に削減できます。'},
+  {t:165, d:10, text:'ソリューション 3 つ目：エラー分析。エラー画面のスクリーンショットを入力するだけで AI が根本原因を特定します。'},
+  {t:175, d:10, text:'エラーコードの特定にとどまらず、IFS Cloud の PL/SQL ソースコードまで遡って判定ロジックを解析します。'},
+  {t:185, d:10, text:'承認グループ設定画面の案内まで含めた具体的な対処手順を自動生成します。'},
+  {t:195, d:10, text:'ソリューション 4 つ目：大量データセットアップ。Script-A-Rest スクリプトを AI が自動生成します。'},
+  {t:205, d:10, text:'仕入先・品目・購買発注・明細を合計 18,500件、並列度を最適化して約 30分で投入。IFS Cloud の 45日リセットにも即対応できます。'},
+  {t:215, d:10, text:'プロトタイプ環境の構築からリグレッションテストのデータ基盤として繰り返し活用できます。'},
+  {t:225, d:8,  text:'IBM Bob と IFS Cloud 特化ナレッジが、あなたのプロジェクトを次のステージへ。'},
+  {t:233, d:7,  text:'まずは「AI 前提のプロジェクト準備」から、IBM と一緒に始めましょう。'},
 ];
 
 let elapsed = 0;
