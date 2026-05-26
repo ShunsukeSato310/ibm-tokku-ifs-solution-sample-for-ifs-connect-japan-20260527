@@ -7,54 +7,9 @@
   <Locked>false</Locked>
   <Component>PURCH</Component>
   <AurenaLobby>true</AurenaLobby>
-  <PageId>03492b1d-edd6-4b42-8a59-77e7f07f1966</PageId>
+  <PageId>7ae03047-1782-4e44-bf40-0e624b7944f9</PageId>
   <PageTitle>調達担当者ロビー</PageTitle>
   <Layout><Groups><Group><Elements>
-    <!-- el-jp-bar-qty-006.xml -->
-    <BarChart>
-    <Author>IBM Tokku Team</Author>
-    <Keywords>調達,発注数量,棒グラフ</Keywords>
-    <LastModified>2026-05-26-00.00.00</LastModified>
-    <Locked>false</Locked>
-    <Component>PURCH</Component>
-    <Row>1</Row>
-    <Column>2</Column>
-    <RowSpan>2</RowSpan>
-    <ColumnSpan>2</ColumnSpan>
-    <Title>オーダ別発注数量（棒グラフ）</Title>
-    <Background>#FFFFFFFF</Background>
-    <Foreground>#FF000000</Foreground>
-    <Name>JP PO Qty Bar Chart</Name>
-    <ID>el-jp-bar-qty-006</ID>
-    <DataSourceId>ds-jp-po-by-order-006</DataSourceId>
-    <ColumnMapping>
-        <MappedColumns>
-            <MappedColumn>
-                <Column>ORDER_NO</Column>
-                <Name>発注番号</Name>
-                <DisplayName>発注番号</DisplayName>
-                <ConditionalFormats />
-            </MappedColumn>
-            <MappedColumn>
-                <Column>BUY_QTY_DUE</Column>
-                <Name>発注数量</Name>
-                <DisplayName>発注数量</DisplayName>
-                <ConditionalFormats />
-            </MappedColumn>
-        </MappedColumns>
-    </ColumnMapping>
-    <XYDataSeries>
-        <TopNOptions />
-        <XColumn>
-            <Name>発注番号</Name>
-        </XColumn>
-        <YColumn>
-            <Name>発注数量</Name>
-        </YColumn>
-    </XYDataSeries>
-    <UnifiedElement />
-    <ElementConfig />
-</BarChart>
     <!-- el-jp-kpi-008.xml -->
     <Counter>
     <Author>IBM Tokku Team</Author>
