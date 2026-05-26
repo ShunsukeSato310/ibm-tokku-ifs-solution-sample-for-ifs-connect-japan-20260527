@@ -121,26 +121,8 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',sans-serif;background:#080808;
   </div>
 </div>
 
-<!-- s4: 仕様駆動開発 75-105s -->
+<!-- s4: Fit to Standard 75-105s -->
 <div class="scene" id="s4" style="background:#080808;">
-  <div style="max-width:720px;width:100%;">
-    <div class="label">Spec-Driven Development</div>
-    <h2 class="title-sm" style="margin-bottom:16px;">仕様書がそのまま<br>コードになる</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.06);margin-top:24px;">
-      <div style="background:#080808;padding:20px 24px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-bottom:12px;">CYCLE</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.65);font-weight:300;line-height:2.2;">① AI が仕様書を自動生成<br>② 人間がレビュー・承認<br>③ AI がコード・テストを生成<br>④ 人間がレビューして本番へ</div>
-      </div>
-      <div style="background:#080808;padding:20px 24px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-bottom:12px;">KEY POINT</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.65);font-weight:300;line-height:2.2;">✓ 部分適用では全体効率化は実現しない<br>✓ プロセス・体制・文化を一体で変革<br>✓ お客様と IBM が一丸で取り組む</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- s5: Fit to Standard 105-135s -->
-<div class="scene" id="s5" style="background:#080808;">
   <div style="max-width:720px;width:100%;">
     <div class="label">Solution 01 / 04</div>
     <h2 class="title-sm" style="margin-bottom:8px;color:#fb923c;">Fit to Standard 分析</h2>
@@ -181,7 +163,7 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',sans-serif;background:#080808;
   </div>
 </div>
 
-<!-- s8: データセットアップ 195-225s -->
+<!-- s8: データセットアップ 165-195s -->
 <div class="scene" id="s8" style="background:#080808;">
   <div style="max-width:720px;width:100%;">
     <div class="label">Solution 04 / 04</div>
@@ -191,6 +173,24 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',sans-serif;background:#080808;
       <div class="sol-pt" style="border-color:#818cf8;">環境リセット後も即座に再構築。開発を止めない</div>
       <div class="sol-pt" style="border-color:#818cf8;">手作業による不整合データをゼロに。テスト品質が向上する</div>
       <div class="sol-pt" style="border-color:#818cf8;">誰でも同じ環境を再現でき、チーム全体の生産性が上がる</div>
+    </div>
+  </div>
+</div>
+
+<!-- s_spec: 仕様駆動開発 195-225s（旧s4） -->
+<div class="scene" id="sx" style="background:#080808;">
+  <div style="max-width:720px;width:100%;">
+    <div class="label">Spec-Driven Development</div>
+    <h2 class="title-sm" style="margin-bottom:16px;">仕様書がそのまま<br>コードになる</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.06);margin-top:24px;">
+      <div style="background:#080808;padding:20px 24px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-bottom:12px;">CYCLE</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.65);font-weight:300;line-height:2.2;">① AI が仕様書を自動生成<br>② 人間がレビュー・承認<br>③ AI がコード・テストを生成<br>④ 人間がレビューして本番へ</div>
+      </div>
+      <div style="background:#080808;padding:20px 24px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-bottom:12px;">KEY POINT</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.65);font-weight:300;line-height:2.2;">✓ 部分適用では全体効率化は実現しない<br>✓ プロセス・体制・文化を一体で変革<br>✓ お客様と IBM が一丸で取り組む</div>
+      </div>
     </div>
   </div>
 </div>
@@ -217,9 +217,15 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',sans-serif;background:#080808;
 <script>
 const TOTAL=240;
 const scenes=[
-  {id:'s1',start:0,end:15},{id:'s2',start:15,end:45},{id:'s3',start:45,end:75},
-  {id:'s4',start:75,end:105},{id:'s5',start:105,end:135},{id:'s6',start:135,end:165},
-  {id:'s7',start:165,end:195},{id:'s8',start:195,end:225},{id:'s9',start:225,end:240},
+  {id:'s1',start:0,  end:15},   // タイトル
+  {id:'s2',start:15, end:45},   // Bob 4役割
+  {id:'s3',start:45, end:75},   // ナレッジ → 「ではソリューションを」
+  {id:'s4',start:75, end:105},  // Sol 01 Fit to Standard
+  {id:'s5',start:105,end:135},  // Sol 02 移行ジョブ
+  {id:'s6',start:135,end:165},  // Sol 03 エラー分析
+  {id:'s8',start:165,end:195},  // Sol 04 データセットアップ
+  {id:'sx',start:195,end:225},  // 仕様駆動開発
+  {id:'s9',start:225,end:240},  // エンディング
 ];
 const captions=[
   {t:0,d:7,text:'IBM Bob はあらゆるプロジェクトに導入可能な AI 開発支援エージェントです。IFS Cloud プロジェクトでもフルに活用できます。'},
@@ -229,22 +235,22 @@ const captions=[
   {t:33,d:12,text:'AI が仕様書を自動生成し、人間はレビューと意思決定に集中する。これが新しい開発の形です。'},
   {t:45,d:10,text:'このプラットフォームには、IFS Cloud に特化した膨大なナレッジが蓄積されています。'},
   {t:55,d:12,text:'1,200以上の標準プロセス、12,000以上の画面構造、8,000以上のデータモデル。AI エージェントはこれらを参照して高精度な支援を実現します。'},
-  {t:67,d:8,text:'では、具体的なソリューションをご覧ください。'},
-  {t:75,d:10,text:'仕様駆動開発とは、AI が仕様書を自動生成し、人間がレビューする新しいサイクルです。'},
-  {t:85,d:12,text:'重要なのは部分的な AI 適用ではなく、プロジェクト全体を変革することです。お客様と IBM が一丸となって取り組みます。'},
-  {t:97,d:8,text:'プロセス・体制・文化、すべてを一体で変革する。それが全体効率化への唯一の道です。'},
-  {t:105,d:10,text:'「Fit to Standard 分析」。何を標準のまま使えるかを、要件定義フェーズで即座に可視化します。'},
-  {t:115,d:10,text:'無駄な開発コストを排除し、本当に必要な箇所だけに集中できます。'},
-  {t:125,d:10,text:'バージョンアップ耐性の高いシステム設計も実現できます。'},
-  {t:135,d:10,text:'「移行ジョブ自動作成」。データ移行を属人的なノウハウに頼らず、AI が自律実行します。'},
-  {t:145,d:10,text:'手作業によるミスをなくし、テスト・定義書出力まで一貫して自動化されます。'},
-  {t:155,d:10,text:'繰り返し実行できるため、追加移行や環境変更にも柔軟に対応できます。'},
-  {t:165,d:10,text:'「エラー分析」。誰でも即座に問題を解決できる仕組みを提供します。'},
-  {t:175,d:10,text:'担当者の経験に頼らず、システム障害の影響時間を最小化。安定した運用を実現します。'},
-  {t:185,d:10,text:'再発防止策も自動提案されるため、同じエラーを繰り返しません。'},
-  {t:195,d:10,text:'「大量データセットアップ」。環境再構築に費やしていた数日間を、数十分に短縮します。'},
-  {t:205,d:10,text:'プロトタイプ・テスト・リグレッションを、いつでも高品質な状態で実施できます。'},
-  {t:215,d:10,text:'誰でも同じ環境を再現でき、チーム全体の生産性が向上します。'},
+  {t:67,d:8,text:'では、これを活用した具体的なソリューションをご覧ください。'},
+  {t:75, d:10,text:'「Fit to Standard 分析」。何を標準のまま使えるかを、要件定義フェーズで即座に可視化します。'},
+  {t:85, d:10,text:'無駄な開発コストを排除し、本当に必要な箇所だけに集中できます。'},
+  {t:95, d:10,text:'バージョンアップ耐性の高いシステム設計も実現できます。'},
+  {t:105,d:10,text:'「移行ジョブ自動作成」。データ移行を属人的なノウハウに頼らず、AI が自律実行します。'},
+  {t:115,d:10,text:'手作業によるミスをなくし、テスト・定義書出力まで一貫して自動化されます。'},
+  {t:125,d:10,text:'繰り返し実行できるため、追加移行や環境変更にも柔軟に対応できます。'},
+  {t:135,d:10,text:'「エラー分析」。誰でも即座に問題を解決できる仕組みを提供します。'},
+  {t:145,d:10,text:'担当者の経験に頼らず、システム障害の影響時間を最小化。安定した運用を実現します。'},
+  {t:155,d:10,text:'再発防止策も自動提案されるため、同じエラーを繰り返しません。'},
+  {t:165,d:10,text:'「大量データセットアップ」。環境再構築に費やしていた数日間を、数十分に短縮します。'},
+  {t:175,d:10,text:'プロトタイプ・テスト・リグレッションを、いつでも高品質な状態で実施できます。'},
+  {t:185,d:10,text:'誰でも同じ環境を再現でき、チーム全体の生産性が向上します。'},
+  {t:195,d:10,text:'4つのソリューションに共通するのは、仕様駆動開発という考え方です。'},
+  {t:205,d:12,text:'AI が仕様書を自動生成し、人間はレビューと意思決定に集中する。部分適用ではなく、プロジェクト全体の変革が重要です。'},
+  {t:217,d:8, text:'プロセス・体制・文化、すべてを一体で変革する。お客様と IBM が一丸で取り組みます。'},
   {t:225,d:8,text:'IBM Bob と IFS Cloud 特化ナレッジが、あなたのプロジェクトを次のステージへ。'},
   {t:233,d:7,text:'まずは「AI 前提のプロジェクト準備」から、IBM と一緒に始めましょう。'},
 ];
