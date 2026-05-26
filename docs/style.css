@@ -117,15 +117,25 @@ a:hover { text-decoration: underline; }
 .summary-block {
   display: flex;
   gap: 40px;
-  align-items: flex-start;
+  align-items: center;
   background: var(--white);
   border: 1px solid var(--gray-20);
   padding: 32px;
   margin-bottom: 40px;
   flex-wrap: wrap;
 }
-.summary-image-wrap { flex: 0 0 420px; max-width: 420px; }
-.summary-img { width: 100%; height: auto; display: block; border-radius: 4px; }
+.summary-image-wrap {
+  flex: 0 0 auto;
+  width: 400px;
+  max-width: 400px;
+}
+.summary-img {
+  display: block;
+  width: 400px;
+  max-width: 400px;
+  height: auto;
+  border-radius: 4px;
+}
 .summary-desc { flex: 1; min-width: 240px; display: flex; flex-direction: column; justify-content: center; gap: 14px; }
 .summary-lead { font-size: 18px; font-weight: 700; color: var(--text-01); line-height: 1.5; }
 .summary-desc p { font-size: 13px; color: var(--text-02); line-height: 1.8; }
