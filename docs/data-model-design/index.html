@@ -100,8 +100,8 @@
         <div class="erd-field pk">PK: SUPPLIER_NO</div>
         <div class="erd-field">NAME</div>
         <div class="erd-field">CATEGORY</div>
-        <div class="erd-field ext">+ PREFERRED_CARRIER <span class="tag-ext">拡張</span></div>
-        <div class="erd-field ext">+ SLA_DAYS <span class="tag-ext">拡張</span></div>
+        <div class="erd-field ext">+ C_PREFERRED_CARRIER <span class="tag-ext">拡張</span></div>
+        <div class="erd-field ext">+ C_SLA_DAYS <span class="tag-ext">拡張</span></div>
       </div>
       <div class="erd-box">
         <div class="erd-box-head">PURCHASE_ORDER (標準)</div>
@@ -109,15 +109,15 @@
         <div class="erd-field fk">FK: SUPPLIER_NO</div>
         <div class="erd-field">WANTED_DELIVERY_DATE</div>
         <div class="erd-field">AUTHORIZE_CODE</div>
-        <div class="erd-field ext">+ PROJECT_CODE <span class="tag-ext">拡張</span></div>
+        <div class="erd-field ext">+ C_PROJECT_CODE <span class="tag-ext">拡張</span></div>
       </div>
       <div class="erd-box">
-        <div class="erd-box-head entity-ext">PO_APPROVAL_LOG (拡張)</div>
-        <div class="erd-field pk">PK: LOG_ID (UUID)</div>
+        <div class="erd-box-head entity-ext">C_PO_APPROVAL_LOG (拡張)</div>
+        <div class="erd-field pk">PK: C_LOG_ID (UUID)</div>
         <div class="erd-field fk">FK: ORDER_NO</div>
         <div class="erd-field">APPROVER_ID</div>
         <div class="erd-field">APPROVED_AT</div>
-        <div class="erd-field">APPROVAL_LEVEL</div>
+        <div class="erd-field">C_APPROVAL_LEVEL</div>
       </div>
       <div class="erd-box">
         <div class="erd-box-head">PURCHASE_ORDER_LINE (標準)</div>
@@ -125,7 +125,7 @@
         <div class="erd-field fk">FK: ORDER_NO</div>
         <div class="erd-field">PART_NO</div>
         <div class="erd-field">BUY_QTY_DUE</div>
-        <div class="erd-field ext">+ COST_CENTER <span class="tag-ext">拡張</span></div>
+        <div class="erd-field ext">+ C_COST_CENTER <span class="tag-ext">拡張</span></div>
       </div>
     </div>
   </div>
@@ -134,13 +134,13 @@
   <table class="sample-table">
     <thead><tr><th>拡張種別</th><th>対象エンティティ</th><th>拡張内容</th><th>背景（推定要件）</th></tr></thead>
     <tbody>
-      <tr><td>フィールド追加</td><td>SUPPLIER</td><td>優先配送業者 / SLA日数</td><td>物流コスト管理・SLA管理の業務要件</td></tr>
-      <tr><td>フィールド追加</td><td>PURCHASE_ORDER</td><td>プロジェクトコード</td><td>プロジェクト別原価管理の要件</td></tr>
-      <tr><td>カスタムエンティティ</td><td>PO_APPROVAL_LOG</td><td>承認履歴テーブル</td><td>多段階承認フローの証跡管理</td></tr>
-      <tr><td>フィールド追加</td><td>PURCHASE_ORDER_LINE</td><td>コストセンター</td><td>部門別費用配賦の要件</td></tr>
+      <tr><td>フィールド追加</td><td>SUPPLIER</td><td>C_PREFERRED_CARRIER / C_SLA_DAYS</td><td>物流コスト管理・SLA管理の業務要件</td></tr>
+      <tr><td>フィールド追加</td><td>PURCHASE_ORDER</td><td>C_PROJECT_CODE</td><td>プロジェクト別原価管理の要件</td></tr>
+      <tr><td>カスタムエンティティ</td><td>C_PO_APPROVAL_LOG</td><td>承認履歴テーブル</td><td>多段階承認フローの証跡管理</td></tr>
+      <tr><td>フィールド追加</td><td>PURCHASE_ORDER_LINE</td><td>C_COST_CENTER</td><td>部門別費用配賦の要件</td></tr>
     </tbody>
   </table>
-  <p style="font-size:11px;color:var(--text-03);margin-bottom:24px;">※ サンプルは標準プロジェクトから推測した汎用的な拡張パターンです。実在のプロジェクト・顧客は特定できません。</p>
+  <p style="font-size:11px;color:var(--text-03);margin-bottom:24px;">※ 本サンプルは架空のプロジェクト要件をもとに作成したものです。実在のプロジェクト・顧客とは無関係です。</p>
 
   <div style="background:#e6f9ee;border:1px solid #24a148;border-left:4px solid #24a148;padding:20px;margin-bottom:32px;">
     <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#24a148;margin-bottom:8px;">サンプル公開中</div>
