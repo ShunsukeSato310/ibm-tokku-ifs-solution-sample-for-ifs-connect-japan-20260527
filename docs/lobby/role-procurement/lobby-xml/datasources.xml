@@ -1,0 +1,69 @@
+<DataSources>
+  <SQLDataSource>
+    <Author>IBM Tokku Team</Author>
+    <Component>PURCH</Component>
+    <Keywords>調達,発注残,procurement</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Name>JP PO Remaining Released</Name>
+    <ID>ds-jp-po-remaining-001</ID>
+    <Select>
+      <DataColumn><Column>ORDER_NO</Column><Name>購買オーダ番号</Name><DataType>Text</DataType></DataColumn>
+      <DataColumn><Column>LINE_NO</Column><Name>明細番号</Name><DataType>Text</DataType></DataColumn>
+      <DataColumn><Column>PART_NO</Column><Name>品目番号</Name><DataType>Text</DataType></DataColumn>
+      <DataColumn><Column>DESCRIPTION</Column><Name>品目名称</Name><DataType>Text</DataType></DataColumn>
+      <DataColumn><Column>BUY_QTY_DUE</Column><Name>発注数量</Name><DataType>Number</DataType></DataColumn>
+      <DataColumn><Column>PLANNED_RECEIPT_DATE</Column><Name>入庫予定日</Name><DataType>Date</DataType></DataColumn>
+    </Select>
+    <Where>OBJSTATE = &apos;Released&apos;</Where>
+    <View>PURCHASE_ORDER_LINE</View>
+    <OrderBy>PLANNED_RECEIPT_DATE</OrderBy>
+  </SQLDataSource>
+
+  <SQLDataSource>
+    <Author>IBM Tokku Team</Author>
+    <Component>PURCH</Component>
+    <Keywords>調達,遅延,delayed</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Name>JP PO Delayed Count</Name>
+    <ID>ds-jp-po-delayed-002</ID>
+    <Select>
+      <DataColumn><Column>ORDER_NO</Column><Name>発注番号</Name><DataType>Text</DataType></DataColumn>
+      <DataColumn><Column>LINE_NO</Column><Name>明細番号</Name><DataType>Text</DataType></DataColumn>
+    </Select>
+    <Where>OBJSTATE = &apos;Released&apos; AND PLANNED_RECEIPT_DATE &lt; SYSDATE</Where>
+    <View>PURCHASE_ORDER_LINE</View>
+  </SQLDataSource>
+
+  <SQLDataSource>
+    <Author>IBM Tokku Team</Author>
+    <Component>PURCH</Component>
+    <Keywords>調達,発注オーダ数</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Name>JP PO Header Count</Name>
+    <ID>ds-jp-po-header-003</ID>
+    <Select>
+      <DataColumn><Column>ORDER_NO</Column><Name>発注番号</Name><DataType>Text</DataType></DataColumn>
+    </Select>
+    <Where>ORDER_NO IN (SELECT DISTINCT ORDER_NO FROM PURCHASE_ORDER_LINE WHERE OBJSTATE = &apos;Released&apos;)</Where>
+    <View>PURCHASE_ORDER</View>
+  </SQLDataSource>
+
+  <SQLDataSource>
+    <Author>IBM Tokku Team</Author>
+    <Component>PURCH</Component>
+    <Keywords>調達,発注数量合計</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Name>JP PO Total Qty</Name>
+    <ID>ds-jp-po-totalqty-004</ID>
+    <Select>
+      <DataColumn><Column>ORDER_NO</Column><Name>発注番号</Name><DataType>Text</DataType></DataColumn>
+      <DataColumn><Column>BUY_QTY_DUE</Column><Name>発注数量</Name><DataType>Number</DataType></DataColumn>
+    </Select>
+    <Where>OBJSTATE = &apos;Released&apos;</Where>
+    <View>PURCHASE_ORDER_LINE</View>
+  </SQLDataSource>
+</DataSources>

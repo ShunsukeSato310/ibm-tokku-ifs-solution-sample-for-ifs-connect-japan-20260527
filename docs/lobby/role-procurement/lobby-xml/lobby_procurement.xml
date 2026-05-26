@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" standalone='yes'?>
+<Page>
+  <Author>IBM Tokku Team</Author>
+  <Keywords>調達,購買,発注残,procurement</Keywords>
+  <DescriptiveText>調達担当者向けロビー。発注残KPI・遅延アラート・発注残一覧・クイックリンクを集約したホーム画面。</DescriptiveText>
+  <LastModified>2026-05-26-00.00.00</LastModified>
+  <Locked>false</Locked>
+  <Component>PURCH</Component>
+  <AurenaLobby>true</AurenaLobby>
+  <PageId>dff74660-9a77-4015-8d4f-41c60135e187</PageId>
+  <PageTitle>調達担当者ロビー</PageTitle>
+  <Layout>
+    <Groups>
+      <Group>
+        <Elements>
+          <Counter>
+                    <Author>IBM Tokku Team</Author>
+                    <Keywords>調達,発注残</Keywords>
+                    <LastModified>2026-05-26-00.00.00</LastModified>
+                    <Locked>false</Locked>
+                    <Component>PURCH</Component>
+                    <Row>0</Row>
+                    <Column>0</Column>
+                    <RowSpan>1</RowSpan>
+                    <ColumnSpan>1</ColumnSpan>
+                    <Title>発注残（Released）</Title>
+                    <Name>JP PO Remaining Count</Name>
+                    <ID>el-jp-kpi-remaining-001</ID>
+                    <WebUrl>page/PurchaseOrder/List</WebUrl>
+                    <PassDataToForm>true</PassDataToForm>
+                    <ColorStyle>Warning</ColorStyle>
+                    <DataSourceId>ds-jp-po-remaining-001</DataSourceId>
+                    <ColumnMapping>
+                              <MappedColumns>
+                                        <MappedColumn>
+                                                  <Column>ORDER_NO</Column>
+                                                  <Aggregate>COUNT</Aggregate>
+                                                  <ConditionalFormats />
+                                        </MappedColumn>
+                              </MappedColumns>
+                    </ColumnMapping>
+                    <UnifiedElement />
+                    <ElementConfig />
+          </Counter>
+          
+          <Counter>
+                    <Author>IBM Tokku Team</Author>
+                    <Keywords>調達,遅延</Keywords>
+                    <LastModified>2026-05-26-00.00.00</LastModified>
+                    <Locked>false</Locked>
+                    <Component>PURCH</Component>
+                    <Row>0</Row>
+                    <Column>1</Column>
+                    <RowSpan>1</RowSpan>
+                    <ColumnSpan>1</ColumnSpan>
+                    <Title>遅延アラート</Title>
+                    <Name>JP PO Delayed Alert</Name>
+                    <ID>el-jp-kpi-delayed-002</ID>
+                    <WebUrl>page/PurchaseOrder/List</WebUrl>
+                    <PassDataToForm>true</PassDataToForm>
+                    <DataSourceId>ds-jp-po-delayed-002</DataSourceId>
+                    <ColumnMapping>
+                              <MappedColumns>
+                                        <MappedColumn>
+                                                  <Column>ORDER_NO</Column>
+                                                  <Aggregate>COUNT</Aggregate>
+                                                  <ConditionalFormats>
+                                                            <ConditionalFormatting>
+                                                                      <ColumnName>COUNT(ORDER_NO)</ColumnName>
+                                                                      <Value>0</Value>
+                                                                      <Foreground>OK</Foreground>
+                                                                      <Comparer>EQUAL</Comparer>
+                                                                      <Icon>Icon01</Icon>
+                                                                      <IconColor>OK</IconColor>
+                                                            </ConditionalFormatting>
+                                                            <ConditionalFormatting>
+                                                                      <ColumnName>COUNT(ORDER_NO)</ColumnName>
+                                                                      <Value>0</Value>
+                                                                      <Foreground>Critical</Foreground>
+                                                                      <Comparer>GREATER</Comparer>
+                                                                      <Icon>Icon09</Icon>
+                                                                      <IconColor>Critical</IconColor>
+                                                            </ConditionalFormatting>
+                                                  </ConditionalFormats>
+                                        </MappedColumn>
+                              </MappedColumns>
+                    </ColumnMapping>
+                    <UnifiedElement />
+                    <ElementConfig />
+          </Counter>
+          
+          <Counter>
+                    <Author>IBM Tokku Team</Author>
+                    <Keywords>調達,発注オーダ</Keywords>
+                    <LastModified>2026-05-26-00.00.00</LastModified>
+                    <Locked>false</Locked>
+                    <Component>PURCH</Component>
+                    <Row>0</Row>
+                    <Column>2</Column>
+                    <RowSpan>1</RowSpan>
+                    <ColumnSpan>1</ColumnSpan>
+                    <Title>発注オーダ数</Title>
+                    <Name>JP PO Order Count</Name>
+                    <ID>el-jp-kpi-orders-003</ID>
+                    <WebUrl>page/PurchaseOrder/List</WebUrl>
+                    <DataSourceId>ds-jp-po-header-003</DataSourceId>
+                    <ColumnMapping>
+                              <MappedColumns>
+                                        <MappedColumn>
+                                                  <Column>ORDER_NO</Column>
+                                                  <Aggregate>COUNT</Aggregate>
+                                                  <ConditionalFormats />
+                                        </MappedColumn>
+                              </MappedColumns>
+                    </ColumnMapping>
+                    <UnifiedElement />
+                    <ElementConfig />
+          </Counter>
+          
+          <Counter>
+                    <Author>IBM Tokku Team</Author>
+                    <Keywords>調達,発注数量</Keywords>
+                    <LastModified>2026-05-26-00.00.00</LastModified>
+                    <Locked>false</Locked>
+                    <Component>PURCH</Component>
+                    <Row>0</Row>
+                    <Column>3</Column>
+                    <RowSpan>1</RowSpan>
+                    <ColumnSpan>1</ColumnSpan>
+                    <Title>合計発注数量</Title>
+                    <Name>JP PO Total Qty Sum</Name>
+                    <ID>el-jp-kpi-totalqty-004</ID>
+                    <DataSourceId>ds-jp-po-totalqty-004</DataSourceId>
+                    <ColumnMapping>
+                              <MappedColumns>
+                                        <MappedColumn>
+                                                  <Column>BUY_QTY_DUE</Column>
+                                                  <Aggregate>SUM</Aggregate>
+                                                  <ConditionalFormats />
+                                        </MappedColumn>
+                              </MappedColumns>
+                    </ColumnMapping>
+                    <UnifiedElement />
+                    <ElementConfig />
+          </Counter>
+          
+          <List>
+                    <Author>IBM Tokku Team</Author>
+                    <Keywords>調達,発注残一覧</Keywords>
+                    <LastModified>2026-05-26-00.00.00</LastModified>
+                    <Locked>false</Locked>
+                    <Component>PURCH</Component>
+                    <Row>1</Row>
+                    <Column>0</Column>
+                    <RowSpan>2</RowSpan>
+                    <ColumnSpan>3</ColumnSpan>
+                    <Title>発注残一覧（Released）</Title>
+                    <Name>JP PO Remaining List</Name>
+                    <ID>el-jp-list-remaining-005</ID>
+                    <WebUrl>page/PurchaseOrder/List</WebUrl>
+                    <DataSourceId>ds-jp-po-remaining-001</DataSourceId>
+                    <ColumnMapping>
+                              <MappedColumns>
+                                        <MappedColumn>
+                                                  <Column>ORDER_NO</Column>
+                                                  <Name>購買オーダ番号</Name>
+                                                  <Aggregate>NA</Aggregate>
+                                                  <ConditionalFormats />
+                                        </MappedColumn>
+                                        <MappedColumn>
+                                                  <Column>DESCRIPTION</Column>
+                                                  <Name>品目名称</Name>
+                                                  <Aggregate>NA</Aggregate>
+                                                  <ConditionalFormats />
+                                        </MappedColumn>
+                                        <MappedColumn>
+                                                  <Column>BUY_QTY_DUE</Column>
+                                                  <Name>発注数量</Name>
+                                                  <Aggregate>NA</Aggregate>
+                                                  <ConditionalFormats />
+                                        </MappedColumn>
+                                        <MappedColumn>
+                                                  <Column>PLANNED_RECEIPT_DATE</Column>
+                                                  <Name>入庫予定日</Name>
+                                                  <Aggregate>NA</Aggregate>
+                                                  <ConditionalFormats />
+                                        </MappedColumn>
+                              </MappedColumns>
+                    </ColumnMapping>
+                    <UnifiedElement />
+                    <ElementConfig />
+          </List>
+          
+          <LinksList>
+                    <Author>IBM Tokku Team</Author>
+                    <Keywords>調達,クイックリンク</Keywords>
+                    <LastModified>2026-05-26-00.00.00</LastModified>
+                    <Locked>false</Locked>
+                    <Component>PURCH</Component>
+                    <Row>1</Row>
+                    <Column>3</Column>
+                    <RowSpan>2</RowSpan>
+                    <ColumnSpan>1</ColumnSpan>
+                    <Title>クイックリンク</Title>
+                    <Background>#FF6929C4</Background>
+                    <Foreground>#FFFFFFFF</Foreground>
+                    <Name>JP PO Quick Links</Name>
+                    <ID>el-jp-links-006</ID>
+                    <ColorStyle>Accent</ColorStyle>
+                    <ColumnMapping>
+                              <MappedColumns />
+                    </ColumnMapping>
+                    <Links>
+                              <Link>
+                                        <ID>lnk-001</ID>
+                                        <WebUrl>page/PurchaseOrder/List</WebUrl>
+                                        <LinkTitle>購買発注</LinkTitle>
+                                        <TargetType>Single</TargetType>
+                              </Link>
+                              <Link>
+                                        <ID>lnk-002</ID>
+                                        <WebUrl>page/PurchaseReceipt/List</WebUrl>
+                                        <LinkTitle>入荷処理</LinkTitle>
+                                        <TargetType>Single</TargetType>
+                              </Link>
+                              <Link>
+                                        <ID>lnk-003</ID>
+                                        <WebUrl>quickreport/2000001</WebUrl>
+                                        <LinkTitle>発注残レポート</LinkTitle>
+                                        <TargetType>Single</TargetType>
+                              </Link>
+                              <Link>
+                                        <ID>lnk-004</ID>
+                                        <WebUrl>page/SupplierInfo/List</WebUrl>
+                                        <LinkTitle>仕入先マスタ</LinkTitle>
+                                        <TargetType>Single</TargetType>
+                              </Link>
+                              <Link>
+                                        <ID>lnk-005</ID>
+                                        <WebUrl>page/SupplierInvoice/List</WebUrl>
+                                        <LinkTitle>請求書照合</LinkTitle>
+                                        <TargetType>Single</TargetType>
+                              </Link>
+                    </Links>
+                    <UnifiedElement />
+                    <ElementConfig />
+          </LinksList>
+
+        </Elements>
+      </Group>
+    </Groups>
+  </Layout>
+  <DataSources>
+    <SQLDataSource>
+        <Author>IBM Tokku Team</Author>
+        <Component>PURCH</Component>
+        <Keywords>調達,発注残,procurement</Keywords>
+        <LastModified>2026-05-26-00.00.00</LastModified>
+        <Locked>false</Locked>
+        <Name>JP PO Remaining Released</Name>
+        <ID>ds-jp-po-remaining-001</ID>
+        <Select>
+            <DataColumn>
+                <Column>ORDER_NO</Column>
+                <Name>購買オーダ番号</Name>
+                <DataType>Text</DataType>
+            </DataColumn>
+            <DataColumn>
+                <Column>LINE_NO</Column>
+                <Name>明細番号</Name>
+                <DataType>Text</DataType>
+            </DataColumn>
+            <DataColumn>
+                <Column>PART_NO</Column>
+                <Name>品目番号</Name>
+                <DataType>Text</DataType>
+            </DataColumn>
+            <DataColumn>
+                <Column>DESCRIPTION</Column>
+                <Name>品目名称</Name>
+                <DataType>Text</DataType>
+            </DataColumn>
+            <DataColumn>
+                <Column>BUY_QTY_DUE</Column>
+                <Name>発注数量</Name>
+                <DataType>Number</DataType>
+            </DataColumn>
+            <DataColumn>
+                <Column>PLANNED_RECEIPT_DATE</Column>
+                <Name>入庫予定日</Name>
+                <DataType>Date</DataType>
+            </DataColumn>
+        </Select>
+        <Where>OBJSTATE = 'Released'</Where>
+        <View>PURCHASE_ORDER_LINE</View>
+        <OrderBy>PLANNED_RECEIPT_DATE</OrderBy>
+    </SQLDataSource>
+    
+    <SQLDataSource>
+        <Author>IBM Tokku Team</Author>
+        <Component>PURCH</Component>
+        <Keywords>調達,遅延,delayed</Keywords>
+        <LastModified>2026-05-26-00.00.00</LastModified>
+        <Locked>false</Locked>
+        <Name>JP PO Delayed Count</Name>
+        <ID>ds-jp-po-delayed-002</ID>
+        <Select>
+            <DataColumn>
+                <Column>ORDER_NO</Column>
+                <Name>発注番号</Name>
+                <DataType>Text</DataType>
+            </DataColumn>
+            <DataColumn>
+                <Column>LINE_NO</Column>
+                <Name>明細番号</Name>
+                <DataType>Text</DataType>
+            </DataColumn>
+        </Select>
+        <Where>OBJSTATE = 'Released' AND PLANNED_RECEIPT_DATE &lt; SYSDATE</Where>
+        <View>PURCHASE_ORDER_LINE</View>
+    </SQLDataSource>
+    
+    <SQLDataSource>
+        <Author>IBM Tokku Team</Author>
+        <Component>PURCH</Component>
+        <Keywords>調達,発注オーダ数</Keywords>
+        <LastModified>2026-05-26-00.00.00</LastModified>
+        <Locked>false</Locked>
+        <Name>JP PO Header Count</Name>
+        <ID>ds-jp-po-header-003</ID>
+        <Select>
+            <DataColumn>
+                <Column>ORDER_NO</Column>
+                <Name>発注番号</Name>
+                <DataType>Text</DataType>
+            </DataColumn>
+        </Select>
+        <Where>ORDER_NO IN (SELECT DISTINCT ORDER_NO FROM PURCHASE_ORDER_LINE WHERE OBJSTATE = 'Released')</Where>
+        <View>PURCHASE_ORDER</View>
+    </SQLDataSource>
+    
+    <SQLDataSource>
+        <Author>IBM Tokku Team</Author>
+        <Component>PURCH</Component>
+        <Keywords>調達,発注数量合計</Keywords>
+        <LastModified>2026-05-26-00.00.00</LastModified>
+        <Locked>false</Locked>
+        <Name>JP PO Total Qty</Name>
+        <ID>ds-jp-po-totalqty-004</ID>
+        <Select>
+            <DataColumn>
+                <Column>ORDER_NO</Column>
+                <Name>発注番号</Name>
+                <DataType>Text</DataType>
+            </DataColumn>
+            <DataColumn>
+                <Column>BUY_QTY_DUE</Column>
+                <Name>発注数量</Name>
+                <DataType>Number</DataType>
+            </DataColumn>
+        </Select>
+        <Where>OBJSTATE = 'Released'</Where>
+        <View>PURCHASE_ORDER_LINE</View>
+    </SQLDataSource>
+
+  </DataSources>
+  <Parameters/>
+  <Translations/>
+</Page>

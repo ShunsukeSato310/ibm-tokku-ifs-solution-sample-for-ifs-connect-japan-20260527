@@ -1,0 +1,150 @@
+<Elements>
+  <!-- KPI: 発注残件数 -->
+  <Counter>
+    <Author>IBM Tokku Team</Author>
+    <Keywords>調達,発注残</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Component>PURCH</Component>
+    <Row>0</Row><Column>0</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
+    <Title>発注残（Released）</Title>
+    <Name>JP PO Remaining Count</Name>
+    <ID>el-jp-kpi-remaining-001</ID>
+    <WebUrl>page/PurchaseOrder/List</WebUrl>
+    <PassDataToForm>true</PassDataToForm>
+    <ColorStyle>Warning</ColorStyle>
+    <DataSourceId>ds-jp-po-remaining-001</DataSourceId>
+    <ColumnMapping>
+      <MappedColumns>
+        <MappedColumn><Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn>
+      </MappedColumns>
+    </ColumnMapping>
+    <UnifiedElement/><ElementConfig/>
+  </Counter>
+
+  <!-- KPI: 遅延アラート -->
+  <Counter>
+    <Author>IBM Tokku Team</Author>
+    <Keywords>調達,遅延</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Component>PURCH</Component>
+    <Row>0</Row><Column>1</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
+    <Title>遅延アラート</Title>
+    <Name>JP PO Delayed Alert</Name>
+    <ID>el-jp-kpi-delayed-002</ID>
+    <WebUrl>page/PurchaseOrder/List</WebUrl>
+    <PassDataToForm>true</PassDataToForm>
+    <DataSourceId>ds-jp-po-delayed-002</DataSourceId>
+    <ColumnMapping>
+      <MappedColumns>
+        <MappedColumn>
+          <Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate>
+          <ConditionalFormats>
+            <ConditionalFormatting>
+              <ColumnName>COUNT(ORDER_NO)</ColumnName><Value>0</Value>
+              <Foreground>OK</Foreground><Comparer>EQUAL</Comparer>
+              <Icon>Icon01</Icon><IconColor>OK</IconColor>
+            </ConditionalFormatting>
+            <ConditionalFormatting>
+              <ColumnName>COUNT(ORDER_NO)</ColumnName><Value>0</Value>
+              <Foreground>Critical</Foreground><Comparer>GREATER</Comparer>
+              <Icon>Icon09</Icon><IconColor>Critical</IconColor>
+            </ConditionalFormatting>
+          </ConditionalFormats>
+        </MappedColumn>
+      </MappedColumns>
+    </ColumnMapping>
+    <UnifiedElement/><ElementConfig/>
+  </Counter>
+
+  <!-- KPI: 発注オーダ数 -->
+  <Counter>
+    <Author>IBM Tokku Team</Author>
+    <Keywords>調達,発注オーダ</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Component>PURCH</Component>
+    <Row>0</Row><Column>2</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
+    <Title>発注オーダ数</Title>
+    <Name>JP PO Order Count</Name>
+    <ID>el-jp-kpi-orders-003</ID>
+    <WebUrl>page/PurchaseOrder/List</WebUrl>
+    <DataSourceId>ds-jp-po-header-003</DataSourceId>
+    <ColumnMapping>
+      <MappedColumns>
+        <MappedColumn><Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn>
+      </MappedColumns>
+    </ColumnMapping>
+    <UnifiedElement/><ElementConfig/>
+  </Counter>
+
+  <!-- KPI: 合計発注数量 -->
+  <Counter>
+    <Author>IBM Tokku Team</Author>
+    <Keywords>調達,発注数量</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Component>PURCH</Component>
+    <Row>0</Row><Column>3</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
+    <Title>合計発注数量</Title>
+    <Name>JP PO Total Qty Sum</Name>
+    <ID>el-jp-kpi-totalqty-004</ID>
+    <DataSourceId>ds-jp-po-totalqty-004</DataSourceId>
+    <ColumnMapping>
+      <MappedColumns>
+        <MappedColumn><Column>BUY_QTY_DUE</Column><Aggregate>SUM</Aggregate><ConditionalFormats/></MappedColumn>
+      </MappedColumns>
+    </ColumnMapping>
+    <UnifiedElement/><ElementConfig/>
+  </Counter>
+
+  <!-- 発注残リスト -->
+  <List>
+    <Author>IBM Tokku Team</Author>
+    <Keywords>調達,発注残一覧</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Component>PURCH</Component>
+    <Row>1</Row><Column>0</Column><RowSpan>2</RowSpan><ColumnSpan>3</ColumnSpan>
+    <Title>発注残一覧（Released）</Title>
+    <Name>JP PO Remaining List</Name>
+    <ID>el-jp-list-remaining-005</ID>
+    <WebUrl>page/PurchaseOrder/List</WebUrl>
+    <DataSourceId>ds-jp-po-remaining-001</DataSourceId>
+    <ColumnMapping>
+      <MappedColumns>
+        <MappedColumn><Column>ORDER_NO</Column><Name>購買オーダ番号</Name><Aggregate>NA</Aggregate><ConditionalFormats/></MappedColumn>
+        <MappedColumn><Column>DESCRIPTION</Column><Name>品目名称</Name><Aggregate>NA</Aggregate><ConditionalFormats/></MappedColumn>
+        <MappedColumn><Column>BUY_QTY_DUE</Column><Name>発注数量</Name><Aggregate>NA</Aggregate><ConditionalFormats/></MappedColumn>
+        <MappedColumn><Column>PLANNED_RECEIPT_DATE</Column><Name>入庫予定日</Name><Aggregate>NA</Aggregate><ConditionalFormats/></MappedColumn>
+      </MappedColumns>
+    </ColumnMapping>
+    <UnifiedElement/><ElementConfig/>
+  </List>
+
+  <!-- クイックリンク -->
+  <LinksList>
+    <Author>IBM Tokku Team</Author>
+    <Keywords>調達,クイックリンク</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Component>PURCH</Component>
+    <Row>1</Row><Column>3</Column><RowSpan>2</RowSpan><ColumnSpan>1</ColumnSpan>
+    <Title>クイックリンク</Title>
+    <Background>#FF6929C4</Background>
+    <Foreground>#FFFFFFFF</Foreground>
+    <Name>JP PO Quick Links</Name>
+    <ID>el-jp-links-006</ID>
+    <ColorStyle>Accent</ColorStyle>
+    <ColumnMapping><MappedColumns/></ColumnMapping>
+    <Links>
+      <Link><ID>lnk-001</ID><WebUrl>page/PurchaseOrder/List</WebUrl><LinkTitle>購買発注</LinkTitle><TargetType>Single</TargetType></Link>
+      <Link><ID>lnk-002</ID><WebUrl>page/PurchaseReceipt/List</WebUrl><LinkTitle>入荷処理</LinkTitle><TargetType>Single</TargetType></Link>
+      <Link><ID>lnk-003</ID><WebUrl>quickreport/2000001</WebUrl><LinkTitle>発注残レポート</LinkTitle><TargetType>Single</TargetType></Link>
+      <Link><ID>lnk-004</ID><WebUrl>page/SupplierInfo/List</WebUrl><LinkTitle>仕入先マスタ</LinkTitle><TargetType>Single</TargetType></Link>
+      <Link><ID>lnk-005</ID><WebUrl>page/SupplierInvoice/List</WebUrl><LinkTitle>請求書照合</LinkTitle><TargetType>Single</TargetType></Link>
+    </Links>
+    <UnifiedElement/><ElementConfig/>
+  </LinksList>
+</Elements>
