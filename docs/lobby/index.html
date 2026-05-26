@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ロビー（業務ダッシュボード）— IFS Cloud ソリューションサンプル</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:0.4; margin:0 6px;">/</span>
+    <span>ロビー（業務ダッシュボード）</span>
+  </div>
+  <nav class="site-header-nav">
+    <a href="../index.html">← ソリューション一覧</a>
+  </nav>
+</header>
+
+<section class="hero" style="background: linear-gradient(135deg, #6929c4 0%, #8a3ffc 60%, #491d8b 100%); padding-bottom: 36px;">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">IFS Cloud — Lobby / 業務ポータル</div>
+      <h1>ロビー（業務ダッシュボード）</h1>
+      <p>役割ごとにカスタマイズされた業務ポータル画面。KPI・タスク・クイックリンクをひとつの画面に集約し、担当者が迷わず業務を開始できる環境を実現します。</p>
+      <div class="hero-badges">
+        <span class="hero-badge">IFS 25R2</span>
+        <span class="hero-badge">3 ロール</span>
+        <span class="hero-badge">1 サンプル公開中</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+  <!-- 全体像フロー -->
+  <div class="section-label">ロビー構成の全体像</div>
+  <div class="proc-flow" style="align-items: flex-start; gap: 0;">
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0;">
+      <div class="pf-node">
+        <div class="pf-circle" style="background:#525252; font-size:10px;">ロール<br>設計</div>
+        <div class="pf-label">役割・権限<br>を決める</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node">
+        <div class="pf-circle highlight">ロビー<br>設計</div>
+        <div class="pf-label" style="color:#ff832b; font-weight:700;">★ サンプル<br>公開中</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node">
+        <div class="pf-circle">ウィジェット<br>配置</div>
+        <div class="pf-label">KPI・リスト<br>・リンク設定</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node">
+        <div class="pf-circle">ロール<br>割当</div>
+        <div class="pf-label">ユーザーへ<br>公開</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node">
+        <div class="pf-circle">運用<br>改善</div>
+        <div class="pf-label">現場フィード<br>バックで改善</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ロール別サンプル一覧 -->
+  <div class="section-label">ロール別サンプル — 全 3 ロール</div>
+
+  <div class="lp-grid">
+
+    <div class="lp-card available">
+      <a href="role-procurement/index.html">
+        <div class="lp-phase">調達・購買</div>
+        <div class="lp-number">ロール 1</div>
+        <div class="lp-title">調達担当者ロビー</div>
+        <div class="lp-acts">発注残・承認待ち・遅延アラートを一元表示</div>
+        <span class="lp-status-badge available">★ 公開中 →</span>
+      </a>
+    </div>
+
+    <div class="lp-card">
+      <div class="lp-phase">在庫管理</div>
+      <div class="lp-number">ロール 2</div>
+      <div class="lp-title">在庫管理者ロビー</div>
+      <div class="lp-acts">在庫アラート・入荷予定・棚卸タスクを表示</div>
+      <span class="lp-status-badge soon">準備中</span>
+    </div>
+
+    <div class="lp-card">
+      <div class="lp-phase">経営管理</div>
+      <div class="lp-number">ロール 3</div>
+      <div class="lp-title">マネージャーロビー</div>
+      <div class="lp-acts">KPI サマリー・遅延案件・承認キューを表示</div>
+      <span class="lp-status-badge soon">準備中</span>
+    </div>
+
+  </div>
+
+  <!-- サンプルへの誘導 -->
+  <div style="background:#f6f0ff; border:1px solid #8a3ffc; border-left:4px solid #8a3ffc; padding:20px; margin-top:24px;">
+    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#6929c4; margin-bottom:8px;">サンプル公開中</div>
+    <div style="font-size:15px; font-weight:700; margin-bottom:6px;">ロール 1 — 調達担当者ロビー</div>
+    <div style="font-size:13px; color:#525252; margin-bottom:12px;">KPI カード・発注残リスト・本日のタスク・クイックリンクを組み合わせた調達担当向けホーム画面の実現イメージです。</div>
+    <a href="role-procurement/index.html" style="display:inline-block; background:#8a3ffc; color:#fff; font-size:13px; font-weight:700; padding:10px 20px; text-decoration:none;">このロールを見る →</a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">IFS Cloud Solution Samples — ロビー（業務ダッシュボード）</div>
+      <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
+    </div>
+    <div class="footer-links">
+      <a href="../index.html">← ソリューション一覧</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
