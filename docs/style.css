@@ -66,7 +66,15 @@ a:hover { text-decoration: underline; }
   color: var(--white);
   padding: 64px 40px 56px;
 }
-.hero-inner { max-width: 1100px; margin: 0 auto; }
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.hero-text { flex: 1; min-width: 280px; }
 .hero-eyebrow {
   font-size: 11px;
   font-weight: 700;
@@ -107,8 +115,8 @@ a:hover { text-decoration: underline; }
 
 /* ── Hero Summary Image ── */
 .hero-image-wrap {
-  margin-top: 40px;
-  max-width: 680px;
+  flex: 0 0 380px;
+  max-width: 380px;
 }
 .hero-summary-img {
   width: 100%;
