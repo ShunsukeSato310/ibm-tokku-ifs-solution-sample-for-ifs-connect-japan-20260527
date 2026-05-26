@@ -3,28 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>エラー分析デモ — 承認フローエラー</title>
+  <title>エラー分析デモ — 承認グループ未登録エラー</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../style.css">
   <style>
-    .analysis-out{background:#fff5f5;border:1px solid #ffb3b8;padding:20px;margin-bottom:24px;}
+    .code-block{background:#1e1e1e;color:#d4d4d4;font-family:monospace;font-size:11px;padding:14px;border-radius:4px;overflow-x:auto;margin-bottom:12px;line-height:1.7;}
+    .kw{color:#569cd6;}.str{color:#ce9178;}.cmt{color:#6a9955;}.fn{color:#dcdcaa;}.err{color:#f44747;font-weight:700;}
+    .analysis-out{background:#fff5f5;border:1px solid #ffb3b8;padding:20px;margin-bottom:16px;}
     .analysis-out h4{font-size:13px;font-weight:700;color:#da1e28;margin-bottom:12px;}
-    .arow{display:grid;grid-template-columns:130px 1fr;gap:8px;margin-bottom:8px;font-size:13px;}
+    .arow{display:grid;grid-template-columns:140px 1fr;gap:8px;margin-bottom:8px;font-size:13px;}
     .arow dt{font-weight:700;color:var(--text-02);}
     .resolve-list{list-style:none;padding:0;margin-top:12px;}
     .resolve-list li{font-size:13px;padding:6px 0;border-bottom:1px solid #ffb3b8;line-height:1.6;}
     .resolve-list li:last-child{border-bottom:none;}
     .resolve-list li::before{content:"→ ";color:#da1e28;font-weight:700;}
-    .ss-caption{font-size:11px;color:var(--text-03);margin-top:6px;margin-bottom:24px;}
-    .api-hint{background:#f4f4f4;border:1px solid var(--gray-20);border-left:4px solid var(--text-03);padding:14px 16px;margin-bottom:24px;}
-    .api-hint h4{font-size:12px;font-weight:700;color:var(--text-02);margin-bottom:6px;}
-    .api-hint p{font-size:12px;color:var(--text-02);line-height:1.6;}
-    .result-box{background:#e6f9ee;border:1px solid #24a148;border-left:4px solid #24a148;padding:16px;margin-bottom:16px;}
-    .result-box h4{font-size:13px;font-weight:700;color:#198038;margin-bottom:8px;}
-    .sc-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:24px;}
-    .sc-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
-    .sc-table td{font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);}
-    .sc-table tr:last-child td{border-bottom:none;}
+    .api-box{background:#1a1a2e;color:#e0e0e0;border:1px solid #444;padding:14px;border-radius:4px;margin-bottom:12px;font-family:monospace;font-size:11px;line-height:1.6;}
+    .api-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:8px;}
+    .hi-fn{color:#dcdcaa;}.hi-str{color:#ce9178;}.hi-kw{color:#569cd6;}.hi-err{color:#f44747;font-weight:700;}
+    .mock-bar{background:#3d3d3d;padding:8px 12px;display:flex;align-items:center;gap:6px;}
+    .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+    .ss-caption{font-size:11px;color:var(--text-03);margin-top:6px;margin-bottom:20px;}
   </style>
 </head>
 <body>
@@ -34,7 +32,7 @@
     <span style="opacity:.4;margin:0 6px;">/</span>
     <a href="../index.html" style="color:rgba(255,255,255,.7);">エラー分析</a>
     <span style="opacity:.4;margin:0 6px;">/</span>
-    <span>承認フローエラー デモ</span>
+    <span>承認グループ未登録エラー</span>
   </div>
   <nav class="site-header-nav"><a href="../index.html">← 一覧</a></nav>
 </header>
@@ -42,12 +40,12 @@
 <section class="hero" style="background:linear-gradient(135deg,#750e13 0%,#da1e28 60%,#ff8389 100%);padding-bottom:32px;">
   <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-eyebrow">エラー分析 — 実画面スクリーンショット → AI分析</div>
-      <h1>実画面エラーを<br>AIが即時分析する</h1>
-      <p>IFS Cloud 実機で発生したエラー画面のスクリーンショットを入力。AIが内部APIデータも参照しながら原因・影響範囲・対処手順を自動生成します。</p>
+      <div class="hero-eyebrow">エラー分析 — PURCH / PurchaseOrderApproval.WRONGAUTHORSUB</div>
+      <h1>購買発注 承認エラー<br>AIが PL/SQL ソースまで遡って分析</h1>
+      <p>実機画面のスクリーンショットを入力。AIが IFS Cloud 内部 API のソースコード・エラーメッセージDBを参照し、根本原因を特定します。</p>
       <div class="hero-badges">
-        <span class="hero-badge">実機スクリーンショット</span>
-        <span class="hero-badge">API参照による深掘り分析</span>
+        <span class="hero-badge">実機スクリーンショット入力</span>
+        <span class="hero-badge">PL/SQL ソース解析</span>
         <span class="hero-badge">対処手順自動生成</span>
       </div>
     </div>
@@ -56,68 +54,88 @@
 
 <main class="container">
 
-  <div class="section-label">STEP 1 — 入力: 実機エラー画面スクリーンショット</div>
-  <p style="font-size:13px;color:var(--text-02);margin-bottom:12px;">IFS Cloud 実機（pwojaqu-dev1）で発生した購買発注承認エラーの画面を入力します。</p>
-  <div style="border:1px solid var(--gray-20);border-radius:4px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-bottom:6px;max-width:900px;">
-    <div style="background:#3d3d3d;padding:8px 12px;display:flex;align-items:center;gap:6px;">
-      <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
-      <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
-      <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block;"></span>
-      <span style="font-size:12px;color:rgba(255,255,255,.7);margin-left:8px;">IFS Cloud 25R2 — 購買オーダ / 承認処理 (pwojaqu-dev1)</span>
+  <div class="section-label">STEP 1 — 入力: 実機画面スクリーンショット</div>
+  <div style="border:1px solid var(--gray-20);border-radius:4px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);max-width:900px;margin-bottom:6px;">
+    <div class="mock-bar">
+      <span class="dot" style="background:#ff5f57;"></span>
+      <span class="dot" style="background:#febc2e;"></span>
+      <span class="dot" style="background:#28c840;"></span>
+      <span style="font-size:12px;color:rgba(255,255,255,.7);margin-left:8px;">IFS Cloud 25R2 — 調達管理 / 購買オーダ (pwojaqu-dev1)</span>
     </div>
-    <img src="../../../quick-report/scenario-01/screenshots/ev-05-qr-result.png"
-         alt="IFS Cloud 実機画面 — クイックレポート実行結果（実機エビデンス）"
-         style="width:100%;height:auto;display:block;">
+    <img src="screenshots/po-form.png" alt="IFS Cloud 実機 — 購買オーダ画面" style="width:100%;display:block;">
   </div>
-  <p class="ss-caption">▲ IFS Cloud 25R2 実機スクリーンショット（pwojaqu-dev1）。承認フロー実行時のエラー状態を示す実画面。</p>
+  <p class="ss-caption">▲ IFS Cloud 25R2 実機スクリーンショット（pwojaqu-dev1）。購買オーダ承認処理時にエラーが発生した実画面。</p>
 
-  <div class="section-label">STEP 2 — AI 分析処理（内部動作の概要）</div>
-  <div class="api-hint">
-    <h4>分析エンジンの概要（詳細は非公開）</h4>
-    <p>スクリーンショットからエラーコード・メッセージ・コンテキストを文字認識で抽出後、IFS Cloud 内部 API（<code>UserHandling</code> / <code>AuthorizationGroupHandling</code> 等）に直接問い合わせ、該当ユーザーの承認グループ設定・サイト設定・権限状態を横断的に確認します。単なるテキスト検索ではなく、ライブシステムの状態を参照することで高精度な原因特定を実現しています。</p>
+  <div class="section-label">STEP 2 — AI によるエラーメッセージDB検索</div>
+  <div class="api-label">MCP ツール呼び出し: erp-access.get_message</div>
+  <div class="api-box">
+    <span class="hi-kw">INPUT</span>:  like_message = <span class="hi-str">"%承認者 :P1 は承認グループ :P2%"</span>
+    <br><br>
+    <span class="hi-kw">RESULT</span>: <span class="hi-fn">PurchaseOrderApproval.WRONGAUTHORSUB</span>
+    <br>
+    <span class="hi-str">"Authorizer :P1 does not belong to Authorization Group :P2</span>
+    <span class="hi-str"> and he/she is not a superior or substitute of any of the authorizers in the Authorization Group :P2."</span>
+    <br>
+    MODULE: <span class="hi-str">PURCH</span>  LAYER: <span class="hi-str">Core</span>
   </div>
 
-  <div class="section-label">STEP 3 — 出力: AI 分析結果</div>
+  <div class="section-label">STEP 3 — PL/SQL ソース解析（PURCHASE_ORDER_APPROVAL_API）</div>
+  <p style="font-size:12px;color:var(--text-02);margin-bottom:8px;">AIが <code>PURCHASE_ORDER_APPROVAL_API</code> のソースコードを取得し、エラー発生箇所の判定ロジックを特定しました。</p>
+  <div class="code-block"><span class="cmt">-- PURCHASE_ORDER_APPROVAL_API (PURCH モジュール / Core レイヤー)</span>
+<span class="cmt">-- 承認グループに対する承認者チェックロジック</span>
+
+<span class="kw">ELSIF</span> (authorize_group_id_ <span class="kw">IS NOT NULL</span>) <span class="kw">THEN</span>
+   <span class="fn">group_description_</span> := <span class="fn">Purch_Authorize_Group_API.Get_Description</span>(company_, authorize_group_id_);
+
+   <span class="kw">IF</span> (<span class="fn">Purch_Authorize_Group_Line_API.Check_Authorizer_Exist</span>(
+         company_, authorize_group_id_, current_authorizer_id_)) = 0
+   <span class="kw">THEN</span>
+      <span class="kw">IF</span> (<span class="fn">Pur_Auth_Substitute_API.Substitute_In_Auth_Group</span>(
+            company_, authorize_group_id_, current_authorizer_id_) = <span class="str">'FALSE'</span>)
+      <span class="kw">THEN</span>
+         <span class="kw">IF</span> (<span class="fn">Purchase_Authorizer_API.Superior_Auth_In_Group</span>(
+               company_, authorize_group_id_, current_authorizer_id_) = <span class="str">'FALSE'</span>)
+         <span class="kw">THEN</span>
+            <span class="err">Error_SYS.Record_General(lu_name_,</span>
+               <span class="err">'WRONGAUTHORSUB: Authorizer :P1 does not belong to</span>
+               <span class="err">Authorization Group :P2 ...',</span>
+               <span class="err">current_user_id_, group_description_);</span>  <span class="cmt">-- ← ここでエラー発生</span>
+         <span class="kw">END IF</span>;
+      <span class="kw">END IF</span>;
+   <span class="kw">END IF</span>;</div>
+
+  <div class="section-label">STEP 4 — 根本原因の特定（AI 分析結果）</div>
   <div class="analysis-out">
-    <h4>AI 分析結果 — 承認グループ未登録エラー</h4>
-    <div class="arow"><dt>エラー分類</dt><dd>権限設定ミス（承認グループ未登録）</dd></div>
-    <div class="arow"><dt>影響範囲</dt><dd>IBM-TOKYO サイトで L2 承認が必要な購買発注すべて（推定 12件 滞留中）</dd></div>
-    <div class="arow"><dt>緊急度</dt><dd style="color:#da1e28;font-weight:700;">高 — 承認フロー停止中</dd></div>
-    <div class="arow"><dt>根本原因</dt><dd>ユーザー IBM-BOB が承認グループ PROC-APPROVAL-L2 に未登録。人事異動または初期設定漏れと推定。API確認により同グループの登録ユーザーが0名であることも判明。</dd></div>
+    <h4>AI 分析結果 — WRONGAUTHORSUB / 承認グループ未登録</h4>
+    <div class="arow"><dt>エラーコード</dt><dd><code>PurchaseOrderApproval.WRONGAUTHORSUB</code></dd></div>
+    <div class="arow"><dt>発生API</dt><dd><code>PURCHASE_ORDER_APPROVAL_API</code>（PURCHモジュール / Coreレイヤー）</dd></div>
+    <div class="arow"><dt>判定ロジック</dt><dd>3段階チェック: ①グループメンバーでない → ②代替者でもない → ③上位承認者でもない → エラー</dd></div>
+    <div class="arow"><dt>根本原因</dt><dd>ユーザーが承認グループに未登録。かつ代替者・上位承認者にも設定されていない。人事異動後の設定更新漏れが最有力。</dd></div>
+    <div class="arow"><dt>影響範囲</dt><dd>同グループが必要な購買発注すべてで承認フローが停止</dd></div>
     <ul class="resolve-list">
-      <li><strong>即時対応:</strong> IFS Cloud 管理画面 → ユーザー設定 → IBM-BOB → 承認グループに PROC-APPROVAL-L2 を追加</li>
-      <li><strong>影響確認:</strong> 同グループに属すべき他ユーザーも未登録でないか一括確認</li>
-      <li><strong>滞留処理:</strong> 設定修正後、滞留中12件を再承認フローで処理</li>
-      <li><strong>再発防止:</strong> ユーザー登録・異動時の承認グループ設定チェックリストを運用ルール化</li>
+      <li><strong>即時対応:</strong> IFS Cloud → 購買設定 → 承認グループ → 対象グループにユーザーを追加</li>
+      <li><strong>または:</strong> 代替者設定（<code>Pur_Auth_Substitute_API</code>）または上位承認者設定（<code>Purchase_Authorizer_API</code>）で対応</li>
+      <li><strong>確認:</strong> <code>Purch_Authorize_Group_Line_API.Check_Authorizer_Exist</code> が 1 を返すことを確認</li>
+      <li><strong>再発防止:</strong> 人事異動時の承認グループ更新をシステム管理チェックリストに追加</li>
     </ul>
   </div>
 
-  <div class="section-label">STEP 4 — 解決後の確認ポイント</div>
-  <div class="result-box">
-    <h4>対処完了後の確認</h4>
-    <ul style="list-style:none;padding:0;">
-      <li style="font-size:13px;padding:4px 0;border-bottom:1px solid #b7e8c5;">✓ IBM-BOB が PROC-APPROVAL-L2 に表示されること</li>
-      <li style="font-size:13px;padding:4px 0;border-bottom:1px solid #b7e8c5;">✓ 承認処理が正常に完了すること</li>
-      <li style="font-size:13px;padding:4px 0;border-bottom:1px solid #b7e8c5;">✓ 滞留中12件が承認可能な状態になること</li>
-      <li style="font-size:13px;padding:4px 0;">✓ 同種エラーが再発しないこと</li>
-    </ul>
+  <div class="section-label">補足: 実機データ確認画面</div>
+  <div style="border:1px solid var(--gray-20);border-radius:4px;overflow:hidden;max-width:900px;margin-bottom:6px;">
+    <div class="mock-bar">
+      <span class="dot" style="background:#ff5f57;"></span>
+      <span class="dot" style="background:#febc2e;"></span>
+      <span class="dot" style="background:#28c840;"></span>
+      <span style="font-size:12px;color:rgba(255,255,255,.7);margin-left:8px;">IFS Cloud 25R2 — クイックレポート: 発注残確認 (pwojaqu-dev1)</span>
+    </div>
+    <img src="screenshots/qr-result.png" alt="IFS Cloud 実機 — 発注残確認レポート" style="width:100%;display:block;">
   </div>
-
-  <div class="section-label">類似エラーパターン</div>
-  <table class="sc-table">
-    <thead><tr><th>カテゴリ</th><th>代表エラー</th><th>典型的な原因</th><th>平均分析時間</th></tr></thead>
-    <tbody>
-      <tr><td>権限・承認設定</td><td>承認グループ未登録 / ロール不足</td><td>人事異動後の設定更新漏れ</td><td>〜 10秒</td></tr>
-      <tr><td>データ整合性</td><td>FK参照エラー / 必須項目未入力</td><td>マスタ未設定・移行データ不備</td><td>〜 15秒</td></tr>
-      <tr><td>ワークフロー</td><td>ステータス遷移不可 / イベント未設定</td><td>設定漏れ・順序違反</td><td>〜 20秒</td></tr>
-      <tr><td>バッチ・移行</td><td>変換エラー / ロールバック</td><td>マッピング不備・型変換失敗</td><td>〜 30秒</td></tr>
-    </tbody>
-  </table>
+  <p class="ss-caption">▲ エラー対応後に発注残クイックレポートで承認待ち発注を一覧確認した実画面。</p>
 
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
-    <div><div class="footer-brand">エラー分析 — 承認フローエラー デモ</div><div class="footer-copy">© 2026 Tokku Team</div></div>
+    <div><div class="footer-brand">エラー分析 — 承認グループ未登録エラー</div><div class="footer-copy">© 2026 Tokku Team</div></div>
     <div class="footer-links"><a href="../index.html">← 一覧に戻る</a></div>
   </div>
 </footer>
