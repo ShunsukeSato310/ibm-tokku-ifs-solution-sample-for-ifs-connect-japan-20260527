@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone='yes'?>
 <Page>
   <Author>IBM Tokku Team</Author>
   <Keywords>調達,購買,発注残,procurement</Keywords>
   <DescriptiveText>調達担当者向けロビー。発注残KPI・遅延アラート・発注残一覧・クイックリンクを集約。</DescriptiveText>
   <LastModified>2026-05-26-12.00.00</LastModified>
   <Locked>false</Locked>
-  <ClientTypesPage>Web</ClientTypesPage>
   <Component>PURCH</Component>
   <AurenaLobby>true</AurenaLobby>
   <PageId>429e4e29-db24-4022-bdf7-c13e8f240009</PageId>
@@ -18,7 +16,6 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>1</Row><Column>2</Column><RowSpan>2</RowSpan><ColumnSpan>2</ColumnSpan>
       <Title>オーダ別発注数量（棒グラフ）</Title>
       <Background>#FFFFFFFF</Background>
@@ -43,7 +40,6 @@
     <BarChart>
       <Author>IBM Tokku Team</Author><Keywords>調達,仕入先,棒グラフ</Keywords>
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>4</Row><Column>0</Column><RowSpan>2</RowSpan><ColumnSpan>4</ColumnSpan>
       <Title>仕入先別発注件数（棒グラフ）</Title>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
@@ -66,7 +62,6 @@
     <Counter>
       <Author>IBM Tokku Team</Author><Keywords>調達</Keywords>
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>0</Row><Column>4</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
       <Name>JP KPI 008</Name><ID>88bf9376-9114-5805-86ea-3c5ed43f3562</ID>
@@ -79,7 +74,6 @@
     <Counter>
       <Author>IBM Tokku Team</Author><Keywords>調達</Keywords>
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>0</Row><Column>5</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
       <Name>JP KPI 009</Name><ID>d2f3d03c-6d19-5805-a7d5-15341f6e2099</ID>
@@ -92,7 +86,6 @@
     <Counter>
       <Author>IBM Tokku Team</Author><Keywords>調達</Keywords>
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>0</Row><Column>6</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
       <Name>JP KPI 010</Name><ID>e7cdf4ea-ba3a-5ef5-a990-82da5a7a14ff</ID>
@@ -105,7 +98,6 @@
     <Counter>
       <Author>IBM Tokku Team</Author><Keywords>調達</Keywords>
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>0</Row><Column>7</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
       <Name>JP KPI 011</Name><ID>997902e1-c28f-5443-9a8f-c4ca070916d2</ID>
@@ -118,7 +110,6 @@
     <Counter>
       <Author>IBM Tokku Team</Author><Keywords>調達</Keywords>
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>0</Row><Column>8</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
       <Name>JP KPI 012</Name><ID>c99ba8c3-3b37-5336-98bb-79560a9e8128</ID>
@@ -134,7 +125,6 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>0</Row><Column>1</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Title>遅延アラート</Title>
       <Name>JP PO Delayed Alert</Name>
@@ -170,7 +160,6 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>0</Row><Column>2</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Title>発注オーダ数</Title>
       <Name>JP PO Order Count</Name>
@@ -191,7 +180,6 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>0</Row><Column>0</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Title>発注残（Released）</Title>
       <Name>JP PO Remaining Count</Name>
@@ -214,7 +202,6 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>0</Row><Column>3</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Title>合計発注数量</Title>
       <Name>JP PO Total Qty Sum</Name>
@@ -231,7 +218,6 @@
     <LineChart>
       <Author>IBM Tokku Team</Author><Keywords>調達,トレンド,折れ線</Keywords>
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>4</Row><Column>4</Column><RowSpan>2</RowSpan><ColumnSpan>4</ColumnSpan>
       <Title>納期別発注件数トレンド（折れ線）</Title>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
@@ -257,7 +243,6 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>3</Row><Column>3</Column><RowSpan>2</RowSpan><ColumnSpan>1</ColumnSpan>
       <Title>クイックリンク</Title>
       <Background>#FF6929C4</Background>
@@ -279,7 +264,6 @@
     <List>
       <Author>IBM Tokku Team</Author><Keywords>調達,超過遅延一覧</Keywords>
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>6</Row><Column>0</Column><RowSpan>2</RowSpan><ColumnSpan>3</ColumnSpan>
       <Title>7日超過遅延一覧</Title>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
@@ -300,7 +284,6 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>3</Row><Column>0</Column><RowSpan>2</RowSpan><ColumnSpan>3</ColumnSpan>
       <Title>発注残一覧（Released）</Title>
       <Background>#FFFFFFFF</Background>
@@ -326,7 +309,6 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>1</Row><Column>0</Column><RowSpan>2</RowSpan><ColumnSpan>2</ColumnSpan>
       <Title>遅延ステータス構成（円グラフ）</Title>
       <Background>#FFFFFFFF</Background>
@@ -352,7 +334,6 @@
     <Counter>
       <Author>IBM Tokku Team</Author><Keywords>調達,遅延率</Keywords>
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
-      <ClientTypes>Web</ClientTypes>
       <Row>0</Row><Column>9</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Title>超過遅延（7日+）</Title>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
