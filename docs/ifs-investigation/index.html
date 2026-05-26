@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IFS 詳細調査 — IFS Cloud ソリューションサンプル</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .demo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:24px;}
+    .demo-card{background:#fff;border:1px solid var(--gray-20);padding:20px;border-left:4px solid #001d6c;}
+    .demo-card h4{font-size:13px;font-weight:700;margin-bottom:8px;color:#001d6c;}
+    .demo-card p{font-size:12px;color:var(--text-02);line-height:1.6;}
+    .output-preview{border:1px solid var(--gray-20);border-radius:4px;overflow:hidden;margin-bottom:24px;}
+    .output-preview-bar{background:#1a1a2e;padding:8px 14px;font-size:11px;color:rgba(255,255,255,.7);}
+    .output-preview-body{background:#fff;padding:20px;}
+    .fake-section{border-bottom:2px solid #0d47a1;padding-bottom:8px;margin-bottom:14px;}
+    .fake-section h3{font-size:16px;font-weight:700;color:#1a1a2e;display:flex;align-items:center;gap:8px;}
+    .fake-num{width:26px;height:26px;background:#0d47a1;color:#fff;border-radius:50%;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .fake-p{font-size:12px;color:#555;line-height:1.7;margin-bottom:10px;}
+    .fake-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px;}
+    .fake-table th{background:#0d47a1;color:#fff;padding:7px 10px;text-align:left;}
+    .fake-table td{padding:6px 10px;border-bottom:1px solid #e8ecf4;color:#333;}
+    .fake-table tr:nth-child(even) td{background:#f7f9fc;}
+    .fake-callout{background:#e3f2fd;border-left:4px solid #1976d2;padding:12px 14px;border-radius:4px;font-size:12px;color:#333;margin-bottom:10px;}
+    .fake-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-right:4px;}
+    .badge-b{background:#e3f2fd;color:#0d47a1;border:1px solid #bbdefb;}
+    .badge-g{background:#e8f5e9;color:#2e7d32;border:1px solid #c8e6c9;}
+    .badge-r{background:#ffebee;color:#c62828;border:1px solid #ffcdd2;}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <span>IFS 詳細調査</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← ソリューション一覧</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#001141 0%,#001d6c 60%,#0043ce 100%);padding-bottom:36px;">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">IFS Cloud — AI-Driven Investigation / 技術調査</div>
+      <h1>IFS 詳細調査</h1>
+      <p>テーマを指定するだけで、AI が IFS Cloud の仕様・設計・権限・プロセスを横断的に調査し、図解・表・コードを含む高品質な技術レポートを自動生成します。</p>
+      <div class="hero-badges">
+        <span class="hero-badge">テーマ指定のみ</span>
+        <span class="hero-badge">図解・表付きレポート</span>
+        <span class="hero-badge">サンプル公開中</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="section-label">どんな調査ができるか</div>
+  <div class="demo-grid">
+    <div class="demo-card">
+      <h4>権限・セキュリティ設計</h4>
+      <p>Permission Set の階層構造・Projection アクセスレベル・System Privilege・Grant Structure を体系的に整理。設計指針まで含めたリファレンスを生成。</p>
+    </div>
+    <div class="demo-card">
+      <h4>エンティティ・データモデル</h4>
+      <p>特定エンティティの属性定義・主キー・関連エンティティ・状態遷移を .entity ソースから解析し、ER図・フィールド定義書を自動生成。</p>
+    </div>
+    <div class="demo-card">
+      <h4>業務プロセス・ワークフロー</h4>
+      <p>標準プロセスモデルを特定し、各アクティビティのAPI・画面・状態遷移を紐付けて可視化。Fit to Standard 分析の根拠としても活用可能。</p>
+    </div>
+    <div class="demo-card">
+      <h4>API・プロジェクション仕様</h4>
+      <p>OData Projection のエンドポイント一覧・必須フィールド・関連アクションを解析。スクリプト開発・連携設計の入力ドキュメントとして出力。</p>
+    </div>
+  </div>
+
+  <div class="section-label">生成レポートのサンプル（権限管理詳細ガイド）</div>
+  <p style="font-size:13px;color:var(--text-02);margin-bottom:12px;">以下は実際に生成された「IFS Cloud 権限管理詳細ガイド」の一部です。目次・概要図・参照テーブル・設計指針を含む完全なレポートです。</p>
+
+  <div class="output-preview">
+    <div class="output-preview-bar">📄 出力レポート例 — IFS Cloud 権限管理詳細ガイド（一部抜粋）</div>
+    <div class="output-preview-body">
+      <div class="fake-section">
+        <h3><span class="fake-num">1</span>権限体系の概要（3層モデル）</h3>
+      </div>
+      <p class="fake-p">IFS Cloud の権限制御は <strong>認証 (Authentication)</strong> → <strong>認可 (Authorization)</strong> → <strong>データアクセス制御 (Data Access Control)</strong> の3層で構成されます。認可はサーバー側ビジネスロジックで完結しており、クライアントを改ざんしても回避できません。</p>
+      <div class="fake-callout">⚠️ <strong>重要:</strong> Permission Set は User に直接紐付けられるほか、Grant Structure（Permission Set の階層化）によって親子関係で管理されます。ロール設計では Grant Structure を活用することで保守性を高められます。</div>
+
+      <div class="fake-section" style="margin-top:20px;">
+        <h3><span class="fake-num">2</span>Permission Set の種別と Delivery Type</h3>
+      </div>
+      <table class="fake-table">
+        <thead><tr><th>種別</th><th>Delivery Type</th><th>説明</th><th>変更可否</th></tr></thead>
+        <tbody>
+          <tr><td>Core Permission Set</td><td><span class="fake-badge badge-r">CORE</span></td><td>IFS が提供する標準権限。アップグレードで上書きされる</td><td>変更不可</td></tr>
+          <tr><td>Custom Permission Set</td><td><span class="fake-badge badge-b">CUSTOM</span></td><td>プロジェクトで作成したカスタム権限。永続的に保持</td><td>変更可</td></tr>
+          <tr><td>Personal Permission Set</td><td><span class="fake-badge badge-g">PERS</span></td><td>特定ユーザーへの個別付与。原則として最小限に留める</td><td>変更可</td></tr>
+        </tbody>
+      </table>
+
+      <div class="fake-section" style="margin-top:20px;">
+        <h3><span class="fake-num">3</span>Projection と Access Level</h3>
+      </div>
+      <p class="fake-p">各 Projection（OData サービス）には <strong>READ / WRITE / FULL</strong> の Access Level が設定されます。Permission Set に Projection を追加する際は必要最小限のレベルを設定することが推奨されます。</p>
+      <p style="font-size:11px;color:#999;margin-top:8px;">... 全 11 セクション / 図解 4点 / 参照テーブル 8点 / 設計指針 10項目 ...</p>
+    </div>
+  </div>
+  <p style="font-size:11px;color:var(--text-03);margin-bottom:24px;">▲ 実際に生成されたレポートの一部。全文は詳細レポートページで確認できます。</p>
+
+  <div style="background:#e8f0fe;border:1px solid #0043ce;border-left:4px solid #0043ce;padding:20px;margin-bottom:32px;">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#001d6c;margin-bottom:8px;">サンプル公開中</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:6px;">IFS Cloud 権限管理 詳細ガイド</div>
+    <div style="font-size:13px;color:var(--text-02);margin-bottom:12px;">Permission Set・Projection・System Privilege・Grant Structure・Security Checkpoint の全体像と設計指針を収録した完全技術レポートです。</div>
+    <a href="sample-permissions/index.html" style="display:inline-block;background:#001d6c;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;text-decoration:none;">レポートを見る →</a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">IFS Cloud Solution Samples — IFS 詳細調査</div>
+      <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
+    </div>
+    <div class="footer-links"><a href="../index.html">← ソリューション一覧</a></div>
+  </div>
+</footer>
+</body>
+</html>

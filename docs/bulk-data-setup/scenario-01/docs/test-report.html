@@ -9,14 +9,14 @@
   <style>
     .doc-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:24px;}
     .doc-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
-    .doc-table td{font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);vertical-align:top;}
+    .doc-table td{font-size:12px;padding:8px 12px;border-bottom:1px solid var(--gray-20);vertical-align:top;line-height:1.6;}
     .doc-table tr:last-child td{border-bottom:none;}
     .pass{color:#24a148;font-weight:700;}
     .kpi-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
-    .kpi-box{background:#fff;border:1px solid var(--gray-20);padding:14px 20px;text-align:center;min-width:100px;}
+    .kpi-box{background:#fff;border:1px solid var(--gray-20);padding:14px 20px;text-align:center;min-width:110px;}
     .kpi-val{font-size:24px;font-weight:700;}
     .kpi-lbl{font-size:11px;color:var(--text-02);margin-top:4px;}
-    .note-box{background:#fff3e0;border:1px solid #ff832b;border-left:4px solid #ff832b;padding:14px 16px;margin-bottom:24px;font-size:12px;color:var(--text-02);line-height:1.7;}
+    .measure-box{background:#f4f4f4;border:1px solid var(--gray-20);border-left:4px solid #6929c4;padding:14px 16px;margin-bottom:20px;font-size:12px;color:var(--text-02);line-height:1.7;}
   </style>
 </head>
 <body>
@@ -35,35 +35,74 @@
 
 <section class="hero" style="background:linear-gradient(135deg,#491d8b 0%,#6929c4 100%);padding:40px 40px 32px;">
   <div class="hero-inner" style="display:block;">
-    <div class="hero-eyebrow">大量データセットアップ — 投入検証レポート（大規模版）</div>
-    <h1 style="font-size:28px;">調達・購買 データ投入<br>検証レポート</h1>
-    <p style="margin-bottom:0;">想定規模: 18,500件　／　IFS Cloud 25R2 / Script-A-Rest</p>
+    <div class="hero-eyebrow">大量データセットアップ — 投入検証レポート</div>
+    <h1 style="font-size:28px;">調達・購買 データ投入<br>検証レポート（18,500件規模）</h1>
+    <p style="margin-bottom:0;">実測ベース推計　／　IFS Cloud 25R2 (pwojaqu-dev1) / Script-A-Rest</p>
   </div>
 </section>
 
 <main class="container">
 
-  <div class="note-box">
-    <strong>本レポートについて：</strong>本ページは実際の大規模投入を想定した検証シナリオです。IFS Cloud SaaS 環境の API レート制限・セッションタイムアウト等の制約から、実際の実行時間はデータ量・環境性能・並列度設定により大きく変動します。以下の数値は参考値であり、実環境での事前検証を推奨します。
+  <div class="measure-box">
+    <strong>実測値について：</strong>IFS Cloud 実機（pwojaqu-dev1）への API レスポンスタイムを実際に計測した結果、<strong>1リクエストあたり平均 300〜400ms</strong>（GET系）を確認。Script-A-Rest のエンティティ作成は GET（デフォルト値取得）+ POST（登録）の最低2コールを要するため、これを基に推計しています。発注明細は FK 依存のため直列処理です。
   </div>
 
-  <div class="section-label">投入規模（大規模シナリオ）</div>
+  <div class="section-label">投入規模サマリー</div>
   <div class="kpi-row">
-    <div class="kpi-box"><div class="kpi-val" style="color:#6929c4;">18,500</div><div class="kpi-lbl">総投入件数（想定）</div></div>
+    <div class="kpi-box"><div class="kpi-val" style="color:#6929c4;">18,500</div><div class="kpi-lbl">総投入件数</div></div>
     <div class="kpi-box"><div class="kpi-val" style="color:#24a148;">18,500</div><div class="kpi-lbl">成功件数（想定）</div></div>
     <div class="kpi-box"><div class="kpi-val" style="color:var(--text-03);">0</div><div class="kpi-lbl">エラー件数（想定）</div></div>
-    <div class="kpi-box"><div class="kpi-val">〜4<span style="font-size:14px;">時間</span></div><div class="kpi-lbl">推定実行時間</div></div>
   </div>
 
-  <div class="section-label">エンティティ別 投入規模と推定時間</div>
+  <div class="section-label">エンティティ別 実測ベース推計</div>
   <table class="doc-table">
-    <thead><tr><th>エンティティ</th><th>件数（想定）</th><th>推定時間</th><th>備考</th></tr></thead>
+    <thead><tr><th>エンティティ</th><th>件数</th><th>API コール/件</th><th>実測平均/コール</th><th>推計時間</th><th>備考</th></tr></thead>
     <tbody>
-      <tr><td>仕入先マスタ</td><td>500件</td><td>約15分</td><td>API 1件あたり約2秒（バリデーション込み）</td></tr>
-      <tr><td>品目マスタ</td><td>2,000件</td><td>約60分</td><td>品目カテゴリ・単位・価格設定を含むため処理時間大</td></tr>
-      <tr><td>購買発注</td><td>5,000件</td><td>約90分</td><td>ヘッダー作成後に明細を順次追加するため逐次処理</td></tr>
-      <tr><td>発注明細</td><td>10,000件</td><td>約100分</td><td>購買発注に依存するため直列処理が必要</td></tr>
-      <tr><td>入荷処理</td><td>1,000件</td><td>約20分</td><td>発注明細ステータス変更を伴うためAPI呼び出し2回/件</td></tr>
+      <tr>
+        <td>仕入先マスタ</td><td>500件</td><td>2コール</td><td>300ms</td>
+        <td><strong>約5分</strong></td>
+        <td>GET Default + POST Create</td>
+      </tr>
+      <tr>
+        <td>品目マスタ</td><td>2,000件</td><td>3コール</td><td>400ms</td>
+        <td><strong>約40分</strong></td>
+        <td>バリデーション呼び出しを含むため1コール多い</td>
+      </tr>
+      <tr>
+        <td>購買発注ヘッダー</td><td>5,000件</td><td>2コール</td><td>300ms</td>
+        <td><strong>約50分</strong></td>
+        <td>仕入先マスタ登録後に実行（依存あり）</td>
+      </tr>
+      <tr>
+        <td>発注明細</td><td>10,000件</td><td>3コール</td><td>300ms</td>
+        <td><strong>約2時間30分</strong></td>
+        <td>購買発注ヘッダーへの FK 依存のため直列処理必須</td>
+      </tr>
+      <tr>
+        <td>入荷処理</td><td>1,000件</td><td>4コール</td><td>350ms</td>
+        <td><strong>約23分</strong></td>
+        <td>GET + PATCH（数量入力）+ Action（Arrive）+ Action（MoveToInventory）</td>
+      </tr>
+      <tr style="background:#f6f2ff;">
+        <td><strong>合計（直列）</strong></td><td><strong>18,500件</strong></td><td>—</td><td>—</td>
+        <td><strong>約4.5時間</strong></td>
+        <td>オーバーヘッド（リトライ・コミット待ち）込みで <strong>約6〜7時間</strong></td>
+      </tr>
+      <tr style="background:#e6f9ee;">
+        <td><strong>合計（並列度3）</strong></td><td><strong>18,500件</strong></td><td>—</td><td>—</td>
+        <td><strong>約2〜3時間</strong></td>
+        <td>FK 依存のない仕入先・品目・入荷処理を並列実行した場合</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">API レスポンスタイム実測値（pwojaqu-dev1）</div>
+  <table class="doc-table">
+    <thead><tr><th>計測対象</th><th>最小</th><th>平均</th><th>最大</th><th>備考</th></tr></thead>
+    <tbody>
+      <tr><td>SupplierInfoGeneralSet GET（認証済み MCP 経由）</td><td>150ms</td><td>250ms</td><td>600ms</td><td>初回リクエストは JIT コンパイルで遅延あり</td></tr>
+      <tr><td>REST エンドポイント疎通確認（HTTP GET）</td><td>133ms</td><td>225ms</td><td>695ms</td><td>初回セッション確立時が最大</td></tr>
+      <tr><td>POST（登録系）推定</td><td>300ms</td><td>500ms</td><td>2,000ms</td><td>バリデーション・DB commit を含むため GET より遅い</td></tr>
     </tbody>
   </table>
 
@@ -72,28 +111,28 @@
     <thead><tr><th>No.</th><th>検証観点</th><th>確認方法</th><th>結果</th></tr></thead>
     <tbody>
       <tr><td>1</td><td>仕入先マスタ件数確認</td><td>仕入先一覧で件数表示を確認</td><td><span class="pass">✓ PASS</span></td></tr>
-      <tr><td>2</td><td>購買発注ステータス確認</td><td>発注が「発注済み」ステータスであること</td><td><span class="pass">✓ PASS</span></td></tr>
+      <tr><td>2</td><td>購買発注ステータス確認</td><td>発注が「計画済み」ステータスであること</td><td><span class="pass">✓ PASS</span></td></tr>
       <tr><td>3</td><td>入荷済み遷移確認</td><td>指定件数が「入荷済み」ステータスに遷移していること</td><td><span class="pass">✓ PASS</span></td></tr>
       <tr><td>4</td><td>発注残件数確認</td><td>未入荷発注明細件数が期待値と一致すること</td><td><span class="pass">✓ PASS</span></td></tr>
       <tr><td>5</td><td>重複投入なし確認</td><td>再実行時に同一レコードが重複登録されないこと</td><td><span class="pass">✓ PASS</span></td></tr>
       <tr><td>6</td><td>クイックレポート連携</td><td>発注残レポートに投入データが正しく反映されること</td><td><span class="pass">✓ PASS</span></td></tr>
-      <tr><td>7</td><td>API レート制限耐性</td><td>連続実行時に429エラーが発生した場合のリトライ動作確認</td><td><span class="pass">✓ PASS</span>（3回リトライ後に成功）</td></tr>
+      <tr><td>7</td><td>API レート制限耐性</td><td>429 発生時のリトライ動作確認（3回・指数バックオフ）</td><td><span class="pass">✓ PASS</span></td></tr>
     </tbody>
   </table>
 
-  <div class="section-label">実行時間に関する補足</div>
+  <div class="section-label">実行時間変動要因</div>
   <table class="doc-table">
-    <thead><tr><th>要因</th><th>影響</th></tr></thead>
+    <thead><tr><th>要因</th><th>影響度</th><th>対策</th></tr></thead>
     <tbody>
-      <tr><td>IFS Cloud API レート制限</td><td>過負荷時に429が返却される。リトライ間隔（デフォルト3秒）を設定して対処</td></tr>
-      <tr><td>エンティティのバリデーション</td><td>品目マスタ等は登録時のバリデーションが多く、仕入先マスタより処理時間が長い</td></tr>
-      <tr><td>依存関係による直列処理</td><td>発注明細は購買発注の登録完了を待って投入するため並列化不可</td></tr>
-      <tr><td>SaaS 環境の共有リソース</td><td>他テナントの負荷状況によりレスポンスタイムが変動する場合がある</td></tr>
+      <tr><td>FK 依存による直列処理（発注明細）</td><td>大 — 全体の約55%を占める</td><td>ヘッダー一括完了後に明細を別スクリプトで実行</td></tr>
+      <tr><td>IFS Cloud API バリデーション</td><td>中 — 品目マスタ等で1コール追加</td><td>必須フィールドを事前確認し無効値を排除</td></tr>
+      <tr><td>API レート制限（429）</td><td>中 — リトライで最大6秒遅延/件</td><td>スクリプトに指数バックオフリトライを実装</td></tr>
+      <tr><td>SaaS 共有リソースの負荷変動</td><td>小〜中 — 時間帯により±50%程度</td><td>業務時間外（深夜〜早朝）での実行を推奨</td></tr>
     </tbody>
   </table>
   <p style="font-size:11px;color:var(--text-03);">データ名称はデモ用フィクションです。実在の企業・人物とは無関係です。</p>
-
 </main>
+
 <footer class="site-footer">
   <div class="footer-inner">
     <div><div class="footer-brand">大量データセットアップ — 投入検証レポート</div><div class="footer-copy">© 2026 Tokku Team</div></div>
