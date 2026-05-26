@@ -14,7 +14,7 @@
     .benefit-card p{font-size:12px;color:var(--text-02);line-height:1.6;}
     .fts-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:16px;}
     .fts-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
-    .fts-table td{font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);vertical-align:top;}
+    .fts-table td{font-size:12px;padding:8px 12px;border-bottom:1px solid var(--gray-20);vertical-align:top;line-height:1.6;}
     .fts-table tr:last-child td{border-bottom:none;}
     .verdict-fit{color:#24a148;font-weight:700;}
     .verdict-config{color:#0f62fe;font-weight:700;}
@@ -48,7 +48,7 @@
     <div class="hero-text">
       <div class="hero-eyebrow">IFS Cloud — Fit to Standard / 導入支援・業務分析</div>
       <h1>Fit to Standard 分析</h1>
-      <p>KCMプロジェクトの標準拡張要件をAIが逆設計・分析。標準機能で対応できる業務範囲を早期に見極め、本当に必要な個所に開発リソースを集中させます。</p>
+      <p>顧客要件を IFS Cloud 標準機能（1,200+プロセス）と照合し、Fit / Config / Dev を自動判定。標準で対応できる業務範囲を早期に見極め、本当に必要な開発に絞り込みます。</p>
       <div class="hero-badges">
         <span class="hero-badge">1,200+ プロセス照合</span>
         <span class="hero-badge">拡張要否を自動判定</span>
@@ -103,7 +103,7 @@
     </div>
   </div>
 
-  <div class="section-label">分析サンプル — 調達・購買領域（20要件）</div>
+  <div class="section-label">分析サンプル — 調達・購買領域（仮想プロジェクト）</div>
 
   <div style="max-width:480px;margin-bottom:20px;">
     <div class="bar-row">
@@ -124,21 +124,51 @@
   </div>
 
   <table class="fts-table">
-    <thead><tr><th>No.</th><th>要件</th><th>業務領域</th><th>判定</th><th>根拠（IFS標準機能）</th></tr></thead>
+    <thead><tr><th>No.</th><th>要件（概要）</th><th>領域</th><th>判定</th><th>根拠・対応方針</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td>購買発注の承認フロー（2段階）</td><td>調達</td><td><span class="verdict-config">Config</span></td><td>承認グループ設定で多段階承認を実現可能</td></tr>
-      <tr><td>2</td><td>発注残一覧の画面表示</td><td>調達</td><td><span class="verdict-fit">Fit</span></td><td>クイックレポートで代替可能（開発不要）</td></tr>
-      <tr><td>3</td><td>仕入先ごとのSLAアラート</td><td>調達</td><td><span class="verdict-dev">開発</span></td><td>標準にSLA管理機能なし。カスタムフィールド+イベント実装が必要</td></tr>
-      <tr><td>4</td><td>入荷検品（QC判定付き）</td><td>在庫</td><td><span class="verdict-fit">Fit</span></td><td>Receipt Inspection 標準機能で対応可能</td></tr>
-      <tr><td>5</td><td>部門別コスト配賦の発注入力</td><td>財務</td><td><span class="verdict-config">Config</span></td><td>コストセンター設定 + 明細フィールド拡張で実現</td></tr>
+      <tr>
+        <td>1</td>
+        <td><strong>購買発注の多段階承認フロー</strong><br>発注金額に応じて部長承認・役員承認の2段階で承認を通す。承認者が不在の場合は代理者に自動転送する。</td>
+        <td>調達</td>
+        <td><span class="verdict-config">Config</span></td>
+        <td>承認グループ設定・承認テンプレートで多段階承認を実現可能。代理者設定も標準対応。開発不要。</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>発注残の一覧表示・Excel出力</strong><br>発注済みで未着荷の明細を一覧で確認し、納期・仕入先・残数をExcelにエクスポートして日次業務で活用する。</td>
+        <td>調達</td>
+        <td><span class="verdict-fit">Fit</span></td>
+        <td>クイックレポートで発注残ビューを設定するだけで実現。アドオン開発不要、設定のみで即日稼働。</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>仕入先ごとのSLAアラート通知</strong><br>仕入先別に定めたリードタイム（SLA）を超えた発注が存在する場合、担当者にアラートメールを自動送信する。</td>
+        <td>調達</td>
+        <td><span class="verdict-dev">開発</span></td>
+        <td>標準にSLA管理機能なし。C_SLA_DAYS 拡張フィールド追加 + IFS Event でアラート実装が必要。</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>入荷検品（QC判定・合否記録）</strong><br>入荷時に品質検査結果（合格/不合格/条件付き合格）を記録し、不合格品は自動で返品処理に進める。</td>
+        <td>在庫</td>
+        <td><span class="verdict-fit">Fit</span></td>
+        <td>Receipt Inspection 標準機能で検品・QC判定・返品フローまで対応可能。追加開発不要。</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><strong>発注明細ごとの部門別コスト配賦</strong><br>1つの購買発注に対して複数部門のコストセンターを明細ごとに指定し、部門別原価管理に反映させる。</td>
+        <td>財務</td>
+        <td><span class="verdict-config">Config</span></td>
+        <td>コストセンター設定 + C_COST_CENTER 拡張フィールドを明細に追加することで実現。</td>
+      </tr>
     </tbody>
   </table>
-  <p style="font-size:11px;color:var(--text-03);margin-bottom:24px;">※ サンプルは標準プロジェクトから推測した汎用要件です。実在のプロジェクト・顧客は特定できません。</p>
+  <p style="font-size:11px;color:var(--text-03);margin-bottom:24px;">※ サンプルは仮想プロジェクトの要件です。実在のプロジェクト・顧客は特定できません。</p>
 
   <div style="background:#fff3e0;border:1px solid #ff832b;border-left:4px solid #ff832b;padding:20px;margin-bottom:32px;">
     <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#ff832b;margin-bottom:8px;">サンプル公開中</div>
     <div style="font-size:15px;font-weight:700;margin-bottom:6px;">調達・購買 20要件 — Fit to Standard 分析レポート</div>
-    <div style="font-size:13px;color:var(--text-02);margin-bottom:12px;">20件の要件に対するFit/Config/Dev判定と、各判定の根拠・推奨アクションをまとめた詳細レポートをご確認いただけます。</div>
+    <div style="font-size:13px;color:var(--text-02);margin-bottom:12px;">20件の要件に対するFit/Config/Dev判定と、各判定の根拠・推奨アクション・標準プロセス実演をご確認いただけます。</div>
     <a href="scenario-01/index.html" style="display:inline-block;background:#ff832b;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;text-decoration:none;">レポートを見る →</a>
     <a href="scenario-01/docs/report.html" style="display:inline-block;background:#fff;color:#ff832b;border:1px solid #ff832b;font-size:13px;font-weight:700;padding:10px 20px;text-decoration:none;margin-left:8px;">詳細レポートを見る →</a>
   </div>
