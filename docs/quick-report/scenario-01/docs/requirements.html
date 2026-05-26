@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>要件定義書 — 発注残確認レポート</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,0.7);">クイックレポート</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <a href="../scenario-01/index.html" style="color:rgba(255,255,255,0.7);">シナリオ 1</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <span>要件定義書</span>
+  </div>
+  <nav class="site-header-nav">
+    <a href="../index.html">← シナリオ一覧</a>
+  </nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#006161 0%,#009d9a 60%,#007d79 100%);padding:40px 40px 32px;">
+  <div class="hero-inner" style="display:block;">
+    <div class="hero-eyebrow">クイックレポート シナリオ 1 — 要件定義書</div>
+    <h1 style="font-size:28px;">発注残確認レポート<br>要件定義書</h1>
+    <p style="margin-bottom:0;">バージョン 1.0　／　作成日: 2026-05-26　／　IFS Cloud 25R2</p>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="section-label">1. 概要</div>
+  <div class="sc-req-box" style="max-width:100%;">
+    <table class="sc-req-table">
+      <tbody>
+        <tr><td style="width:160px;background:var(--gray-10);font-weight:600;color:var(--text-02);">ドキュメント種別</td><td>クイックレポート 要件定義書</td></tr>
+        <tr><td style="background:var(--gray-10);font-weight:600;color:var(--text-02);">レポートID</td><td>2000001</td></tr>
+        <tr><td style="background:var(--gray-10);font-weight:600;color:var(--text-02);">レポート名称</td><td>発注残確認レポート（未着荷購買オーダ一覧）</td></tr>
+        <tr><td style="background:var(--gray-10);font-weight:600;color:var(--text-02);">対象システム</td><td>IFS Cloud 25R2</td></tr>
+        <tr><td style="background:var(--gray-10);font-weight:600;color:var(--text-02);">作成者</td><td>AI エージェント（IFS AI 基盤）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-label" style="margin-top:40px;">2. 業務背景・課題</div>
+  <div class="sc-context-block">
+    <div class="sc-context-card sc-context-before">
+      <div class="sc-ctx-label">現状の課題</div>
+      <ul class="sc-ctx-list">
+        <li>調達担当者が毎朝 Excel で発注残を手集計している（約30分/日）</li>
+        <li>手集計のため最新データではなく、情報に遅延がある</li>
+        <li>「発注残一覧画面を作りたい」という要件がアドオン開発扱いになっていた</li>
+      </ul>
+    </div>
+    <div class="sc-context-card sc-context-after">
+      <div class="sc-ctx-label">クイックレポートによる解決策</div>
+      <ul class="sc-ctx-list">
+        <li>IFS Cloud 標準のクイックレポート機能で代替可能</li>
+        <li>開発不要・設定のみで即日稼働</li>
+        <li>IFS Cloud リアルタイムデータを常に最新の状態で参照</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:40px;">3. 要件定義</div>
+
+  <h3 style="font-size:14px;font-weight:700;margin:16px 0 8px;">3.1 基本要件</h3>
+  <div class="sc-req-box" style="max-width:100%;">
+    <table class="sc-req-table">
+      <thead><tr><th style="width:200px;">項目</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td>対象ユーザー</td><td>調達担当者・調達マネージャー</td></tr>
+        <tr><td>目的</td><td>未着荷の発注残を一覧で把握し、納期遅延リスクを早期に検知する</td></tr>
+        <tr><td>参照頻度</td><td>毎営業日 朝（業務開始時）および随時</td></tr>
+        <tr><td>出力形式</td><td>画面表示 ＋ Excel エクスポート</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:14px;font-weight:700;margin:24px 0 8px;">3.2 データ要件</h3>
+  <div class="sc-req-box" style="max-width:100%;">
+    <table class="sc-req-table">
+      <thead><tr><th style="width:200px;">項目</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td>データソース</td><td>PURCHASE_ORDER（購買オーダヘッダー）<br>PURCHASE_ORDER_LINE（購買オーダ明細）<br>SUPPLIER_INFO（仕入先マスタ）</td></tr>
+        <tr><td>抽出条件</td><td>購買オーダ明細のステータス（OBJSTATE）＝ 'Released'（発注済み）</td></tr>
+        <tr><td>ソート順</td><td>入庫予定日（PLANNED_RECEIPT_DATE）昇順</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:14px;font-weight:700;margin:24px 0 8px;">3.3 表示項目定義</h3>
+  <table class="sc-test-table" style="margin-bottom:8px;">
+    <thead>
+      <tr><th>No.</th><th>列名（日本語）</th><th>データソース</th><th>備考</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>購買オーダ番号</td><td>PURCHASE_ORDER_LINE.ORDER_NO</td><td>主キー</td></tr>
+      <tr><td>2</td><td>明細番号</td><td>PURCHASE_ORDER_LINE.LINE_NO</td><td>主キー</td></tr>
+      <tr><td>3</td><td>品目番号</td><td>PURCHASE_ORDER_LINE.PART_NO</td><td></td></tr>
+      <tr><td>4</td><td>品目名称</td><td>PURCHASE_ORDER_LINE.DESCRIPTION</td><td></td></tr>
+      <tr><td>5</td><td>仕入先ID</td><td>PURCHASE_ORDER.VENDOR_NO</td><td></td></tr>
+      <tr><td>6</td><td>仕入先名</td><td>SUPPLIER_INFO.NAME</td><td>SUPPLIER_ID で結合</td></tr>
+      <tr><td>7</td><td>発注数量</td><td>PURCHASE_ORDER_LINE.BUY_QTY_DUE</td><td></td></tr>
+      <tr><td>8</td><td>入荷済数量</td><td>固定値: 0</td><td>入庫なし前提（発注残＝発注数量）</td></tr>
+      <tr><td>9</td><td>発注残数量</td><td>PURCHASE_ORDER_LINE.BUY_QTY_DUE</td><td>入荷済数量が0のため発注数量と同値</td></tr>
+      <tr><td>10</td><td>入庫予定日</td><td>PURCHASE_ORDER_LINE.PLANNED_RECEIPT_DATE</td><td>YYYY-MM-DD 形式</td></tr>
+      <tr><td>11</td><td>遅延フラグ</td><td>計算式</td><td>PLANNED_RECEIPT_DATE &lt; SYSDATE → '遅延'、それ以外 → '正常'</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label" style="margin-top:40px;">4. 画面レイアウト</div>
+  <p style="font-size:13px;color:var(--text-02);margin-bottom:16px;">IFS Cloud クイックレポート標準レイアウトを使用。カスタムレイアウト設定なし。</p>
+  <table class="sc-test-table">
+    <thead><tr><th>要素</th><th>設定内容</th></tr></thead>
+    <tbody>
+      <tr><td>画面タイトル</td><td>発注残確認レポート（未着荷購買オーダ一覧）</td></tr>
+      <tr><td>レポート種別</td><td>SQLStatement（SQL クイックレポート）</td></tr>
+      <tr><td>列幅</td><td>自動（IFS Cloud 標準）</td></tr>
+      <tr><td>ページング</td><td>IFS Cloud 標準（50件/ページ）</td></tr>
+      <tr><td>エクスポート</td><td>Excel エクスポート（標準機能）</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:40px;text-align:right;">
+    <a href="design.html" style="display:inline-block;background:#009d9a;color:#fff;font-size:13px;font-weight:700;padding:10px 24px;text-decoration:none;">次へ: 詳細設計書 →</a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">発注残確認レポート — 要件定義書 v1.0</div>
+      <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
+    </div>
+    <div class="footer-links">
+      <a href="../index.html">← シナリオ一覧</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

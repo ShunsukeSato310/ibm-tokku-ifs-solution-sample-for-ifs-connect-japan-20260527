@@ -41,6 +41,25 @@
 
 <main class="container">
 
+  <div class="section-label">IFS AI 基盤による自律実行</div>
+  <div class="lp-grid" style="margin-bottom:8px;">
+    <div class="lp-card available" style="border-color:var(--teal);">
+      <div class="lp-phase">ドメイン知識</div>
+      <div class="lp-title">IFS データモデルを熟知したAIが設計〜実装を自律実行</div>
+      <div class="lp-acts">PURCHASE_ORDER / PURCHASE_ORDER_LINE / SUPPLIER_INFO の結合・カラム選定をAIが自動判断</div>
+    </div>
+    <div class="lp-card available" style="border-color:var(--teal);">
+      <div class="lp-phase">制約カバー</div>
+      <div class="lp-title">クイックレポートの細かい制約もカバー</div>
+      <div class="lp-acts">OUTER JOIN 非サポート・DATE 型フォーマット・OBJSTATE 文字列比較など実機固有の制約を自動回避</div>
+    </div>
+    <div class="lp-card available" style="border-color:var(--teal);">
+      <div class="lp-phase">自動テスト</div>
+      <div class="lp-title">テスト〜改善〜結果出力をAIが一貫して実施</div>
+      <div class="lp-acts">validate_sql で構文検証 → IFS Cloud 実機登録 → 画面エビデンス取得まで自律実行</div>
+    </div>
+  </div>
+
   <div class="section-label">このシナリオの背景</div>
   <div class="sc-context-block">
     <div class="sc-context-card sc-context-before">
@@ -120,6 +139,34 @@
     <div class="sc-mock-footer">5 件表示 / 全 5 件　合計残数: 1,040</div>
   </div>
   <p style="font-size:11px;color:var(--text-03);margin-top:8px;">※ 実際の操作画面を模したモックアップです。実運用データは含みません。</p>
+
+  <div class="section-label">成果物ドキュメント</div>
+  <div class="lp-grid" style="margin-bottom:8px;">
+    <div class="lp-card available">
+      <a href="docs/requirements.html">
+        <div class="lp-phase">要件定義</div>
+        <div class="lp-title">要件定義書</div>
+        <div class="lp-acts">業務課題・要件・レイアウト定義</div>
+        <span class="lp-status-badge available">開く →</span>
+      </a>
+    </div>
+    <div class="lp-card available">
+      <a href="docs/design.html">
+        <div class="lp-phase">詳細設計</div>
+        <div class="lp-title">詳細設計書</div>
+        <div class="lp-acts">使用ビュー・実装SQL（IFS AI生成）</div>
+        <span class="lp-status-badge available">開く →</span>
+      </a>
+    </div>
+    <div class="lp-card available">
+      <a href="docs/test-report.html">
+        <div class="lp-phase">テスト</div>
+        <div class="lp-title">テスト結果報告書</div>
+        <div class="lp-acts">実機テスト7件・画面エビデンス付き</div>
+        <span class="lp-status-badge available">開く →</span>
+      </a>
+    </div>
+  </div>
 
   <div class="section-label">期待効果</div>
   <ul class="feature-list" style="max-width:720px;">

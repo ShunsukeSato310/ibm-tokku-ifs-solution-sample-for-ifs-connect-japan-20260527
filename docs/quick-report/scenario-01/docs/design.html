@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>詳細設計書 — 発注残確認レポート</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .sql-block { background:#1e1e2e; color:#cdd6f4; font-family:'IBM Plex Mono',monospace; font-size:12px; line-height:1.7; padding:20px 24px; border-radius:4px; overflow-x:auto; margin-bottom:8px; }
+    .sql-kw { color:#89b4fa; font-weight:700; }
+    .sql-fn { color:#a6e3a1; }
+    .sql-str { color:#f9e2af; }
+    .sql-cmt { color:#6c7086; font-style:italic; }
+    .sql-alias { color:#f38ba8; }
+    .view-card { background:var(--white); border:1px solid var(--gray-20); border-left:4px solid var(--teal); padding:16px 20px; margin-bottom:12px; }
+    .view-name { font-size:13px; font-weight:700; font-family:'IBM Plex Mono',monospace; color:var(--teal); margin-bottom:6px; }
+    .view-cols { font-size:12px; color:var(--text-02); line-height:1.8; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,0.7);">クイックレポート</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <a href="../scenario-01/index.html" style="color:rgba(255,255,255,0.7);">シナリオ 1</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <span>詳細設計書</span>
+  </div>
+  <nav class="site-header-nav">
+    <a href="../index.html">← シナリオ一覧</a>
+  </nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#006161 0%,#009d9a 60%,#007d79 100%);padding:40px 40px 32px;">
+  <div class="hero-inner" style="display:block;">
+    <div class="hero-eyebrow">クイックレポート シナリオ 1 — 詳細設計書</div>
+    <h1 style="font-size:28px;">発注残確認レポート<br>詳細設計書</h1>
+    <p style="margin-bottom:0;">バージョン 1.0　／　作成日: 2026-05-26　／　IFS Cloud 25R2</p>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="section-label">1. 使用ビュー定義</div>
+  <div class="view-card">
+    <div class="view-name">PURCHASE_ORDER</div>
+    <div class="view-cols">ORDER_NO（購買オーダ番号 / PK）、VENDOR_NO（仕入先ID）、STATE（ヘッダーステータス）</div>
+  </div>
+  <div class="view-card">
+    <div class="view-name">PURCHASE_ORDER_LINE</div>
+    <div class="view-cols">ORDER_NO（購買オーダ番号 / FK）、LINE_NO（明細番号）、RELEASE_NO（連番）、PART_NO（品目番号）、DESCRIPTION（品目名称）、BUY_QTY_DUE（発注数量）、PLANNED_RECEIPT_DATE（入庫予定日）、OBJSTATE（明細ステータス）</div>
+  </div>
+  <div class="view-card">
+    <div class="view-name">SUPPLIER_INFO</div>
+    <div class="view-cols">SUPPLIER_ID（仕入先ID / PK）、NAME（仕入先名）</div>
+  </div>
+
+  <div class="section-label" style="margin-top:40px;">2. SQL 設計</div>
+
+  <h3 style="font-size:14px;font-weight:700;margin:0 0 12px;">2.1 実装 SQL（IFS Cloud 実機検証済み）</h3>
+  <div class="sql-block">
+<span class="sql-kw">SELECT</span>
+  l.ORDER_NO          <span class="sql-kw">AS</span> <span class="sql-str">"購買オーダ番号"</span>,
+  l.LINE_NO           <span class="sql-kw">AS</span> <span class="sql-str">"明細番号"</span>,
+  l.PART_NO           <span class="sql-kw">AS</span> <span class="sql-str">"品目番号"</span>,
+  l.DESCRIPTION       <span class="sql-kw">AS</span> <span class="sql-str">"品目名称"</span>,
+  h.VENDOR_NO         <span class="sql-kw">AS</span> <span class="sql-str">"仕入先ID"</span>,
+  s.NAME              <span class="sql-kw">AS</span> <span class="sql-str">"仕入先名"</span>,
+  l.BUY_QTY_DUE       <span class="sql-kw">AS</span> <span class="sql-str">"発注数量"</span>,
+  0                   <span class="sql-kw">AS</span> <span class="sql-str">"入荷済数量"</span>,
+  l.BUY_QTY_DUE       <span class="sql-kw">AS</span> <span class="sql-str">"発注残数量"</span>,
+  <span class="sql-fn">TO_CHAR</span>(l.PLANNED_RECEIPT_DATE, <span class="sql-str">'YYYY-MM-DD'</span>) <span class="sql-kw">AS</span> <span class="sql-str">"入庫予定日"</span>,
+  <span class="sql-kw">CASE</span>
+    <span class="sql-kw">WHEN</span> l.PLANNED_RECEIPT_DATE &lt; <span class="sql-fn">SYSDATE</span> <span class="sql-kw">THEN</span> <span class="sql-str">'遅延'</span>
+    <span class="sql-kw">ELSE</span> <span class="sql-str">'正常'</span>
+  <span class="sql-kw">END</span>                 <span class="sql-kw">AS</span> <span class="sql-str">"遅延フラグ"</span>
+<span class="sql-kw">FROM</span>
+  PURCHASE_ORDER      <span class="sql-alias">h</span>,
+  PURCHASE_ORDER_LINE <span class="sql-alias">l</span>,
+  SUPPLIER_INFO       <span class="sql-alias">s</span>
+<span class="sql-kw">WHERE</span>
+  h.ORDER_NO       = l.ORDER_NO
+  <span class="sql-kw">AND</span> s.SUPPLIER_ID = h.VENDOR_NO
+  <span class="sql-kw">AND</span> l.OBJSTATE   = <span class="sql-str">'Released'</span>
+<span class="sql-kw">ORDER BY</span>
+  l.PLANNED_RECEIPT_DATE
+  </div>
+
+  <h3 style="font-size:14px;font-weight:700;margin:24px 0 12px;">2.2 SQL 設計ポイント</h3>
+  <table class="sc-test-table">
+    <thead><tr><th>項目</th><th>設計判断と根拠</th></tr></thead>
+    <tbody>
+      <tr><td>結合方式</td><td>カンマ結合（ANSI JOIN ではなく FROM 句列挙）— IFS Cloud クイックレポートの制約上、サブクエリや OUTER JOIN は一部環境で非サポートのためシンプルな内部結合を採用</td></tr>
+      <tr><td>OBJSTATE フィルタ</td><td><code>l.OBJSTATE = 'Released'</code> で発注済み明細のみ抽出。'Closed'（完了）・'Cancelled'（キャンセル）を除外</td></tr>
+      <tr><td>入荷済数量</td><td>PURCHASE_RECEIPT（入庫トランザクション）は本環境でデータが未登録のため <code>0</code> 固定。実運用では <code>SUM(r.QTY_INVOICED)</code> のサブクエリへ変更可能</td></tr>
+      <tr><td>日付フォーマット</td><td><code>TO_CHAR(..., 'YYYY-MM-DD')</code> で文字列化。クイックレポートの DATE 型は環境ロケールで表示が変わるため明示的にフォーマット</td></tr>
+      <tr><td>遅延フラグ</td><td>CASE 式で <code>SYSDATE</code>（実行時刻）と比較。実行するたびに最新の遅延状況を反映</td></tr>
+      <tr><td>ソート</td><td>入庫予定日昇順で最も緊急な発注残が先頭に表示される</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label" style="margin-top:40px;">3. IFS 設定定義</div>
+  <div class="sc-req-box" style="max-width:100%;">
+    <table class="sc-req-table">
+      <thead><tr><th style="width:220px;">設定項目</th><th>値</th></tr></thead>
+      <tbody>
+        <tr><td>クイックレポートID</td><td>2000001</td></tr>
+        <tr><td>レポート名称（Description）</td><td>発注残確認レポート（未着荷購買オーダ一覧）</td></tr>
+        <tr><td>QR タイプ（QrType）</td><td>SQLStatement</td></tr>
+        <tr><td>Projection 名</td><td>QuickReport2000001（自動生成）</td></tr>
+        <tr><td>カテゴリ</td><td>未設定</td></tr>
+        <tr><td>定義更新日</td><td>2026-05-26</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="display:flex;gap:16px;margin-top:40px;">
+    <a href="requirements.html" style="display:inline-block;background:var(--gray-10);color:var(--text-01);border:1px solid var(--gray-20);font-size:13px;font-weight:700;padding:10px 24px;text-decoration:none;">← 要件定義書</a>
+    <a href="test-report.html" style="display:inline-block;background:#009d9a;color:#fff;font-size:13px;font-weight:700;padding:10px 24px;text-decoration:none;">次へ: テスト結果報告書 →</a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">発注残確認レポート — 詳細設計書 v1.0</div>
+      <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
+    </div>
+    <div class="footer-links"><a href="../index.html">← シナリオ一覧</a></div>
+  </div>
+</footer>
+</body>
+</html>

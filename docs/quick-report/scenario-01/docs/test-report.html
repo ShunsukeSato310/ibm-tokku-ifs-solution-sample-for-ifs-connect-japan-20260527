@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>テスト結果報告書 — 発注残確認レポート</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,0.7);">クイックレポート</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <a href="../scenario-01/index.html" style="color:rgba(255,255,255,0.7);">シナリオ 1</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <span>テスト結果報告書</span>
+  </div>
+  <nav class="site-header-nav">
+    <a href="../index.html">← シナリオ一覧</a>
+  </nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#006161 0%,#009d9a 60%,#007d79 100%);padding:40px 40px 32px;">
+  <div class="hero-inner" style="display:block;">
+    <div class="hero-eyebrow">クイックレポート シナリオ 1 — テスト結果報告書</div>
+    <h1 style="font-size:28px;">発注残確認レポート<br>テスト結果報告書</h1>
+    <p style="margin-bottom:0;">テスト実施日: 2026-05-26　／　環境: IFS Cloud 25R2 (pwojaqu-dev1)</p>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="section-label">テスト概要</div>
+  <div class="sc-req-box" style="max-width:100%;">
+    <table class="sc-req-table">
+      <tbody>
+        <tr><td style="width:180px;background:var(--gray-10);font-weight:600;color:var(--text-02);">テスト方式</td><td>IFS Cloud 実機テスト（AI エージェントによる自動実行）</td></tr>
+        <tr><td style="background:var(--gray-10);font-weight:600;color:var(--text-02);">テスト環境</td><td>pwojaqu-dev1.build.ifs.cloud / IFS Cloud 25R2</td></tr>
+        <tr><td style="background:var(--gray-10);font-weight:600;color:var(--text-02);">テスト対象</td><td>クイックレポート ID: 2000001</td></tr>
+        <tr><td style="background:var(--gray-10);font-weight:600;color:var(--text-02);">総合判定</td><td><span class="tc-pass" style="font-size:14px;">✓ 合格（7 / 7 件 OK）</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-label" style="margin-top:40px;">テスト結果一覧</div>
+  <table class="sc-test-table">
+    <thead>
+      <tr><th>No.</th><th>テスト観点</th><th>確認内容</th><th>期待結果</th><th>実績</th><th>判定</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>SQL 構文検証</td>
+        <td>validate_sql ツールで SQL が正常に実行される</td>
+        <td>valid: true / 9件取得</td>
+        <td>valid: true / rowCount: 9</td>
+        <td><span class="tc-pass">✓ OK</span></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>ステータスフィルタ</td>
+        <td>OBJSTATE = 'Released' のみ抽出される</td>
+        <td>'Closed'（ORDER_NO=2）は除外</td>
+        <td>Released 9件のみ表示。ORDER_NO=2（Closed）は除外確認</td>
+        <td><span class="tc-pass">✓ OK</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>仕入先名結合</td>
+        <td>SUPPLIER_INFO との結合で仕入先名が表示される</td>
+        <td>"MF–External Supplier 1" が表示</td>
+        <td>全9件で仕入先名 "MF–External Supplier 1" 取得確認</td>
+        <td><span class="tc-pass">✓ OK</span></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>遅延フラグ</td>
+        <td>PLANNED_RECEIPT_DATE &lt; SYSDATE の行が '遅延' になる</td>
+        <td>全9件が過去日のため '遅延'</td>
+        <td>全9件の遅延フラグ = '遅延' 確認</td>
+        <td><span class="tc-pass">✓ OK</span></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>ソート順</td>
+        <td>入庫予定日昇順で並ぶ</td>
+        <td>2026-04-28 → 2026-05-18 の順</td>
+        <td>JP-PO-005〜009 (04-28) が先頭、MPSIM-ORD3 (05-18) が後続</td>
+        <td><span class="tc-pass">✓ OK</span></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>QR 作成・登録</td>
+        <td>IFS Cloud に正式登録される</td>
+        <td>QuickReportId = 2000001 で登録</td>
+        <td>API 確認: QuickReportId=2000001、Description 正常登録</td>
+        <td><span class="tc-pass">✓ OK</span></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>画面表示</td>
+        <td>IFS Cloud 実画面で9件が表示される</td>
+        <td>クイックレポート画面でデータ表示</td>
+        <td>/web/quickreport/2000001 アクセスで9件表示確認</td>
+        <td><span class="tc-pass">✓ OK</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-label" style="margin-top:40px;">画面エビデンス</div>
+
+  <div style="display:flex;flex-direction:column;gap:24px;">
+
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--text-02);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em;">① IFS Cloud ホーム画面（ログイン確認）</div>
+      <img src="../screenshots/ev-03-home.png" alt="IFS Cloud ホーム画面" style="max-width:100%;border:1px solid var(--gray-20);border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+      <p style="font-size:11px;color:var(--text-03);margin-top:6px;">ユーザー IFSAPP で IFS Cloud 25R2 にログイン完了</p>
+    </div>
+
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--text-02);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em;">② クイックレポート実行画面（9件表示確認）</div>
+      <img src="../screenshots/ev-05-qr-result.png" alt="クイックレポート実行結果" style="max-width:100%;border:1px solid var(--gray-20);border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+      <p style="font-size:11px;color:var(--text-03);margin-top:6px;">URL: /main/ifsapplications/web/quickreport/2000001 — 発注残9件が入庫予定日昇順で表示</p>
+    </div>
+
+  </div>
+
+  <div class="section-label" style="margin-top:40px;">取得データ（実績値）</div>
+  <table class="sc-test-table">
+    <thead>
+      <tr><th>購買オーダ番号</th><th>明細番号</th><th>品目番号</th><th>仕入先名</th><th>発注数量</th><th>入庫予定日</th><th>遅延フラグ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>JP-PO-005</td><td>1</td><td>MF-MRPTOP1-MRPPR1</td><td>MF–External Supplier 1</td><td>10</td><td>2026-04-28</td><td><span style="color:var(--red);font-weight:700;">遅延</span></td></tr>
+      <tr><td>JP-PO-006</td><td>1</td><td>MF-MRPTOP1-MRPPR1</td><td>MF–External Supplier 1</td><td>10</td><td>2026-04-28</td><td><span style="color:var(--red);font-weight:700;">遅延</span></td></tr>
+      <tr><td>JP-PO-007</td><td>1</td><td>MF-MRPTOP1-MRPPR1</td><td>MF–External Supplier 1</td><td>10</td><td>2026-04-28</td><td><span style="color:var(--red);font-weight:700;">遅延</span></td></tr>
+      <tr><td>JP-PO-008</td><td>1</td><td>MF-MRPTOP1-MRPPR1</td><td>MF–External Supplier 1</td><td>10</td><td>2026-04-28</td><td><span style="color:var(--red);font-weight:700;">遅延</span></td></tr>
+      <tr><td>JP-PO-009</td><td>1</td><td>MF-MRPTOP1-MRPPR1</td><td>MF–External Supplier 1</td><td>10</td><td>2026-04-28</td><td><span style="color:var(--red);font-weight:700;">遅延</span></td></tr>
+      <tr><td>MPSIM-ORD3</td><td>1</td><td>MF-MRPTOP1-MSPR1</td><td>MF–External Supplier 1</td><td>5</td><td>2026-05-18</td><td><span style="color:var(--red);font-weight:700;">遅延</span></td></tr>
+      <tr><td>MPSIM-ORD3</td><td>2</td><td>MF-MRPTOP1-MRPPR1</td><td>MF–External Supplier 1</td><td>5</td><td>2026-05-18</td><td><span style="color:var(--red);font-weight:700;">遅延</span></td></tr>
+      <tr><td>MPSIM-ORD3</td><td>3</td><td>MF-MSTOP1-MSPR1</td><td>MF–External Supplier 1</td><td>5</td><td>2026-05-18</td><td><span style="color:var(--red);font-weight:700;">遅延</span></td></tr>
+      <tr><td>MPSIM-ORD3</td><td>4</td><td>MF-MSTOP1-MRPPR1</td><td>MF–External Supplier 1</td><td>5</td><td>2026-05-18</td><td><span style="color:var(--red);font-weight:700;">遅延</span></td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:40px;">
+    <a href="design.html" style="display:inline-block;background:var(--gray-10);color:var(--text-01);border:1px solid var(--gray-20);font-size:13px;font-weight:700;padding:10px 24px;text-decoration:none;">← 詳細設計書</a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">発注残確認レポート — テスト結果報告書 v1.0</div>
+      <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
+    </div>
+    <div class="footer-links"><a href="../index.html">← シナリオ一覧</a></div>
+  </div>
+</footer>
+</body>
+</html>
