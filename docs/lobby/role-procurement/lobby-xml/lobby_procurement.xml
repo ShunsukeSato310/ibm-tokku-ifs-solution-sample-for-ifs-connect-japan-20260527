@@ -7,7 +7,7 @@
   <Locked>false</Locked>
   <Component>PURCH</Component>
   <AurenaLobby>true</AurenaLobby>
-  <PageId>1bc65fc4-7d4e-470b-af89-e3b55d754822</PageId>
+  <PageId>03492b1d-edd6-4b42-8a59-77e7f07f1966</PageId>
   <PageTitle>調達担当者ロビー</PageTitle>
   <Layout><Groups><Group><Elements>
     <!-- el-jp-bar-qty-006.xml -->
@@ -50,51 +50,6 @@
         </XColumn>
         <YColumn>
             <Name>発注数量</Name>
-        </YColumn>
-    </XYDataSeries>
-    <UnifiedElement />
-    <ElementConfig />
-</BarChart>
-    <!-- el-jp-bar-vendor-009.xml -->
-    <BarChart>
-    <Author>IBM Tokku Team</Author>
-    <Keywords>調達,仕入先,棒グラフ</Keywords>
-    <LastModified>2026-05-26-00.00.00</LastModified>
-    <Locked>false</Locked>
-    <Component>PURCH</Component>
-    <Row>4</Row>
-    <Column>0</Column>
-    <RowSpan>2</RowSpan>
-    <ColumnSpan>4</ColumnSpan>
-    <Title>仕入先別発注件数（棒グラフ）</Title>
-    <Background>#FFFFFFFF</Background>
-    <Foreground>#FF000000</Foreground>
-    <Name>JP PO Vendor Bar</Name>
-    <ID>el-jp-bar-vendor-009</ID>
-    <DataSourceId>ds-jp-po-vendor-010</DataSourceId>
-    <ColumnMapping>
-        <MappedColumns>
-            <MappedColumn>
-                <Column>VENDOR_NO</Column>
-                <Name>VENDOR_NO</Name>
-                <DisplayName>仕入先</DisplayName>
-                <ConditionalFormats />
-            </MappedColumn>
-            <MappedColumn>
-                <Column>ORDER_NO</Column>
-                <Name>ORDER_NO</Name>
-                <DisplayName>発注件数</DisplayName>
-                <ConditionalFormats />
-            </MappedColumn>
-        </MappedColumns>
-    </ColumnMapping>
-    <XYDataSeries>
-        <TopNOptions />
-        <XColumn>
-            <Name>VENDOR_NO</Name>
-        </XColumn>
-        <YColumn>
-            <Name>ORDER_NO</Name>
         </YColumn>
     </XYDataSeries>
     <UnifiedElement />
@@ -381,51 +336,6 @@
     <UnifiedElement />
     <ElementConfig />
 </Counter>
-    <!-- el-jp-line-trend-012.xml -->
-    <LineChart>
-    <Author>IBM Tokku Team</Author>
-    <Keywords>調達,トレンド,折れ線</Keywords>
-    <LastModified>2026-05-26-00.00.00</LastModified>
-    <Locked>false</Locked>
-    <Component>PURCH</Component>
-    <Row>4</Row>
-    <Column>4</Column>
-    <RowSpan>2</RowSpan>
-    <ColumnSpan>4</ColumnSpan>
-    <Title>納期別発注件数トレンド（折れ線）</Title>
-    <Background>#FFFFFFFF</Background>
-    <Foreground>#FF000000</Foreground>
-    <Name>JP PO Trend Line</Name>
-    <ID>el-jp-line-trend-012</ID>
-    <DataSourceId>ds-jp-po-trend-011</DataSourceId>
-    <ColumnMapping>
-        <MappedColumns>
-            <MappedColumn>
-                <Column>DATE_KEY</Column>
-                <Name>DATE_KEY</Name>
-                <DisplayName>日付</DisplayName>
-                <ConditionalFormats />
-            </MappedColumn>
-            <MappedColumn>
-                <Column>ORDER_NO</Column>
-                <Name>ORDER_NO</Name>
-                <DisplayName>件数</DisplayName>
-                <ConditionalFormats />
-            </MappedColumn>
-        </MappedColumns>
-    </ColumnMapping>
-    <XYDataSeries>
-        <TopNOptions />
-        <XColumn>
-            <Name>DATE_KEY</Name>
-        </XColumn>
-        <YColumn>
-            <Name>ORDER_NO</Name>
-        </YColumn>
-    </XYDataSeries>
-    <UnifiedElement />
-    <ElementConfig />
-</LineChart>
     <!-- el-jp-links-006.xml -->
     <LinksList>
     <Author>IBM Tokku Team</Author>
