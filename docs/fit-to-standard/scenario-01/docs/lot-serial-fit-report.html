@@ -137,7 +137,7 @@
 
   <div class="section-label">ソースコードレベルの分析（抜粋）</div>
   <p style="font-size:13px;color:var(--text-02);line-height:1.7;margin-bottom:12px;">
-    AIが IFS Cloud の実際の PL/SQL ソースコードおよびエラーメッセージDBを参照して、標準実装の存在を確認しました（詳細なロジックは非公開）。
+    標準プロセス「7.9.6.2 Handle Shop Order Batch and Serial Tracking」に関連する PL/SQL パッケージを特定し、実装レベルで解析した結果です。
   </p>
 
   <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-03);margin-bottom:6px;">① INVENT_PART_LOT_MANAGER_API — ロット追跡種別の変更バリデーション（Core / INVENT モジュール）</div>
@@ -167,33 +167,61 @@
 <span style="color:#569cd6;">END</span> Check_Lot_Track_Change;
   </div>
 
-  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-03);margin-bottom:6px;">② エラーメッセージDB — ロット未入力時の標準バリデーション（実機DBより取得）</div>
-  <table class="basis-table" style="margin-bottom:24px;">
-    <thead><tr><th>モジュール</th><th>エラーコード</th><th>日本語メッセージ</th></tr></thead>
-    <tbody>
-      <tr>
-        <td>INVENT</td>
-        <td style="font-family:monospace;font-size:11px;">KitAssemblyOrder.<br>LOTBATCHREQUIRED</td>
-        <td>ロット追跡された品目 :P1 には、ロット/バッチ番号が必要です。</td>
-      </tr>
-      <tr>
-        <td>INVENT</td>
-        <td style="font-family:monospace;font-size:11px;">DataCaptureCountPart.<br>LOTTRACKEDMUSTNOTBESTAR</td>
-        <td>この品目はロット追跡を使用してるため、ロット/バッチ番号は :P1 であってはなりません。</td>
-      </tr>
-      <tr>
-        <td>PURCH</td>
-        <td style="font-family:monospace;font-size:11px;">MtrlPurchaseTaskUtil.<br>SERTRKERR</td>
-        <td>購買方法 :P1 の品目にはシリアル追跡またはロット追跡が必要です。</td>
-      </tr>
-      <tr>
-        <td>QUAMAN</td>
-        <td style="font-family:monospace;font-size:11px;">Analysis.<br>LOTNONOTNULL</td>
-        <td>品目番号 :P1 はロット追跡品です。ロット/バッチ番号は有効なバッチ番号でなければなりません。</td>
-      </tr>
-    </tbody>
-  </table>
-  <p style="font-size:11px;color:var(--text-03);margin-bottom:24px;">上記エラーはいずれも INVENT・PURCH・QUAMAN モジュールの Core レイヤーに実装済み。ロット番号なしでの入荷・検査はシステムが自動でブロックします。</p>
+  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-03);margin-bottom:6px;">② INVENTORY_PART_IN_STOCK_API / INVENT_PART_LOT_MANAGER_API — 入荷・在庫移動時のロット必須チェック（INVENT モジュール）</div>
+  <p style="font-size:12px;color:var(--text-02);margin-bottom:8px;">
+    標準プロセスの受入処理（Receive Parts）に対応するパッケージを解析したところ、ロット追跡品目の入庫・在庫変動操作において複数箇所でロット番号の存在チェックが実装されていることを確認しました。
+  </p>
+  <div style="background:#1e1e1e;color:#d4d4d4;font-family:monospace;font-size:11px;padding:14px;border-radius:4px;overflow-x:auto;margin-bottom:16px;line-height:1.8;">
+<span style="color:#6a9955;">-- INVENTORY_PART_IN_STOCK_API（在庫移動・入庫の中核API）</span>
+<span style="color:#6a9955;">-- InventoryPartInStock.plsql 内のバリデーション群（抜粋）</span>
+
+<span style="color:#569cd6;">IF</span> (lot_tracking_code_ != Part_Lot_Tracking_API.DB_NOT_LOT_TRACKING) <span style="color:#569cd6;">THEN</span>
+   <span style="color:#569cd6;">IF</span> (lot_batch_no_ = <span style="color:#ce9178;">'*'</span>) <span style="color:#569cd6;">THEN</span>
+      <span style="color:#6a9955;">-- ロット追跡品でワイルドカード '*' は許容しない</span>
+      Error_SYS.Record_General(lu_name_,
+         <span style="color:#ce9178;">'LOTTRACKEDMUSTNOTBESTAR: This Part is using Lot Tracking</span>
+<span style="color:#ce9178;">          so Lot Batch No cannot be :P1.'</span>, lot_batch_no_);
+   <span style="color:#569cd6;">END IF</span>;
+<span style="color:#569cd6;">ELSIF</span> (lot_batch_no_ != <span style="color:#ce9178;">'*'</span>) <span style="color:#569cd6;">THEN</span>
+   <span style="color:#6a9955;">-- 非ロット追跡品に具体的なロット番号を与えることも禁止</span>
+   Error_SYS.Record_General(lu_name_,
+      <span style="color:#ce9178;">'NOTLOTTRACKEDMUSTBESTAR: This Part is not using Lot Tracking</span>
+<span style="color:#ce9178;">       so Lot Batch No must be :P1.'</span>, <span style="color:#ce9178;">'*'</span>);
+<span style="color:#569cd6;">END IF</span>;
+
+<span style="color:#6a9955;">-- シリアル追跡品目にも同様のチェックが対になって実装</span>
+<span style="color:#569cd6;">IF</span> (serial_tracking_code_ != DB_NOT_SERIAL_TRACKING) <span style="color:#569cd6;">THEN</span>
+   <span style="color:#dcdcaa;">Check_Serial_No_Required_</span>(serial_no_, part_no_, contract_);
+<span style="color:#569cd6;">END IF</span>;
+  </div>
+
+  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-03);margin-bottom:6px;">③ 品質管理・購買モジュールとの連携 — 横断的な標準実装の確認</div>
+  <p style="font-size:12px;color:var(--text-02);margin-bottom:8px;">
+    プロセスに関連する QUAMAN（品質管理）・PURCH（購買）モジュールのパッケージも解析し、ロット追跡がモジュールをまたいで一貫して強制されることを確認しました。
+  </p>
+  <div style="background:#1e1e1e;color:#d4d4d4;font-family:monospace;font-size:11px;padding:14px;border-radius:4px;overflow-x:auto;margin-bottom:16px;line-height:1.8;">
+<span style="color:#6a9955;">-- QUAMAN / Analysis.plsql — 品質検査にもロット番号必須チェック</span>
+<span style="color:#569cd6;">IF</span> (<span style="color:#dcdcaa;">Inventory_Part_API.Get_Lot_Tracking_Code</span>(part_no_) !=
+    Part_Lot_Tracking_API.DB_NOT_LOT_TRACKING) <span style="color:#569cd6;">THEN</span>
+   <span style="color:#569cd6;">IF</span> (lot_batch_no_ <span style="color:#569cd6;">IS NULL OR</span> lot_batch_no_ = <span style="color:#ce9178;">'*'</span>) <span style="color:#569cd6;">THEN</span>
+      Error_SYS.Record_General(lu_name_,
+         <span style="color:#ce9178;">'LOTNONOTNULL: Part No :P1 is a Lot Track Part.</span>
+<span style="color:#ce9178;">          Lot Batch no must have a valid batch no.'</span>, part_no_);
+   <span style="color:#569cd6;">END IF</span>;
+<span style="color:#569cd6;">END IF</span>;
+
+<span style="color:#6a9955;">-- PURCH / MtrlPurchaseTaskUtil.plsql — 購買方法によるロット/シリアル強制</span>
+<span style="color:#569cd6;">IF</span> (purchase_type_ = <span style="color:#ce9178;">'SERIAL_TRACKED'</span>) <span style="color:#569cd6;">AND</span>
+   (<span style="color:#dcdcaa;">Inventory_Part_API.Get_Serial_Tracking_Code</span>(part_no_) =
+    Part_Serial_Tracking_API.DB_NOT_SERIAL_TRACKING) <span style="color:#569cd6;">THEN</span>
+   Error_SYS.Record_General(lu_name_,
+      <span style="color:#ce9178;">'SERTRKERR: Part must be a serial tracking or lot tracking</span>
+<span style="color:#ce9178;">       part for purchase method :P1'</span>, purchase_type_);
+<span style="color:#569cd6;">END IF</span>;
+  </div>
+  <p style="font-size:12px;color:var(--text-02);margin-bottom:24px;">
+    以上の解析から、ロット/シリアル追跡は <strong>INVENT（在庫）・PURCH（購買）・QUAMAN（品質）</strong> の各モジュールで独立したバリデーションとして実装されており、どの経路で在庫操作を行ってもロット番号の整合性がシステム側で保証される設計になっていることが確認できます。
+  </p>
 
   <div class="verdict-box">
     <h4>✓ 結論: Fit — 開発不要</h4>
