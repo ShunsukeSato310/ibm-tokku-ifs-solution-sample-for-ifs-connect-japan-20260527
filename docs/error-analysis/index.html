@@ -111,43 +111,24 @@
     <div class="analysis-row"><dt>緊急度</dt><dd style="color:#da1e28;font-weight:700;">高 — 承認フロー停止中</dd></div>
     <div class="analysis-row"><dt>根本原因</dt><dd>ユーザー IBM-BOB が承認グループ PROC-APPROVAL-L2 に登録されていない。人事異動または初期設定漏れが考えられます。</dd></div>
     <ul class="resolve-steps">
-      <li><strong>即時対応:</strong> IFS Cloud → 調達管理 → <strong>Purchase Authorization Basic Data</strong> → 「Authorization Groups」タブ → 対象グループ（PROC-APPROVAL-L2）を選択 → 下段「Authorization Group Members」に IBM-BOB を追加</li>
+      <li><strong>即時対応:</strong> IFS Cloud → 調達管理 → 承認 → <strong>購買承認基本情報</strong> → 「承認グループ」タブ → 承認グループIDを追加</li>
       <li><strong>確認:</strong> 同グループに属すべき他ユーザーも同様に未登録でないか確認（同一バッチ処理で発生している可能性）</li>
       <li><strong>再発防止:</strong> ユーザー登録・異動時の承認グループ設定チェックリストを運用ルールに追加</li>
     </ul>
   </div>
 
-  <div class="section-label">参考 — 承認グループ設定画面（Purchase Authorization Basic Data）</div>
-  <p style="font-size:12px;color:var(--text-02);margin-bottom:10px;">対応先となる IFS Cloud 標準画面の構成。ナビゲーター: 調達管理 → Purchase Authorization Basic Data → 「Authorization Groups」タブ。</p>
-  <div style="border:1px solid var(--gray-20);border-radius:4px;overflow:hidden;max-width:860px;margin-bottom:8px;">
-    <div style="background:#3d3d3d;padding:8px 12px;font-size:12px;color:rgba(255,255,255,.7);">IFS Cloud 25R2 — Purchase Authorization Basic Data（画面構成イメージ）</div>
-    <div style="background:#f4f4f4;padding:6px 12px;font-size:11px;color:var(--text-02);border-bottom:1px solid var(--gray-20);">調達管理 › Purchase Authorization Basic Data</div>
-    <div style="background:#fff;padding:0;">
-      <div style="background:#e8f4fd;border-bottom:1px solid var(--gray-20);padding:6px 16px;font-size:12px;font-weight:700;color:#0043ce;">Company: IBM-JP</div>
-      <div style="display:flex;border-bottom:1px solid var(--gray-20);">
-        <div style="padding:8px 16px;font-size:12px;border-right:1px solid var(--gray-20);color:var(--text-02);">Authorizers</div>
-        <div style="padding:8px 16px;font-size:12px;border-right:1px solid var(--gray-20);background:#fff3e0;font-weight:700;color:#ff832b;border-bottom:2px solid #ff832b;">Authorization Groups ★</div>
-        <div style="padding:8px 16px;font-size:12px;border-right:1px solid var(--gray-20);color:var(--text-02);">Authorization Routing Templates</div>
-        <div style="padding:8px 16px;font-size:12px;color:var(--text-02);">Reject Reasons</div>
-      </div>
-      <table style="width:100%;border-collapse:collapse;font-size:12px;">
-        <thead><tr style="background:var(--gray-10);"><th style="padding:6px 12px;text-align:left;border-bottom:1px solid var(--gray-20);">Authorization Group ID</th><th style="padding:6px 12px;text-align:left;border-bottom:1px solid var(--gray-20);">Description</th></tr></thead>
-        <tbody>
-          <tr style="background:#fff3e0;"><td style="padding:6px 12px;font-weight:700;color:#ff832b;">PROC-APPROVAL-L2</td><td style="padding:6px 12px;">調達承認 L2（部長クラス）</td></tr>
-          <tr><td style="padding:6px 12px;">PROC-APPROVAL-L1</td><td style="padding:6px 12px;">調達承認 L1（担当者クラス）</td></tr>
-        </tbody>
-      </table>
-      <div style="background:var(--gray-10);padding:6px 12px;font-size:11px;font-weight:700;color:var(--text-02);border-top:1px solid var(--gray-20);border-bottom:1px solid var(--gray-20);">Authorization Group Members — PROC-APPROVAL-L2</div>
-      <table style="width:100%;border-collapse:collapse;font-size:12px;">
-        <thead><tr style="background:var(--gray-10);"><th style="padding:6px 12px;text-align:left;border-bottom:1px solid var(--gray-20);">Authorize ID</th><th style="padding:6px 12px;text-align:left;border-bottom:1px solid var(--gray-20);">Name</th></tr></thead>
-        <tbody>
-          <tr><td style="padding:6px 12px;">IBM-ALICE</td><td style="padding:6px 12px;">IBM Alice（承認者）</td></tr>
-          <tr style="background:#ffeeee;"><td style="padding:6px 12px;color:#da1e28;font-weight:700;">IBM-BOB ← ここに追加が必要</td><td style="padding:6px 12px;color:#da1e28;">未登録</td></tr>
-        </tbody>
-      </table>
+  <div class="section-label">参考 — 承認グループ設定画面（購買承認基本情報）</div>
+  <p style="font-size:12px;color:var(--text-02);margin-bottom:10px;">対応先となる IFS Cloud 標準画面。ナビゲーター: 調達管理 → 承認 → <strong>購買承認基本情報</strong> → 「承認グループ」タブ。対象グループを選択し、承認グループIDを追加することでエラーを解消できます。</p>
+  <div style="border:1px solid var(--gray-20);border-radius:4px;overflow:hidden;max-width:900px;margin-bottom:8px;box-shadow:0 4px 16px rgba(0,0,0,.08);">
+    <div style="background:#3d3d3d;padding:8px 12px;display:flex;align-items:center;gap:6px;">
+      <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+      <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
+      <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+      <span style="font-size:12px;color:rgba(255,255,255,.7);margin-left:8px;">IFS Cloud 25R2 — 購買承認基本情報 / 承認グループタブ</span>
     </div>
+    <img src="screenshots/auth-group-setting.png" alt="IFS Cloud 実機 — 購買承認基本情報 承認グループ設定画面" style="width:100%;display:block;">
   </div>
-  <p style="font-size:11px;color:var(--text-03);margin-bottom:24px;">実際の画面: IFS Cloud 25R2 / PurchaseAuthorizationBasicData（PURCH モジュール）</p>
+  <p style="font-size:11px;color:var(--text-03);margin-bottom:24px;">▲ IFS Cloud 25R2 実機スクリーンショット。「承認グループ」タブで承認グループIDを登録する。</p>
 
   <div class="section-label">対応エラーカテゴリ（サンプル）</div>
   <table class="sc-table">
