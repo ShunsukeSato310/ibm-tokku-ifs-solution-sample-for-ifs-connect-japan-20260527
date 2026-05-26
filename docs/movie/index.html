@@ -7,60 +7,58 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'IBM Plex Sans','Helvetica Neue',sans-serif;background:#080808;color:#fff;overflow:hidden;width:100vw;height:100vh;}
+body{font-family:'IBM Plex Sans','Helvetica Neue',sans-serif;background:#0a0a1e;color:#fff;overflow:hidden;width:100vw;height:100vh;}
 #stage{position:relative;width:100vw;height:100vh;}
-.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity 1s ease;pointer-events:none;padding:60px 80px;}
+
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity .9s;pointer-events:none;padding:48px 72px;}
 .scene.active{opacity:1;pointer-events:auto;}
 
-/* Typography */
-.label{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:20px;}
-.title{font-size:clamp(32px,5vw,64px);font-weight:700;line-height:1.1;letter-spacing:-.02em;}
-.title-sm{font-size:clamp(26px,3.5vw,48px);font-weight:700;line-height:1.15;letter-spacing:-.02em;}
-.desc{font-size:clamp(14px,1.5vw,18px);color:rgba(255,255,255,.55);line-height:1.8;font-weight:300;max-width:680px;}
+/* slide-up animation for children */
+@keyframes slideUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@keyframes countUp{from{opacity:0;}to{opacity:1;}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(15,98,254,.4);}50%{box-shadow:0 0 0 16px rgba(15,98,254,0);}}
+@keyframes barGrow{from{width:0;}to{width:var(--w,100%);}}
+@keyframes fadeSlide{from{opacity:0;transform:translateX(-20px);}to{opacity:1;transform:translateX(0);}}
 
-/* 字幕 */
-#caption{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:rgba(10,10,10,.85);backdrop-filter:blur(8px);color:rgba(255,255,255,.9);font-size:15px;line-height:1.7;padding:10px 24px;border-radius:2px;border-bottom:2px solid #0f62fe;max-width:800px;text-align:center;opacity:0;transition:opacity .5s;pointer-events:none;z-index:100;font-weight:300;}
+.su{opacity:0;}.su.go{animation:slideUp .6s ease forwards;}
+.su.go.d1{animation-delay:.1s;}.su.go.d2{animation-delay:.3s;}.su.go.d3{animation-delay:.5s;}.su.go.d4{animation-delay:.7s;}.su.go.d5{animation-delay:.9s;}
+
+.label{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px;}
+.title{font-size:clamp(38px,5.5vw,72px);font-weight:700;line-height:1.1;letter-spacing:-.02em;}
+.title-md{font-size:clamp(28px,4vw,52px);font-weight:700;line-height:1.15;}
+.desc{font-size:clamp(16px,1.8vw,22px);color:rgba(255,255,255,.65);line-height:1.75;font-weight:300;max-width:680px;}
+
+/* caption */
+#caption{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(0,0,18,.82);backdrop-filter:blur(10px);color:rgba(255,255,255,.92);font-size:16px;line-height:1.7;padding:12px 28px;border-radius:3px;border-left:3px solid #0f62fe;max-width:840px;text-align:center;opacity:0;transition:opacity .4s;z-index:100;font-weight:300;}
 #caption.show{opacity:1;}
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#0f62fe,#8a3ffc);width:0%;z-index:200;}
+#timer{position:fixed;top:12px;right:16px;font-size:11px;color:rgba(255,255,255,.3);z-index:200;letter-spacing:.08em;}
+#ctrl{position:fixed;bottom:8px;right:16px;font-size:12px;color:rgba(255,255,255,.3);z-index:200;cursor:pointer;}
+#ctrl:hover{color:rgba(255,255,255,.7);}
 
-/* 進捗 */
-#prog{position:fixed;top:0;left:0;height:2px;background:#0f62fe;width:0%;z-index:200;transition:width .3s linear;}
-#timer{position:fixed;top:14px;right:20px;font-size:11px;color:rgba(255,255,255,.25);z-index:200;font-weight:600;letter-spacing:.08em;}
-#ctrl{position:fixed;bottom:10px;right:20px;font-size:11px;color:rgba(255,255,255,.25);z-index:200;cursor:pointer;}
-#ctrl:hover{color:rgba(255,255,255,.6);}
-
-/* 仕切り線スタイル */
-.divider{width:40px;height:1px;background:rgba(255,255,255,.2);margin:24px auto;}
-
-/* アクセントライン */
-.accent-line{display:inline-block;width:3px;height:100%;position:absolute;left:0;top:0;border-radius:0;}
-
-/* 値リスト（カード廃止） */
-.value-list{display:flex;flex-direction:column;gap:1px;max-width:660px;width:100%;margin-top:28px;}
-.value-item{position:relative;padding:16px 20px 16px 28px;font-size:15px;color:rgba(255,255,255,.75);font-weight:300;line-height:1.5;border-left:2px solid rgba(255,255,255,.1);}
-.value-item strong{color:#fff;font-weight:600;}
-.value-item::before{content:'';position:absolute;left:-2px;top:0;width:2px;height:0;background:#0f62fe;transition:height .6s ease;}
-.value-item.lit::before{height:100%;}
+/* role cards */
+.rcard{padding:18px 22px;border-radius:6px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);transition:all .4s;}
+.rcard h4{font-size:16px;font-weight:700;margin-bottom:6px;}
+.rcard p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;}
 
 /* KPI */
-.kpi-grid{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;margin-top:32px;}
-.kpi-item{text-align:center;}
-.kpi-num{font-size:clamp(36px,5vw,60px);font-weight:700;letter-spacing:-.03em;line-height:1;}
-.kpi-unit{font-size:11px;color:rgba(255,255,255,.35);margin-top:6px;letter-spacing:.1em;text-transform:uppercase;}
+.kn{font-size:clamp(44px,6vw,72px);font-weight:700;line-height:1;}
+.ku{font-size:13px;color:rgba(255,255,255,.4);margin-top:6px;letter-spacing:.1em;text-transform:uppercase;}
 
-/* タグ */
-.chip-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:20px;}
-.chip{font-size:12px;font-weight:400;padding:5px 14px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);letter-spacing:.03em;}
+/* sol items */
+.si{padding:14px 20px 14px 24px;border-left:3px solid;font-size:clamp(15px,1.6vw,18px);color:rgba(255,255,255,.8);line-height:1.6;}
 
-/* Bob アイコン */
-.bob-icon{width:72px;height:72px;border-radius:50%;background:#0f62fe;color:#fff;font-size:28px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+/* flow diagram */
+.flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;margin-top:24px;}
+.fbox{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);padding:12px 20px;font-size:13px;text-align:center;min-width:110px;}
+.farr{font-size:22px;color:rgba(255,255,255,.3);padding:0 8px;}
 
-/* sol カード */
-.sol-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);padding:24px 28px;max-width:660px;width:100%;margin-top:28px;}
-.sol-num{font-size:11px;font-weight:600;letter-spacing:.15em;color:rgba(255,255,255,.25);margin-bottom:12px;}
-.sol-title{font-size:22px;font-weight:700;margin-bottom:10px;letter-spacing:-.01em;}
-.sol-body{font-size:14px;color:rgba(255,255,255,.55);font-weight:300;line-height:1.8;}
-.sol-points{display:flex;flex-direction:column;gap:10px;margin-top:16px;}
-.sol-pt{font-size:13px;color:rgba(255,255,255,.7);padding-left:16px;border-left:2px solid;line-height:1.6;}
+/* bar chart */
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.bar-label{font-size:13px;color:rgba(255,255,255,.6);width:120px;text-align:right;flex-shrink:0;}
+.bar-track{flex:1;background:rgba(255,255,255,.08);height:28px;border-radius:2px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:2px;width:0;transition:width 1.2s ease;}
+.bar-val{font-size:13px;font-weight:700;width:44px;flex-shrink:0;}
 </style>
 </head>
 <body>
@@ -69,173 +67,211 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',sans-serif;background:#080808;
 <div id="stage">
 
 <!-- s1: タイトル 0-15s -->
-<div class="scene" id="s1" style="background:#080808;">
-  <div style="display:flex;flex-direction:row;align-items:center;gap:64px;max-width:1000px;width:100%;">
+<div class="scene" id="s1" style="background:linear-gradient(135deg,#001141 0%,#001d6c 55%,#0f62fe 100%);">
+  <div style="display:flex;align-items:center;gap:60px;max-width:1020px;width:100%;">
     <div style="flex:1;">
-      <div class="label">IBM AI for IFS Cloud</div>
-      <h1 class="title" style="margin-bottom:20px;">IBM Bob が<br>IFS Cloud 導入を<br>変える</h1>
-      <p class="desc">全プロジェクト対応 AI エージェント<br>× IFS Cloud 特化ナレッジ基盤</p>
+      <div class="label su" id="s1a">IBM AI for IFS Cloud</div>
+      <h1 class="title su d1" id="s1b" style="margin-bottom:20px;">IBM Bob が<br>IFS Cloud 導入を<br>変える</h1>
+      <p class="desc su d2" id="s1c">全プロジェクト対応 AI エージェント<br>× IFS Cloud 特化ナレッジ基盤</p>
+      <div class="su d3" id="s1d" style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
+        <span style="background:rgba(255,255,255,.12);padding:6px 16px;font-size:13px;border-radius:20px;">業務設計</span>
+        <span style="background:rgba(255,255,255,.12);padding:6px 16px;font-size:13px;border-radius:20px;">システム設計</span>
+        <span style="background:rgba(255,255,255,.12);padding:6px 16px;font-size:13px;border-radius:20px;">仕様書駆動開発</span>
+        <span style="background:rgba(255,255,255,.12);padding:6px 16px;font-size:13px;border-radius:20px;">マニュアル自動生成</span>
+      </div>
     </div>
-    <div style="flex:1;display:flex;align-items:center;justify-content:center;">
-      <img src="../images/asset_summary.png" alt="" style="width:100%;max-width:440px;height:auto;opacity:.9;">
+    <div style="flex:.9;display:flex;align-items:center;">
+      <img src="../images/asset_summary.png" alt="" class="su d2" id="s1e" style="width:100%;max-width:440px;filter:drop-shadow(0 0 32px rgba(15,98,254,.5));">
     </div>
   </div>
 </div>
 
 <!-- s2: Bob 4役割 15-45s -->
-<div class="scene" id="s2" style="background:#080808;">
-  <div style="max-width:800px;width:100%;">
-    <div class="label">AI エージェント IBM Bob</div>
-    <h2 class="title-sm" style="margin-bottom:8px;">プロジェクト全フェーズを支援</h2>
-    <div class="divider" style="margin:20px 0;"></div>
-    <div class="value-list" id="vlist">
-      <div class="value-item" id="vi0"><strong style="color:#60a5fa;">業務設計　</strong>要件をヒアリングし、Fit to Standard を目指した新業務の構築に寄り添う</div>
-      <div class="value-item" id="vi1"><strong style="color:#a78bfa;">システム設計　</strong>IFS Cloud ナレッジを活用したデータモデル・API 設計を支援</div>
-      <div class="value-item" id="vi2"><strong style="color:#34d399;">仕様書駆動開発　</strong>AI が仕様書を自動生成。人間はレビューと意思決定に集中</div>
-      <div class="value-item" id="vi3"><strong style="color:#fb923c;">作業記録・マニュアル　</strong>あなたの作業を記録し、業務マニュアルを自動生成</div>
+<div class="scene" id="s2" style="background:linear-gradient(135deg,#0a0a1e 0%,#12123a 100%);">
+  <div style="max-width:860px;width:100%;">
+    <div class="label su" id="s2a">AI エージェント — IBM Bob</div>
+    <h2 class="title-md su d1" id="s2b" style="margin-bottom:24px;">プロジェクト全フェーズを支援</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;" id="s2g">
+      <div class="rcard su d2" id="s2c" style="border-left:3px solid #60a5fa;">
+        <h4>🎯 業務設計</h4>
+        <p>要件をヒアリングし、Fit to Standard を目指した新業務の構築に寄り添う</p>
+      </div>
+      <div class="rcard su d3" id="s2d" style="border-left:3px solid #a78bfa;">
+        <h4>🏗️ システム設計</h4>
+        <p>IFS Cloud ナレッジを活用したデータモデル・API 設計を支援する</p>
+      </div>
+      <div class="rcard su d4" id="s2e" style="border-left:3px solid #34d399;">
+        <h4>⚙️ 仕様書駆動開発</h4>
+        <p>AI が仕様書を自動生成。人間はレビューと意思決定に集中する</p>
+      </div>
+      <div class="rcard su d5" id="s2f" style="border-left:3px solid #fb923c;">
+        <h4>📄 作業記録・マニュアル</h4>
+        <p>あなたの作業を記録し、業務マニュアルを自動生成する</p>
+      </div>
     </div>
   </div>
 </div>
-
 <!-- s3: ナレッジ 45-75s -->
-<div class="scene" id="s3" style="background:#080808;">
-  <div style="display:flex;flex-direction:row;align-items:center;gap:56px;max-width:1000px;width:100%;">
+<div class="scene" id="s3" style="background:linear-gradient(135deg,#0a1a0a 0%,#0d2e14 100%);">
+  <div style="display:flex;align-items:center;gap:56px;max-width:1020px;width:100%;">
     <div style="flex:1;">
-      <div class="label">IFS Cloud 特化ナレッジ基盤</div>
-      <h2 class="title-sm" style="margin-bottom:16px;">蓄積されたナレッジが<br>AI の精度を高める</h2>
-      <div class="kpi-grid" style="justify-content:flex-start;gap:32px;margin-top:24px;">
-        <div class="kpi-item"><div class="kpi-num" style="color:#34d399;">1,200<span style="font-size:.5em;font-weight:300;">+</span></div><div class="kpi-unit">標準プロセス</div></div>
-        <div class="kpi-item"><div class="kpi-num" style="color:#34d399;">12,000<span style="font-size:.5em;font-weight:300;">+</span></div><div class="kpi-unit">画面構造</div></div>
-        <div class="kpi-item"><div class="kpi-num" style="color:#34d399;">8,000<span style="font-size:.5em;font-weight:300;">+</span></div><div class="kpi-unit">データモデル</div></div>
+      <div class="label su" id="s3a">IFS Cloud 特化ナレッジ基盤</div>
+      <h2 class="title-md su d1" id="s3b" style="margin-bottom:24px;">蓄積されたナレッジが<br>AI の精度を高める</h2>
+      <div style="display:flex;gap:28px;flex-wrap:wrap;margin-bottom:20px;">
+        <div class="su d2" id="s3c"><div class="kn" style="color:#34d399;" id="kn1">0</div><div class="ku">標準プロセス</div></div>
+        <div class="su d3" id="s3d"><div class="kn" style="color:#34d399;" id="kn2">0</div><div class="ku">画面構造</div></div>
+        <div class="su d4" id="s3e"><div class="kn" style="color:#34d399;" id="kn3">0</div><div class="ku">データモデル</div></div>
       </div>
-      <div class="chip-row" style="justify-content:flex-start;margin-top:20px;">
-        <span class="chip">Fit to Standard</span>
-        <span class="chip">データモデル設計</span>
-        <span class="chip">移行ジョブ自動生成</span>
-        <span class="chip">エラー分析</span>
+      <div class="su d5" id="s3f" style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="font-size:12px;padding:5px 12px;border:1px solid rgba(52,211,153,.3);color:rgba(52,211,153,.7);border-radius:20px;">Fit to Standard</span>
+        <span style="font-size:12px;padding:5px 12px;border:1px solid rgba(52,211,153,.3);color:rgba(52,211,153,.7);border-radius:20px;">データモデル設計</span>
+        <span style="font-size:12px;padding:5px 12px;border:1px solid rgba(52,211,153,.3);color:rgba(52,211,153,.7);border-radius:20px;">移行ジョブ自動生成</span>
+        <span style="font-size:12px;padding:5px 12px;border:1px solid rgba(52,211,153,.3);color:rgba(52,211,153,.7);border-radius:20px;">エラー分析</span>
       </div>
     </div>
-    <div style="flex:1;display:flex;align-items:center;justify-content:center;">
-      <img src="../images/asset_description.png" alt="" style="width:100%;max-width:420px;height:auto;opacity:.85;">
+    <div style="flex:.9;">
+      <img src="../images/asset_description.png" alt="" class="su d2" id="s3g" style="width:100%;max-width:420px;filter:drop-shadow(0 4px 20px rgba(0,0,0,.5));">
     </div>
   </div>
 </div>
 
-<!-- s4: Fit to Standard 75-105s -->
-<div class="scene" id="s4" style="background:#080808;">
-  <div style="max-width:720px;width:100%;">
-    <div class="label">Solution 01 / 04</div>
-    <h2 class="title-sm" style="margin-bottom:8px;color:#fb923c;">Fit to Standard 分析</h2>
-    <p class="desc" style="margin-bottom:0;">「どこまで標準でいけるか」を、要件定義フェーズで即座に可視化する</p>
-    <div class="sol-points" style="margin-top:24px;">
-      <div class="sol-pt" style="border-color:#fb923c;">無駄な開発コストを事前に排除し、スコープを最適化できる</div>
-      <div class="sol-pt" style="border-color:#fb923c;">客観的な根拠で、ステークホルダーへの標準活用を推進できる</div>
-      <div class="sol-pt" style="border-color:#fb923c;">バージョンアップ耐性の高いシステム設計を実現できる</div>
+<!-- s4: Sol01 Fit to Standard 75-105s -->
+<div class="scene" id="s4" style="background:linear-gradient(135deg,#1a0800 0%,#2d1200 60%,#1a0800 100%);">
+  <div style="max-width:800px;width:100%;">
+    <div class="label su" id="s4a">Solution 01 / 04</div>
+    <h2 class="title-md su d1" id="s4b" style="color:#fb923c;margin-bottom:16px;">Fit to Standard 分析</h2>
+    <p class="desc su d2" id="s4c" style="margin-bottom:24px;">「どこまで標準でいけるか」を要件定義フェーズで即座に可視化する</p>
+    <!-- bar chart -->
+    <div class="su d3" id="s4d">
+      <div class="bar-row"><div class="bar-label">Fit（開発不要）</div><div class="bar-track"><div class="bar-fill" id="bf1" style="background:#34d399;--w:55%;"></div></div><div class="bar-val" style="color:#34d399;">55%</div></div>
+      <div class="bar-row"><div class="bar-label">Config（設定のみ）</div><div class="bar-track"><div class="bar-fill" id="bf2" style="background:#60a5fa;--w:25%;"></div></div><div class="bar-val" style="color:#60a5fa;">25%</div></div>
+      <div class="bar-row"><div class="bar-label">Dev（開発必要）</div><div class="bar-track"><div class="bar-fill" id="bf3" style="background:#f87171;--w:20%;"></div></div><div class="bar-val" style="color:#f87171;">20%</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:20px;">
+      <div class="si su d4" id="s4e" style="border-color:#fb923c;">無駄な開発コストを事前に排除し、スコープを最適化できる</div>
+      <div class="si su d5" id="s4f" style="border-color:#fb923c;">バージョンアップ耐性の高いシステム設計を実現できる</div>
     </div>
   </div>
 </div>
 
-<!-- s6: 移行ジョブ 135-165s -->
-<div class="scene" id="s6" style="background:#080808;">
-  <div style="max-width:720px;width:100%;">
-    <div class="label">Solution 02 / 04</div>
-    <h2 class="title-sm" style="margin-bottom:8px;color:#a78bfa;">移行ジョブ自動作成</h2>
-    <p class="desc" style="margin-bottom:0;">データ移行を属人的なノウハウに頼らず、AI が自律実行する</p>
-    <div class="sol-points" style="margin-top:24px;">
-      <div class="sol-pt" style="border-color:#a78bfa;">手作業によるミスをゼロに。移行品質が安定する</div>
-      <div class="sol-pt" style="border-color:#a78bfa;">テスト・定義書出力まで自動化。引き継ぎも容易になる</div>
-      <div class="sol-pt" style="border-color:#a78bfa;">繰り返し実行できるため、追加移行や変更にも柔軟に対応できる</div>
+<!-- s5: Sol02 移行ジョブ 105-135s -->
+<div class="scene" id="s5" style="background:linear-gradient(135deg,#0e0820 0%,#1a0f35 60%,#0e0820 100%);">
+  <div style="max-width:800px;width:100%;">
+    <div class="label su" id="s5a">Solution 02 / 04</div>
+    <h2 class="title-md su d1" id="s5b" style="color:#a78bfa;margin-bottom:16px;">移行ジョブ自動作成</h2>
+    <p class="desc su d2" id="s5c" style="margin-bottom:24px;">データ移行を属人的なノウハウに頼らず、AI が自律実行する</p>
+    <!-- flow -->
+    <div class="flow su d3" id="s5d">
+      <div class="fbox">対象ビュー<br>を入力</div><div class="farr">→</div>
+      <div class="fbox" style="border-color:rgba(167,139,250,.4);background:rgba(167,139,250,.1);">7ジョブ<br>自動生成</div><div class="farr">→</div>
+      <div class="fbox">テスト<br>自動実行</div><div class="farr">→</div>
+      <div class="fbox" style="border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.1);">定義書<br>出力</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:20px;">
+      <div class="si su d4" id="s5e" style="border-color:#a78bfa;">手作業によるミスをゼロに。移行品質が安定する</div>
+      <div class="si su d5" id="s5f" style="border-color:#a78bfa;">繰り返し実行できるため、追加移行や変更にも対応できる</div>
+    </div>
+  </div>
+</div>
+<!-- s6: Sol03 エラー分析 135-165s -->
+<div class="scene" id="s6" style="background:linear-gradient(135deg,#1a0000 0%,#2e0808 60%,#1a0000 100%);">
+  <div style="max-width:800px;width:100%;">
+    <div class="label su" id="s6a">Solution 03 / 04</div>
+    <h2 class="title-md su d1" id="s6b" style="color:#f87171;margin-bottom:16px;">エラー分析</h2>
+    <p class="desc su d2" id="s6c" style="margin-bottom:24px;">誰でも即座に問題を解決できる仕組みを提供する</p>
+    <div class="flow su d3" id="s6d">
+      <div class="fbox">📸<br>スクショ入力</div><div class="farr">→</div>
+      <div class="fbox" style="border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.1);">エラー<br>特定</div><div class="farr">→</div>
+      <div class="fbox" style="border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.1);">ソース<br>解析</div><div class="farr">→</div>
+      <div class="fbox" style="border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.1);">✅<br>対処手順</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:20px;">
+      <div class="si su d4" id="s6e" style="border-color:#f87171;">担当者の経験に頼らず、問題解決品質が均一化される</div>
+      <div class="si su d5" id="s6f" style="border-color:#f87171;">再発防止策も自動提案。同じエラーを繰り返さない</div>
     </div>
   </div>
 </div>
 
-<!-- s7: エラー分析 165-195s -->
-<div class="scene" id="s7" style="background:#080808;">
-  <div style="max-width:720px;width:100%;">
-    <div class="label">Solution 03 / 04</div>
-    <h2 class="title-sm" style="margin-bottom:8px;color:#f87171;">エラー分析</h2>
-    <p class="desc" style="margin-bottom:0;">誰でも即座に問題を解決できる仕組みを提供する</p>
-    <div class="sol-points" style="margin-top:24px;">
-      <div class="sol-pt" style="border-color:#f87171;">担当者の経験に頼らず、問題解決の品質が均一化される</div>
-      <div class="sol-pt" style="border-color:#f87171;">障害の影響時間を最小化し、安定した運用を実現できる</div>
-      <div class="sol-pt" style="border-color:#f87171;">再発防止策も自動提案。同じエラーを繰り返さない</div>
+<!-- s8: Sol04 データセットアップ 165-195s -->
+<div class="scene" id="s8" style="background:linear-gradient(135deg,#0a0020 0%,#150835 60%,#0a0020 100%);">
+  <div style="max-width:800px;width:100%;">
+    <div class="label su" id="s8a">Solution 04 / 04</div>
+    <h2 class="title-md su d1" id="s8b" style="color:#818cf8;margin-bottom:16px;">大量データセットアップ</h2>
+    <p class="desc su d2" id="s8c" style="margin-bottom:24px;">環境再構築に費やしていた数日間を、数十分に短縮する</p>
+    <div class="su d3" id="s8d" style="display:flex;gap:0;margin-bottom:20px;border:1px solid rgba(255,255,255,.08);">
+      <div style="flex:1;padding:16px;text-align:center;border-right:1px solid rgba(255,255,255,.08);"><div style="font-size:28px;font-weight:700;color:#818cf8;">数日</div><div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:4px;">従来の所要時間</div></div>
+      <div style="display:flex;align-items:center;padding:0 16px;font-size:24px;color:rgba(255,255,255,.3);">→</div>
+      <div style="flex:1;padding:16px;text-align:center;background:rgba(129,140,248,.08);"><div style="font-size:28px;font-weight:700;color:#34d399;">数十分</div><div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:4px;">AI 並列実行後</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div class="si su d4" id="s8e" style="border-color:#818cf8;">環境リセット後も即座に再構築。開発を止めない</div>
+      <div class="si su d5" id="s8f" style="border-color:#818cf8;">誰でも同じ環境を再現でき、チーム全体の生産性が上がる</div>
     </div>
   </div>
 </div>
 
-<!-- s8: データセットアップ 165-195s -->
-<div class="scene" id="s8" style="background:#080808;">
-  <div style="max-width:720px;width:100%;">
-    <div class="label">Solution 04 / 04</div>
-    <h2 class="title-sm" style="margin-bottom:8px;color:#818cf8;">大量データセットアップ</h2>
-    <p class="desc" style="margin-bottom:0;">環境再構築に費やしていた数日間を、数十分に短縮する</p>
-    <div class="sol-points" style="margin-top:24px;">
-      <div class="sol-pt" style="border-color:#818cf8;">環境リセット後も即座に再構築。開発を止めない</div>
-      <div class="sol-pt" style="border-color:#818cf8;">手作業による不整合データをゼロに。テスト品質が向上する</div>
-      <div class="sol-pt" style="border-color:#818cf8;">誰でも同じ環境を再現でき、チーム全体の生産性が上がる</div>
+<!-- sx: 仕様駆動開発 195-225s -->
+<div class="scene" id="sx" style="background:linear-gradient(135deg,#0f0800 0%,#1e1000 60%,#0f0800 100%);">
+  <div style="max-width:820px;width:100%;">
+    <div class="label su" id="sxa">Spec-Driven Development</div>
+    <h2 class="title-md su d1" id="sxb" style="margin-bottom:20px;">仕様書がそのまま<br>コードになる</h2>
+    <div class="flow su d2" id="sxc">
+      <div class="fbox" style="border-color:rgba(251,146,60,.4);background:rgba(251,146,60,.08);">AI が<br>仕様書生成</div><div class="farr">→</div>
+      <div class="fbox">人間が<br>レビュー</div><div class="farr">→</div>
+      <div class="fbox" style="border-color:rgba(251,146,60,.4);background:rgba(251,146,60,.08);">AI が<br>コード生成</div><div class="farr">→</div>
+      <div class="fbox">人間が<br>承認・本番へ</div>
     </div>
-  </div>
-</div>
-
-<!-- s_spec: 仕様駆動開発 195-225s（旧s4） -->
-<div class="scene" id="sx" style="background:#080808;">
-  <div style="max-width:720px;width:100%;">
-    <div class="label">Spec-Driven Development</div>
-    <h2 class="title-sm" style="margin-bottom:16px;">仕様書がそのまま<br>コードになる</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.06);margin-top:24px;">
-      <div style="background:#080808;padding:20px 24px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-bottom:12px;">CYCLE</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.65);font-weight:300;line-height:2.2;">① AI が仕様書を自動生成<br>② 人間がレビュー・承認<br>③ AI がコード・テストを生成<br>④ 人間がレビューして本番へ</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.06);margin-top:20px;" class="su d3" id="sxd">
+      <div style="background:#0f0800;padding:18px 22px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-bottom:10px;">POINT</div>
+        <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:2;">✗ 部分適用では効果は限定的<br>✓ プロセス全体の変革が必要<br>✓ 体制・文化も一体で変える</div>
       </div>
-      <div style="background:#080808;padding:20px 24px;">
-        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-bottom:12px;">KEY POINT</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.65);font-weight:300;line-height:2.2;">✓ 部分適用では全体効率化は実現しない<br>✓ プロセス・体制・文化を一体で変革<br>✓ お客様と IBM が一丸で取り組む</div>
+      <div style="background:#0f0800;padding:18px 22px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-bottom:10px;">IBM の役割</div>
+        <div style="font-size:14px;color:rgba(255,255,255,.7);line-height:2;">お客様と一丸となって<br>AI 前提のプロジェクト体制を<br>最初から一緒に設計する</div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- s9: エンディング 225-240s -->
-<div class="scene" id="s9" style="background:#080808;">
+<div class="scene" id="s9" style="background:linear-gradient(135deg,#001141 0%,#001d6c 55%,#0f62fe 100%);">
   <div style="max-width:680px;width:100%;text-align:center;">
-    <div class="bob-icon" style="margin:0 auto 24px;">B</div>
-    <h2 class="title-sm" style="margin-bottom:16px;">お客様と IBM が一丸となって<br>AI 前提のプロジェクトへ</h2>
-    <p class="desc" style="text-align:center;margin:0 auto 32px;">まずは「AI 前提のプロジェクト準備」から一緒に始めましょう</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <a href="https://www.ibm.com/jp-ja/products/ai-coding-agent" target="_blank"
-         style="font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;border:1px solid rgba(255,255,255,.15);padding:10px 22px;">IBM Bob ↗</a>
-      <a href="../index.html"
-         style="font-size:13px;color:#fff;text-decoration:none;background:#0f62fe;padding:10px 22px;font-weight:600;">ソリューション一覧 →</a>
+    <div style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:32px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;animation:pulse 2s infinite;" class="su" id="s9a">B</div>
+    <h2 class="title-md su d1" id="s9b" style="margin-bottom:16px;">お客様と IBM が一丸となって<br>AI 前提のプロジェクトへ</h2>
+    <p class="desc su d2" id="s9c" style="text-align:center;margin:0 auto 32px;">まずは「AI 前提のプロジェクト準備」から一緒に始めましょう</p>
+    <div class="su d3" id="s9d" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://www.ibm.com/jp-ja/products/ai-coding-agent" target="_blank" style="font-size:13px;color:rgba(255,255,255,.7);text-decoration:none;border:1px solid rgba(255,255,255,.2);padding:10px 22px;">IBM Bob ↗</a>
+      <a href="../index.html" style="font-size:13px;color:#fff;text-decoration:none;background:rgba(255,255,255,.15);padding:10px 22px;font-weight:600;border:1px solid rgba(255,255,255,.3);">ソリューション一覧 →</a>
     </div>
   </div>
 </div>
 
-</div><!-- /stage -->
+</div><!-- stage end -->
 <div id="caption"></div>
 <div id="ctrl" onclick="togglePause()">⏸</div>
-
 <script>
 const TOTAL=240;
 const scenes=[
-  {id:'s1',start:0,  end:15},   // タイトル
-  {id:'s2',start:15, end:45},   // Bob 4役割
-  {id:'s3',start:45, end:75},   // ナレッジ → 「ではソリューションを」
-  {id:'s4',start:75, end:105},  // Sol 01 Fit to Standard
-  {id:'s5',start:105,end:135},  // Sol 02 移行ジョブ
-  {id:'s6',start:135,end:165},  // Sol 03 エラー分析
-  {id:'s8',start:165,end:195},  // Sol 04 データセットアップ
-  {id:'sx',start:195,end:225},  // 仕様駆動開発
-  {id:'s9',start:225,end:240},  // エンディング
+  {id:'s1',start:0,  end:15},
+  {id:'s2',start:15, end:45},
+  {id:'s3',start:45, end:75},
+  {id:'s4',start:75, end:105},
+  {id:'s5',start:105,end:135},
+  {id:'s6',start:135,end:165},
+  {id:'s8',start:165,end:195},
+  {id:'sx',start:195,end:225},
+  {id:'s9',start:225,end:240},
 ];
-const captions=[
-  {t:0,d:7,text:'IBM Bob はあらゆるプロジェクトに導入可能な AI 開発支援エージェントです。IFS Cloud プロジェクトでもフルに活用できます。'},
-  {t:7,d:8,text:'要件定義から開発・テスト・マニュアル作成まで、プロジェクト全体をワンストップで支援します。'},
-  {t:15,d:8,text:'IBM Bob は4つの役割でプロジェクトを支えます。'},
-  {t:23,d:10,text:'業務設計、システム設計、仕様書駆動開発、そして作業記録とマニュアル自動生成。'},
-  {t:33,d:12,text:'AI が仕様書を自動生成し、人間はレビューと意思決定に集中する。これが新しい開発の形です。'},
-  {t:45,d:10,text:'このプラットフォームには、IFS Cloud に特化した膨大なナレッジが蓄積されています。'},
-  {t:55,d:12,text:'1,200以上の標準プロセス、12,000以上の画面構造、8,000以上のデータモデル。AI エージェントはこれらを参照して高精度な支援を実現します。'},
-  {t:67,d:8,text:'では、これを活用した具体的なソリューションをご覧ください。'},
+const caps=[
+  {t:0,  d:7, text:'IBM Bob はあらゆるプロジェクトに導入可能な AI 開発支援エージェントです。IFS Cloud プロジェクトでもその能力をフルに活用できます。'},
+  {t:7,  d:8, text:'要件定義から開発・テスト・マニュアル作成まで、プロジェクト全体をワンストップで支援します。'},
+  {t:15, d:8, text:'IBM Bob は4つの役割でプロジェクトを支えます。'},
+  {t:23, d:10,text:'業務設計、システム設計、仕様書駆動開発、そして作業記録とマニュアル自動生成。'},
+  {t:33, d:12,text:'AI が仕様書を自動生成し、人間はレビューと意思決定に集中する。これが新しい開発の形です。'},
+  {t:45, d:10,text:'このプラットフォームには、IFS Cloud に特化した膨大なナレッジが蓄積されています。'},
+  {t:55, d:12,text:'1,200以上の標準プロセス、12,000以上の画面構造、8,000以上のデータモデル。AI エージェントはこれらを参照して高精度な支援を実現します。'},
+  {t:67, d:8, text:'では、これを活用した具体的なソリューションをご覧ください。'},
   {t:75, d:10,text:'「Fit to Standard 分析」。何を標準のまま使えるかを、要件定義フェーズで即座に可視化します。'},
   {t:85, d:10,text:'無駄な開発コストを排除し、本当に必要な箇所だけに集中できます。'},
   {t:95, d:10,text:'バージョンアップ耐性の高いシステム設計も実現できます。'},
@@ -243,50 +279,61 @@ const captions=[
   {t:115,d:10,text:'手作業によるミスをなくし、テスト・定義書出力まで一貫して自動化されます。'},
   {t:125,d:10,text:'繰り返し実行できるため、追加移行や環境変更にも柔軟に対応できます。'},
   {t:135,d:10,text:'「エラー分析」。誰でも即座に問題を解決できる仕組みを提供します。'},
-  {t:145,d:10,text:'担当者の経験に頼らず、システム障害の影響時間を最小化。安定した運用を実現します。'},
+  {t:145,d:10,text:'担当者の経験に頼らず、障害の影響時間を最小化。安定した運用を実現します。'},
   {t:155,d:10,text:'再発防止策も自動提案されるため、同じエラーを繰り返しません。'},
   {t:165,d:10,text:'「大量データセットアップ」。環境再構築に費やしていた数日間を、数十分に短縮します。'},
   {t:175,d:10,text:'プロトタイプ・テスト・リグレッションを、いつでも高品質な状態で実施できます。'},
   {t:185,d:10,text:'誰でも同じ環境を再現でき、チーム全体の生産性が向上します。'},
-  {t:195,d:10,text:'4つのソリューションに共通するのは、仕様駆動開発という考え方です。'},
+  {t:195,d:10,text:'4つのソリューションに共通するのが、仕様駆動開発という考え方です。'},
   {t:205,d:12,text:'AI が仕様書を自動生成し、人間はレビューと意思決定に集中する。部分適用ではなく、プロジェクト全体の変革が重要です。'},
   {t:217,d:8, text:'プロセス・体制・文化、すべてを一体で変革する。お客様と IBM が一丸で取り組みます。'},
-  {t:225,d:8,text:'IBM Bob と IFS Cloud 特化ナレッジが、あなたのプロジェクトを次のステージへ。'},
-  {t:233,d:7,text:'まずは「AI 前提のプロジェクト準備」から、IBM と一緒に始めましょう。'},
+  {t:225,d:8, text:'IBM Bob と IFS Cloud 特化ナレッジが、あなたのプロジェクトを次のステージへ。'},
+  {t:233,d:7, text:'まずは「AI 前提のプロジェクト準備」から、IBM と一緒に始めましょう。'},
 ];
 
-let elapsed=0,paused=false,interval=null;
+let elapsed=0,paused=false,itv=null;
+let animDone={};
 
-function showCaption(t){const el=document.getElementById('caption');el.textContent=t;el.classList.add('show');}
-function hideCaption(){document.getElementById('caption').classList.remove('show');}
+function animScene(id){
+  if(animDone[id])return;
+  animDone[id]=true;
+  document.querySelectorAll('#'+id+' .su').forEach(el=>el.classList.add('go'));
+  // bar chart
+  ['bf1','bf2','bf3'].forEach(bid=>{
+    const b=document.getElementById(bid);
+    if(b){setTimeout(()=>{b.style.width=b.style.getPropertyValue('--w')||'0';},400);}
+  });
+  // kpi count-up
+  const kvs=[[' kn1',1200,'+'],[' kn2',12000,'+'],[' kn3',8000,'+']];
+  kvs.forEach(([sel,target,suf])=>{
+    const el=document.querySelector('#s3 '+sel);
+    if(!el)return;
+    let n=0,step=Math.ceil(target/40);
+    const t2=setInterval(()=>{n=Math.min(n+step,target);el.textContent=n.toLocaleString()+suf;if(n>=target)clearInterval(t2);},50);
+  });
+}
+
+function showCap(t){const el=document.getElementById('caption');el.textContent=t;el.classList.add('show');}
+function hideCap(){document.getElementById('caption').classList.remove('show');}
 
 function tick(){
   if(paused)return;
-  elapsed+=0.1;
-  if(elapsed>TOTAL){elapsed=TOTAL;clearInterval(interval);}
+  elapsed+=0.1;if(elapsed>TOTAL){elapsed=TOTAL;clearInterval(itv);}
   document.getElementById('prog').style.width=(elapsed/TOTAL*100)+'%';
-  const m=Math.floor(elapsed/60);const s=Math.floor(elapsed%60);
+  const m=Math.floor(elapsed/60),s=Math.floor(elapsed%60);
   document.getElementById('timer').textContent=m+':'+(s<10?'0':'')+s+' / 4:00';
   scenes.forEach(sc=>{
     const el=document.getElementById(sc.id);if(!el)return;
-    el.classList.toggle('active',elapsed>=sc.start&&elapsed<sc.end);
+    const on=elapsed>=sc.start&&elapsed<sc.end;
+    el.classList.toggle('active',on);
+    if(on)animScene(sc.id);
   });
-  // s2 value items stagger
-  if(elapsed>=15&&elapsed<45){
-    [0,1,2,3].forEach((i)=>{
-      const el=document.getElementById('vi'+i);
-      if(el&&elapsed>=15+i*5){el.classList.add('lit');}
-    });
-  }
   let shown=false;
-  captions.forEach(c=>{if(elapsed>=c.t&&elapsed<c.t+c.d){showCaption(c.text);shown=true;}});
-  if(!shown)hideCaption();
+  caps.forEach(c=>{if(elapsed>=c.t&&elapsed<c.t+c.d){showCap(c.text);shown=true;}});
+  if(!shown)hideCap();
 }
-function togglePause(){
-  paused=!paused;
-  document.getElementById('ctrl').textContent=paused?'▶':'⏸';
-}
-window.addEventListener('load',()=>{interval=setInterval(tick,100);});
+function togglePause(){paused=!paused;document.getElementById('ctrl').textContent=paused?'▶':'⏸';}
+window.addEventListener('load',()=>{itv=setInterval(tick,100);});
 </script>
 </body>
 </html>
