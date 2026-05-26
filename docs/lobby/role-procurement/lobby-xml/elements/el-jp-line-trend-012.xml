@@ -1,0 +1,21 @@
+<LineChart>
+  <Author>IBM Tokku Team</Author><Keywords>調達,トレンド,折れ線</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
+  <Row>4</Row><Column>4</Column><RowSpan>2</RowSpan><ColumnSpan>4</ColumnSpan>
+  <Title>納期別発注件数トレンド（折れ線）</Title>
+  <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
+  <Name>JP PO Trend Line</Name><ID>el-jp-line-trend-012</ID>
+  <DataSourceId>ds-jp-po-trend-011</DataSourceId>
+  <ColumnMapping>
+    <MappedColumns>
+      <MappedColumn><Column>DATE_KEY</Column><Name>DATE_KEY</Name><DisplayName>日付</DisplayName><ConditionalFormats/></MappedColumn>
+      <MappedColumn><Column>ORDER_NO</Column><Name>ORDER_NO</Name><DisplayName>件数</DisplayName><ConditionalFormats/></MappedColumn>
+    </MappedColumns>
+  </ColumnMapping>
+  <XYDataSeries>
+    <TopNOptions/>
+    <XColumn><Name>DATE_KEY</Name></XColumn>
+    <YColumn><Name>ORDER_NO</Name></YColumn>
+  </XYDataSeries>
+  <UnifiedElement/><ElementConfig/>
+</LineChart>

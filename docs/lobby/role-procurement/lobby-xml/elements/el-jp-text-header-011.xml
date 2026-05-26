@@ -1,0 +1,12 @@
+<Text>
+  <Author>IBM Tokku Team</Author><Keywords>調達,見出し</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
+  <Row>1</Row><Column>4</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
+  <Title>グラフエリア</Title>
+  <Background>#FF6929C4</Background><Foreground>#FFFFFFFF</Foreground>
+  <Name>JP Header Graphs</Name><ID>el-jp-text-header-011</ID>
+  <BodyText>発注状況分析</BodyText>
+  <FontWeight>Bold</FontWeight><FontStyle>Normal</FontStyle><FontSize>14.0</FontSize>
+  <HorizontalAlignment>Center</HorizontalAlignment>
+  <UnifiedElement/><ElementConfig/>
+</Text>

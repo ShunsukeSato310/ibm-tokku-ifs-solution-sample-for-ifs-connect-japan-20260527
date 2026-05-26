@@ -1,0 +1,11 @@
+<SQLDataSource>
+  <Author>IBM Tokku Team</Author><Component>PURCH</Component>
+  <Keywords>調達,仕入先</Keywords><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
+  <Name>JP PO By Vendor</Name><ID>ds-jp-po-vendor-010</ID>
+  <Select>
+    <DataColumn><Column>VENDOR_NO</Column><Name>VENDOR_NO</Name><DataType>Text</DataType></DataColumn>
+    <DataColumn><Column>ORDER_NO</Column><Name>ORDER_NO</Name><DataType>Text</DataType></DataColumn>
+  </Select>
+  <Where>ORDER_NO IN (SELECT DISTINCT ORDER_NO FROM PURCHASE_ORDER_LINE WHERE OBJSTATE = &apos;Released&apos;)</Where>
+  <View>PURCHASE_ORDER</View>
+</SQLDataSource>

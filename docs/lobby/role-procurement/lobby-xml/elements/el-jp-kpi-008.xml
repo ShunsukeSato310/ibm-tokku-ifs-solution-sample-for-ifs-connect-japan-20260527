@@ -1,0 +1,11 @@
+<Counter>
+  <Author>IBM Tokku Team</Author><Keywords>調達</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
+  <Row>0</Row><Column>4</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
+  <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
+  <Name>JP KPI 008</Name><ID>el-jp-kpi-008</ID>
+  <WebUrl>page/PurchaseOrder/List</WebUrl>
+  <Title>7日超過遅延</Title><DataSourceId>ds-jp-po-overdue-007</DataSourceId>
+  <ColumnMapping><MappedColumns><MappedColumn><Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn></MappedColumns></ColumnMapping>
+  <UnifiedElement/><ElementConfig/>
+</Counter>

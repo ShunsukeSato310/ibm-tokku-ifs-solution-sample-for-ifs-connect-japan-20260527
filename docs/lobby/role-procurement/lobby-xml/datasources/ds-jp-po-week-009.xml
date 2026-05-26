@@ -1,0 +1,8 @@
+<SQLDataSource>
+  <Author>IBM Tokku Team</Author><Component>PURCH</Component>
+  <Keywords>調達,今週</Keywords><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
+  <Name>JP PO This Week Count</Name><ID>ds-jp-po-week-009</ID>
+  <Select><DataColumn><Column>ORDER_NO</Column><Name>ORDER_NO</Name><DataType>Text</DataType></DataColumn></Select>
+  <Where>OBJSTATE = &apos;Released&apos; AND PLANNED_RECEIPT_DATE BETWEEN TRUNC(SYSDATE) AND TRUNC(SYSDATE) + 7</Where>
+  <View>PURCHASE_ORDER_LINE</View>
+</SQLDataSource>

@@ -1,0 +1,30 @@
+<Counter>
+  <Author>IBM Tokku Team</Author><Keywords>調達,遅延率</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
+  <Row>0</Row><Column>9</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
+  <Title>超過遅延（7日+）</Title>
+  <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
+  <Name>JP KPI Overdue 7d</Name><ID>el-jp-status-gauge-013</ID>
+  <WebUrl>page/PurchaseOrder/List</WebUrl>
+  <DataSourceId>ds-jp-po-overdue-007</DataSourceId>
+  <ColumnMapping>
+    <MappedColumns>
+      <MappedColumn>
+        <Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate>
+        <ConditionalFormats>
+          <ConditionalFormatting>
+            <ColumnName>COUNT(ORDER_NO)</ColumnName><Value>0</Value>
+            <Foreground>OK</Foreground><Comparer>EQUAL</Comparer>
+            <Icon>Icon01</Icon><IconColor>OK</IconColor>
+          </ConditionalFormatting>
+          <ConditionalFormatting>
+            <ColumnName>COUNT(ORDER_NO)</ColumnName><Value>0</Value>
+            <Foreground>Critical</Foreground><Comparer>GREATER</Comparer>
+            <Icon>Icon09</Icon><IconColor>Critical</IconColor>
+          </ConditionalFormatting>
+        </ConditionalFormats>
+      </MappedColumn>
+    </MappedColumns>
+  </ColumnMapping>
+  <UnifiedElement/><ElementConfig/>
+</Counter>

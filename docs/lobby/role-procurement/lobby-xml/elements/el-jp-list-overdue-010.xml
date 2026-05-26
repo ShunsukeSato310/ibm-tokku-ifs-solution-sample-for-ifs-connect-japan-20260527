@@ -1,0 +1,16 @@
+<List>
+  <Author>IBM Tokku Team</Author><Keywords>調達,超過遅延一覧</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
+  <Row>6</Row><Column>0</Column><RowSpan>2</RowSpan><ColumnSpan>3</ColumnSpan>
+  <Title>7日超過遅延一覧</Title>
+  <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
+  <Name>JP PO Overdue List</Name><ID>el-jp-list-overdue-010</ID>
+  <WebUrl>page/PurchaseOrder/List</WebUrl>
+  <DataSourceId>ds-jp-po-overdue-007</DataSourceId>
+  <ColumnMapping>
+    <MappedColumns>
+      <MappedColumn><Column>ORDER_NO</Column><Name>ORDER_NO</Name><DisplayName>発注番号</DisplayName><Aggregate>NA</Aggregate><ConditionalFormats/></MappedColumn>
+    </MappedColumns>
+  </ColumnMapping>
+  <UnifiedElement/><ElementConfig/>
+</List>
