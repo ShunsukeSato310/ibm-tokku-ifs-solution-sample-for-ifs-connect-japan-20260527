@@ -7,9 +7,56 @@
   <Locked>false</Locked>
   <Component>PURCH</Component>
   <AurenaLobby>true</AurenaLobby>
-  <PageId>bccd797c-3e4c-43e6-8217-11d698be76e2</PageId>
+  <PageId>751b7a2f-6d20-4c92-bc75-e786535a7094</PageId>
   <PageTitle>調達担当者ロビー</PageTitle>
   <Layout><Groups><Group><Elements>
+    <!-- el-jp-bar-qty-006.xml -->
+    <BarChart>
+    <Author>IBM Tokku Team</Author>
+    <Keywords>調達,発注数量,棒グラフ</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Component>PURCH</Component>
+    <Row>1</Row>
+    <Column>2</Column>
+    <RowSpan>2</RowSpan>
+    <ColumnSpan>2</ColumnSpan>
+    <Title>発注数量（棒グラフ）</Title>
+    <Name>JP PO Qty Bar</Name>
+    <ID>el-jp-bar-qty-006</ID>
+    <DataSourceId>ds-jp-po-by-order-006</DataSourceId>
+    <ColumnMapping>
+        <MappedColumns>
+            <MappedColumn>
+                <Column>発注番号</Column>
+                <Name>発注番号</Name>
+                <Aggregate>NA</Aggregate>
+                <ConditionalFormats />
+            </MappedColumn>
+            <MappedColumn>
+                <Column>発注数量</Column>
+                <Name>発注数量</Name>
+                <Aggregate>SUM</Aggregate>
+                <ConditionalFormats />
+            </MappedColumn>
+        </MappedColumns>
+    </ColumnMapping>
+    <GroupedDataSeries>
+        <TopNOptions>
+            <ShowOthers>false</ShowOthers>
+        </TopNOptions>
+        <GroupsColumn>
+            <Name>発注番号</Name>
+            <Aggregate>NA</Aggregate>
+        </GroupsColumn>
+        <ValuesColumn>
+            <Name>発注数量</Name>
+            <Aggregate>SUM</Aggregate>
+        </ValuesColumn>
+    </GroupedDataSeries>
+    <UnifiedElement />
+    <ElementConfig />
+</BarChart>
     <!-- el-jp-kpi-delayed-002.xml -->
     <Counter>
     <Author>IBM Tokku Team</Author>
@@ -148,10 +195,10 @@
     <LastModified>2026-05-26-00.00.00</LastModified>
     <Locked>false</Locked>
     <Component>PURCH</Component>
-    <Row>1</Row>
-    <Column>3</Column>
-    <RowSpan>2</RowSpan>
-    <ColumnSpan>1</ColumnSpan>
+    <Row>3</Row>
+    <Column>0</Column>
+    <RowSpan>1</RowSpan>
+    <ColumnSpan>4</ColumnSpan>
     <Title>クイックリンク</Title>
     <Background>#FF6929C4</Background>
     <Foreground>#FFFFFFFF</Foreground>
@@ -196,55 +243,106 @@
     <UnifiedElement />
     <ElementConfig />
 </LinksList>
-    <!-- el-jp-list-remaining-005.xml -->
-    <List>
+    <!-- el-jp-pie-delay-005.xml -->
+    <PieChart>
     <Author>IBM Tokku Team</Author>
-    <Keywords>調達,発注残一覧</Keywords>
+    <Keywords>調達,遅延,円グラフ</Keywords>
     <LastModified>2026-05-26-00.00.00</LastModified>
     <Locked>false</Locked>
     <Component>PURCH</Component>
     <Row>1</Row>
     <Column>0</Column>
     <RowSpan>2</RowSpan>
-    <ColumnSpan>3</ColumnSpan>
-    <Title>発注残一覧（Released）</Title>
-    <Name>JP PO Remaining List</Name>
-    <ID>el-jp-list-remaining-005</ID>
-    <WebUrl>page/PurchaseOrder/List</WebUrl>
-    <DataSourceId>ds-jp-po-remaining-001</DataSourceId>
+    <ColumnSpan>2</ColumnSpan>
+    <Title>遅延ステータス構成（円グラフ）</Title>
+    <Name>JP PO Delay Pie</Name>
+    <ID>el-jp-pie-delay-005</ID>
+    <DataSourceId>ds-jp-delay-status-005</DataSourceId>
     <ColumnMapping>
         <MappedColumns>
             <MappedColumn>
-                <Column>ORDER_NO</Column>
-                <Name>購買オーダ番号</Name>
+                <Column>遅延ステータス</Column>
+                <Name>遅延ステータス</Name>
                 <Aggregate>NA</Aggregate>
                 <ConditionalFormats />
             </MappedColumn>
             <MappedColumn>
-                <Column>DESCRIPTION</Column>
-                <Name>品目名称</Name>
-                <Aggregate>NA</Aggregate>
-                <ConditionalFormats />
-            </MappedColumn>
-            <MappedColumn>
-                <Column>BUY_QTY_DUE</Column>
-                <Name>発注数量</Name>
-                <Aggregate>NA</Aggregate>
-                <ConditionalFormats />
-            </MappedColumn>
-            <MappedColumn>
-                <Column>PLANNED_RECEIPT_DATE</Column>
-                <Name>入庫予定日</Name>
-                <Aggregate>NA</Aggregate>
+                <Column>件数</Column>
+                <Name>件数</Name>
+                <Aggregate>COUNT</Aggregate>
                 <ConditionalFormats />
             </MappedColumn>
         </MappedColumns>
     </ColumnMapping>
+    <DisplayNullValueAs>Zero</DisplayNullValueAs>
+    <GroupedDataSeries>
+        <TopNOptions>
+            <ShowOthers>true</ShowOthers>
+        </TopNOptions>
+        <GroupsColumn>
+            <Name>遅延ステータス</Name>
+            <Aggregate>NA</Aggregate>
+        </GroupsColumn>
+        <ValuesColumn>
+            <Name>件数</Name>
+            <Aggregate>COUNT</Aggregate>
+        </ValuesColumn>
+    </GroupedDataSeries>
     <UnifiedElement />
     <ElementConfig />
-</List>
+</PieChart>
   </Elements></Group></Groups></Layout>
   <DataSources>
+    <!-- ds-jp-delay-status-005.xml -->
+    <SQLDataSource>
+    <Author>IBM Tokku Team</Author>
+    <Component>PURCH</Component>
+    <Keywords>調達,遅延,円グラフ</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Name>JP PO Delay Status Distribution</Name>
+    <ID>ds-jp-delay-status-005</ID>
+    <Select>
+        <DataColumn>
+            <Column>CASE WHEN PLANNED_RECEIPT_DATE &lt; SYSDATE THEN '遅延' ELSE '正常' END</Column>
+            <Name>遅延ステータス</Name>
+            <DataType>Text</DataType>
+        </DataColumn>
+        <DataColumn>
+            <Column>ORDER_NO</Column>
+            <Name>件数</Name>
+            <DataType>Text</DataType>
+        </DataColumn>
+    </Select>
+    <Where>OBJSTATE = 'Released'</Where>
+    <View>PURCHASE_ORDER_LINE</View>
+    <OrderBy>1</OrderBy>
+</SQLDataSource>
+    <!-- ds-jp-po-by-order-006.xml -->
+    <SQLDataSource>
+    <Author>IBM Tokku Team</Author>
+    <Component>PURCH</Component>
+    <Keywords>調達,発注数量,棒グラフ</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Name>JP PO Qty By Order</Name>
+    <ID>ds-jp-po-by-order-006</ID>
+    <Select>
+        <DataColumn>
+            <Column>ORDER_NO</Column>
+            <Name>発注番号</Name>
+            <DataType>Text</DataType>
+        </DataColumn>
+        <DataColumn>
+            <Column>BUY_QTY_DUE</Column>
+            <Name>発注数量</Name>
+            <DataType>Number</DataType>
+        </DataColumn>
+    </Select>
+    <Where>OBJSTATE = 'Released'</Where>
+    <View>PURCHASE_ORDER_LINE</View>
+    <OrderBy>ORDER_NO</OrderBy>
+</SQLDataSource>
     <!-- ds-jp-po-delayed-002.xml -->
     <SQLDataSource>
     <Author>IBM Tokku Team</Author>

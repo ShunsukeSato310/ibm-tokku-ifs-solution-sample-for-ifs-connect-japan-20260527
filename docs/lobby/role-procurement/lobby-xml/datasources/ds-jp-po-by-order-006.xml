@@ -1,0 +1,16 @@
+<SQLDataSource>
+  <Author>IBM Tokku Team</Author>
+  <Component>PURCH</Component>
+  <Keywords>調達,発注数量,棒グラフ</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified>
+  <Locked>false</Locked>
+  <Name>JP PO Qty By Order</Name>
+  <ID>ds-jp-po-by-order-006</ID>
+  <Select>
+    <DataColumn><Column>ORDER_NO</Column><Name>発注番号</Name><DataType>Text</DataType></DataColumn>
+    <DataColumn><Column>BUY_QTY_DUE</Column><Name>発注数量</Name><DataType>Number</DataType></DataColumn>
+  </Select>
+  <Where>OBJSTATE = &apos;Released&apos;</Where>
+  <View>PURCHASE_ORDER_LINE</View>
+  <OrderBy>ORDER_NO</OrderBy>
+</SQLDataSource>

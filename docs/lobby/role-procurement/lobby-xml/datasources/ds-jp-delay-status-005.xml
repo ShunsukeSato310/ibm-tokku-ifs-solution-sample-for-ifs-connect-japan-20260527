@@ -1,0 +1,16 @@
+<SQLDataSource>
+  <Author>IBM Tokku Team</Author>
+  <Component>PURCH</Component>
+  <Keywords>調達,遅延,円グラフ</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified>
+  <Locked>false</Locked>
+  <Name>JP PO Delay Status Distribution</Name>
+  <ID>ds-jp-delay-status-005</ID>
+  <Select>
+    <DataColumn><Column>CASE WHEN PLANNED_RECEIPT_DATE &lt; SYSDATE THEN &apos;遅延&apos; ELSE &apos;正常&apos; END</Column><Name>遅延ステータス</Name><DataType>Text</DataType></DataColumn>
+    <DataColumn><Column>ORDER_NO</Column><Name>件数</Name><DataType>Text</DataType></DataColumn>
+  </Select>
+  <Where>OBJSTATE = &apos;Released&apos;</Where>
+  <View>PURCHASE_ORDER_LINE</View>
+  <OrderBy>1</OrderBy>
+</SQLDataSource>
