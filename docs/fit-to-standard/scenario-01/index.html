@@ -83,7 +83,7 @@
       </div>
     </div>
     <div style="position:relative;">
-      <img id="slide-img" src="screenshots/po-step-01.png" alt="購買オーダ 新規作成" style="width:100%;display:block;">
+      <img id="slide-img" src="screenshots/po-step-01.png" alt="購買オーダ 新規作成" style="width:100%;display:block;transition:opacity 0.15s;">
     </div>
     <div style="background:var(--gray-10);padding:10px 16px;border-top:1px solid var(--gray-20);">
       <span id="slide-caption" style="font-size:12px;color:var(--text-02);">Step 1 — 購買オーダ画面を開き、仕入先・サイト・通貨を入力して新規ヘッダーを作成する</span>
@@ -101,8 +101,13 @@
     var idx = 0;
     function showSlide(i) {
       idx = (i + slides.length) % slides.length;
-      document.getElementById('slide-img').src = slides[idx].src;
-      document.getElementById('slide-img').alt = slides[idx].cap;
+      var img = document.getElementById('slide-img');
+      img.style.opacity = '0';
+      setTimeout(function() {
+        img.src = slides[idx].src + '?v=' + idx;
+        img.alt = slides[idx].cap;
+        img.style.opacity = '1';
+      }, 100);
       document.getElementById('slide-caption').textContent = slides[idx].cap;
       document.getElementById('slide-counter').textContent = (idx+1) + ' / ' + slides.length;
     }
