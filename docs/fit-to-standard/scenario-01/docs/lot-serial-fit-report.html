@@ -135,6 +135,66 @@
     </tbody>
   </table>
 
+  <div class="section-label">ソースコードレベルの分析（抜粋）</div>
+  <p style="font-size:13px;color:var(--text-02);line-height:1.7;margin-bottom:12px;">
+    AIが IFS Cloud の実際の PL/SQL ソースコードおよびエラーメッセージDBを参照して、標準実装の存在を確認しました（詳細なロジックは非公開）。
+  </p>
+
+  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-03);margin-bottom:6px;">① INVENT_PART_LOT_MANAGER_API — ロット追跡種別の変更バリデーション（Core / INVENT モジュール）</div>
+  <div style="background:#1e1e1e;color:#d4d4d4;font-family:monospace;font-size:11px;padding:14px;border-radius:4px;overflow-x:auto;margin-bottom:16px;line-height:1.8;">
+<span style="color:#6a9955;">-- ロット追跡種別変更時の整合性チェック</span>
+<span style="color:#569cd6;">PROCEDURE</span> <span style="color:#dcdcaa;">Check_Lot_Track_Change</span> (
+   part_no_                 <span style="color:#569cd6;">IN</span> VARCHAR2,
+   lot_tracking_code_db_    <span style="color:#569cd6;">IN</span> VARCHAR2,   <span style="color:#6a9955;">-- ORDER_BASED / LOT_TRACKING</span>
+   serial_tracking_code_db_ <span style="color:#569cd6;">IN</span> VARCHAR2 )
+<span style="color:#569cd6;">IS</span>
+<span style="color:#569cd6;">BEGIN</span>
+   <span style="color:#6a9955;">-- 在庫内の現状ロット状態を取得</span>
+   lot_state_ := <span style="color:#dcdcaa;">Invent_Part_Quantity_Util_API.Get_Lot_Batch_Track_Status</span>(part_no_);
+
+   <span style="color:#6a9955;">-- ORDER_BASED → LOT_TRACKING への変更のみ許容（在庫整合性保護）</span>
+   <span style="color:#569cd6;">IF NOT</span> ((lot_tracking_code_db_ = DB_ORDER_BASED) <span style="color:#569cd6;">AND</span>
+             (lot_state_            = DB_LOT_TRACKING)) <span style="color:#569cd6;">THEN</span>
+      Error_SYS.Record_General(<span style="color:#ce9178;">'NOLOTTRACKING: The part exists in inventory with :P1'</span>,
+                                Part_Lot_Tracking_API.Decode(lot_state_));
+   <span style="color:#569cd6;">END IF</span>;
+
+   <span style="color:#6a9955;">-- 全サイトで負在庫・評価方法との整合性もチェック</span>
+   <span style="color:#569cd6;">FOR</span> part_rec <span style="color:#569cd6;">IN</span> get_rec <span style="color:#569cd6;">LOOP</span>
+       <span style="color:#dcdcaa;">Inventory_Part_API.Check_Value_Method_Combination</span>(...);
+       <span style="color:#dcdcaa;">Inventory_Part_API.Check_Negative_On_Hand</span>(...);
+   <span style="color:#569cd6;">END LOOP</span>;
+<span style="color:#569cd6;">END</span> Check_Lot_Track_Change;
+  </div>
+
+  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-03);margin-bottom:6px;">② エラーメッセージDB — ロット未入力時の標準バリデーション（実機DBより取得）</div>
+  <table class="basis-table" style="margin-bottom:24px;">
+    <thead><tr><th>モジュール</th><th>エラーコード</th><th>日本語メッセージ</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>INVENT</td>
+        <td style="font-family:monospace;font-size:11px;">KitAssemblyOrder.<br>LOTBATCHREQUIRED</td>
+        <td>ロット追跡された品目 :P1 には、ロット/バッチ番号が必要です。</td>
+      </tr>
+      <tr>
+        <td>INVENT</td>
+        <td style="font-family:monospace;font-size:11px;">DataCaptureCountPart.<br>LOTTRACKEDMUSTNOTBESTAR</td>
+        <td>この品目はロット追跡を使用してるため、ロット/バッチ番号は :P1 であってはなりません。</td>
+      </tr>
+      <tr>
+        <td>PURCH</td>
+        <td style="font-family:monospace;font-size:11px;">MtrlPurchaseTaskUtil.<br>SERTRKERR</td>
+        <td>購買方法 :P1 の品目にはシリアル追跡またはロット追跡が必要です。</td>
+      </tr>
+      <tr>
+        <td>QUAMAN</td>
+        <td style="font-family:monospace;font-size:11px;">Analysis.<br>LOTNONOTNULL</td>
+        <td>品目番号 :P1 はロット追跡品です。ロット/バッチ番号は有効なバッチ番号でなければなりません。</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:var(--text-03);margin-bottom:24px;">上記エラーはいずれも INVENT・PURCH・QUAMAN モジュールの Core レイヤーに実装済み。ロット番号なしでの入荷・検査はシステムが自動でブロックします。</p>
+
   <div class="verdict-box">
     <h4>✓ 結論: Fit — 開発不要</h4>
     <p style="font-size:13px;color:var(--text-01);margin:0;line-height:1.7;">品目マスタの追跡種別設定のみで、入荷・払出・在庫移動・品質検査・不良ロット追跡のすべてが IFS Cloud 標準機能で実現できます。カスタム開発は不要です。</p>
