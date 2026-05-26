@@ -7,7 +7,7 @@
   <Locked>false</Locked>
   <Component>PURCH</Component>
   <AurenaLobby>true</AurenaLobby>
-  <PageId>0ea0dc6b-47bf-40bd-b736-3c38683fe6c9</PageId>
+  <PageId>1bc65fc4-7d4e-470b-af89-e3b55d754822</PageId>
   <PageTitle>調達担当者ロビー</PageTitle>
   <Layout><Groups><Group><Elements>
     <!-- el-jp-bar-qty-006.xml -->
@@ -665,30 +665,6 @@
     <UnifiedElement />
     <ElementConfig />
 </Counter>
-    <!-- el-jp-text-header-011.xml -->
-    <Text>
-    <Author>IBM Tokku Team</Author>
-    <Keywords>調達,見出し</Keywords>
-    <LastModified>2026-05-26-00.00.00</LastModified>
-    <Locked>false</Locked>
-    <Component>PURCH</Component>
-    <Row>1</Row>
-    <Column>4</Column>
-    <RowSpan>1</RowSpan>
-    <ColumnSpan>1</ColumnSpan>
-    <Title>グラフエリア</Title>
-    <Background>#FF6929C4</Background>
-    <Foreground>#FFFFFFFF</Foreground>
-    <Name>JP Header Graphs</Name>
-    <ID>el-jp-text-header-011</ID>
-    <BodyText>発注状況分析</BodyText>
-    <FontWeight>Bold</FontWeight>
-    <FontStyle>Normal</FontStyle>
-    <FontSize>14.0</FontSize>
-    <HorizontalAlignment>Center</HorizontalAlignment>
-    <UnifiedElement />
-    <ElementConfig />
-</Text>
   </Elements></Group></Groups></Layout>
   <DataSources>
     <!-- ds-jp-delay-status-005.xml -->
@@ -901,7 +877,7 @@
     <ID>ds-jp-po-trend-011</ID>
     <Select>
         <DataColumn>
-            <Column>TO_CHAR(PLANNED_RECEIPT_DATE,'MM-DD')</Column>
+            <Column>NVL(TO_CHAR(PLANNED_RECEIPT_DATE,'MM-DD'),'Unknown')</Column>
             <Name>DATE_KEY</Name>
             <DataType>Text</DataType>
         </DataColumn>
@@ -911,7 +887,7 @@
             <DataType>Text</DataType>
         </DataColumn>
     </Select>
-    <Where>OBJSTATE = 'Released'</Where>
+    <Where>OBJSTATE = 'Released' AND PLANNED_RECEIPT_DATE IS NOT NULL</Where>
     <View>PURCHASE_ORDER_LINE</View>
     <OrderBy>1</OrderBy>
 </SQLDataSource>

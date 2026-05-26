@@ -3,10 +3,10 @@
   <Keywords>調達,トレンド</Keywords><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
   <Name>JP PO Trend By Date</Name><ID>ds-jp-po-trend-011</ID>
   <Select>
-    <DataColumn><Column>TO_CHAR(PLANNED_RECEIPT_DATE,&apos;MM-DD&apos;)</Column><Name>DATE_KEY</Name><DataType>Text</DataType></DataColumn>
+    <DataColumn><Column>NVL(TO_CHAR(PLANNED_RECEIPT_DATE,&apos;MM-DD&apos;),&apos;Unknown&apos;)</Column><Name>DATE_KEY</Name><DataType>Text</DataType></DataColumn>
     <DataColumn><Column>ORDER_NO</Column><Name>ORDER_NO</Name><DataType>Text</DataType></DataColumn>
   </Select>
-  <Where>OBJSTATE = &apos;Released&apos;</Where>
+  <Where>OBJSTATE = &apos;Released&apos; AND PLANNED_RECEIPT_DATE IS NOT NULL</Where>
   <View>PURCHASE_ORDER_LINE</View>
   <OrderBy>1</OrderBy>
 </SQLDataSource>
