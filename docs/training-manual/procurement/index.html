@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>調達・購買 — IFS Cloud 教育マニュアル</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-brand">調達・購買</div>
+  <nav class="site-header-nav">
+    <a href="../index.html">← 業務領域一覧</a>
+  </nav>
+</header>
+
+<section class="hero" style="padding-bottom: 36px;">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">IFS Cloud — 調達・購買 / Procurement</div>
+      <h1>調達・購買プロセスを学ぶ</h1>
+      <p>購買依頼の発生から発注・入荷・請求書照合・支払完了まで、P2P（Purchase to Pay）の全体像を IFS Cloud のプロセスモデルで体系的に習得します。</p>
+      <div class="hero-badges">
+        <span class="hero-badge">IFS 25R2</span>
+        <span class="hero-badge">8 プロセス</span>
+        <span class="hero-badge">1 サンプル公開中</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+  <!-- P2P フロー全体図 -->
+  <div class="section-label">P2P プロセス全体フロー</div>
+  <div class="proc-flow" style="align-items: flex-start; gap: 0;">
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0;">
+
+      <div class="pf-node">
+        <div class="pf-circle" style="background:#525252; font-size:10px;">マスタ<br>準備</div>
+        <div class="pf-label">購買品目<br>仕入先登録</div>
+      </div>
+      <div class="pf-arrow">→</div>
+
+      <div class="pf-node">
+        <div class="pf-circle highlight">PO<br>作成</div>
+        <div class="pf-label" style="color:#0f62fe; font-weight:700;">★ サンプル<br>公開中</div>
+      </div>
+      <div class="pf-arrow">→</div>
+
+      <div class="pf-node">
+        <div class="pf-circle">PO<br>処理</div>
+        <div class="pf-label">承認・リリース</div>
+      </div>
+      <div class="pf-arrow">→</div>
+
+      <div class="pf-node">
+        <div class="pf-circle">PO<br>送付</div>
+        <div class="pf-label">印刷・送信</div>
+      </div>
+      <div class="pf-arrow">→</div>
+
+      <div class="pf-node">
+        <div class="pf-circle">PO<br>確認</div>
+        <div class="pf-label">仕入先確認</div>
+      </div>
+      <div class="pf-arrow">→</div>
+
+      <div class="pf-node">
+        <div class="pf-circle">入荷<br>監視</div>
+        <div class="pf-label">納期フォロー</div>
+      </div>
+      <div class="pf-arrow">→</div>
+
+      <div class="pf-node">
+        <div class="pf-circle">請求書<br>照合</div>
+        <div class="pf-label">3-way matching</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 学習計画 -->
+  <div class="section-label">学習計画 — 全 8 プロセス</div>
+
+  <div class="lp-grid">
+
+    <div class="lp-card">
+      <div class="lp-phase">マスタデータ</div>
+      <div class="lp-number">5.19.8.1</div>
+      <div class="lp-title">Create and Maintain Purchase Part</div>
+      <div class="lp-acts">12 アクティビティ</div>
+      <span class="lp-status-badge soon">準備中</span>
+    </div>
+
+    <div class="lp-card">
+      <div class="lp-phase">マスタデータ</div>
+      <div class="lp-number">5.19.10.1</div>
+      <div class="lp-title">Create and Maintain Supplier for Purchase Part</div>
+      <div class="lp-acts">16 アクティビティ</div>
+      <span class="lp-status-badge soon">準備中</span>
+    </div>
+
+    <div class="lp-card available">
+      <a href="enter-purchase-order/index.html">
+        <div class="lp-phase">PO 作成</div>
+        <div class="lp-number">8.2.4.2</div>
+        <div class="lp-title">Enter Purchase Order, Basic Flow</div>
+        <div class="lp-acts">15 アクティビティ</div>
+        <span class="lp-status-badge available">★ 公開中 →</span>
+      </a>
+    </div>
+
+    <div class="lp-card">
+      <div class="lp-phase">PO 処理</div>
+      <div class="lp-number">8.3.1.2</div>
+      <div class="lp-title">Handle Purchase Order, Basic Flow</div>
+      <div class="lp-acts">14 アクティビティ</div>
+      <span class="lp-status-badge soon">準備中</span>
+    </div>
+
+    <div class="lp-card">
+      <div class="lp-phase">PO 送付</div>
+      <div class="lp-number">8.3.3.1</div>
+      <div class="lp-title">Print and/or Send Purchase Order</div>
+      <div class="lp-acts">7 アクティビティ</div>
+      <span class="lp-status-badge soon">準備中</span>
+    </div>
+
+    <div class="lp-card">
+      <div class="lp-phase">PO 確認</div>
+      <div class="lp-number">8.3.4.1</div>
+      <div class="lp-title">Confirm Purchase Order</div>
+      <div class="lp-acts">7 アクティビティ</div>
+      <span class="lp-status-badge soon">準備中</span>
+    </div>
+
+    <div class="lp-card">
+      <div class="lp-phase">監視</div>
+      <div class="lp-number">8.3.6.1</div>
+      <div class="lp-title">Monitor Procurement</div>
+      <div class="lp-acts">4 アクティビティ</div>
+      <span class="lp-status-badge soon">準備中</span>
+    </div>
+
+    <div class="lp-card">
+      <div class="lp-phase">請求書照合</div>
+      <div class="lp-number">2.12.5.1</div>
+      <div class="lp-title">Arrival Entry Supplier Invoice</div>
+      <div class="lp-acts">26 アクティビティ</div>
+      <span class="lp-status-badge soon">準備中</span>
+    </div>
+
+  </div>
+
+  <!-- サンプルへの誘導 -->
+  <div style="background: #edf5ff; border: 1px solid #0f62fe; border-left: 4px solid #0f62fe; padding: 20px; margin-top: 24px;">
+    <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#0043ce; margin-bottom:8px;">サンプル公開中</div>
+    <div style="font-size:15px; font-weight:700; margin-bottom:6px;">8.2.4.2 Enter Purchase Order, Basic Flow</div>
+    <div style="font-size:13px; color:#525252; margin-bottom:12px;">購買発注ヘッダー・明細の入力から発注ステータス確定まで、15ステップを画面解説・API詳細付きで学習できます。</div>
+    <a href="enter-purchase-order/index.html" style="display:inline-block; background:#0f62fe; color:#fff; font-size:13px; font-weight:700; padding:10px 20px; text-decoration:none;">このプロセスを学ぶ →</a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">IFS Cloud 教育マニュアル — 調達・購買</div>
+      <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
+    </div>
+    <div class="footer-links">
+      <a href="../index.html">← 業務領域一覧</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

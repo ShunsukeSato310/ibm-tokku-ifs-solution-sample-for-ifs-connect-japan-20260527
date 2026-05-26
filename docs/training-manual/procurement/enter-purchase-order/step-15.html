@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step 15: Text Processing, Purchase Order — 8.2.4.2</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-brand">Step 15 / 15 — TPPO</div>
+  <nav class="site-header-nav">
+    <a href="index.html">← プロセス一覧</a>
+  </nav>
+</header>
+
+<main class="container" style="max-width:860px;">
+
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+    <div style="width:48px;height:48px;border-radius:50%;background:#0f62fe;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0;">15</div>
+    <div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#525252;">Step 15 of 15 — TPPO</div>
+      <h1 style="font-size:22px;font-weight:700;margin:4px 0 0;">No-Number 品目の説明テキスト入力</h1>
+      <div style="font-size:13px;color:#525252;margin-top:2px;">Text Processing, Purchase Order</div>
+    </div>
+  </div>
+
+  <div class="rp-card">
+    <h2>概要</h2>
+    <p>No-Number 品目を発注する場合、Description 列に品目の説明を入力することが必要です。テキスト処理機能で説明のグループを指定できます。</p>
+    <div style="margin-top:8px;"><span style="font-size:11px;font-weight:700;color:#525252;">使用画面：</span><span style="font-size:12px;color:#0f62fe;font-weight:600;">Purchase Order / Form</span></div>
+    
+  </div>
+
+  <img src="screenshots/step-15.png" alt="Step 15 screenshot" style="max-width:100%;border:1px solid #e0e0e0;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:24px;" onerror="this.style.display='none'">
+
+  <div class="api-panel">
+<div class="api-panel-title">🔌 API 詳細</div>
+<div><span class="api-method get">GET</span><span class="api-endpoint">PurchaseOrderHandling/PurchaseOrderSet('{OrderNo}')?$select=OrderNo,VendorNo,OrderStatus</span> <span style="font-size:11px;color:#525252;">— 発注完了後の確認</span></div>
+<table class="api-table"><tr><th>フィールド</th><th>型 / 値</th><th>説明</th></tr>
+<tr><td>OrderStatus</td><td>Planned</td><td>このステップ完了時のステータス</td></tr>
+<tr><td>AuthorizeCode</td><td>string</td><td>承認キューの責任者コード</td></tr>
+</table>
+</div>
+
+  <div style="display:flex;justify-content:space-between;margin-top:32px;padding-top:16px;border-top:1px solid #e0e0e0;">
+    <div><a href="step-14.html">← Step 14</a></div>
+    <a href="index.html" style="font-size:12px;color:#525252;">プロセス一覧</a>
+    <div></div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">8.2.4.2 — Step 15: TPPO</div>
+      <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
+    </div>
+    <div class="footer-links"><a href="index.html">← プロセス一覧</a></div>
+  </div>
+</footer>
+</body>
+</html>

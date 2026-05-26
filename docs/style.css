@@ -113,18 +113,22 @@ a:hover { text-decoration: underline; }
 }
 .hero-cta:hover { background: var(--gray-10); text-decoration: none; }
 
-/* ── Hero Summary Image ── */
-.hero-image-wrap {
-  flex: 0 0 380px;
-  max-width: 380px;
+/* ── Summary Block (main content) ── */
+.summary-block {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  background: var(--white);
+  border: 1px solid var(--gray-20);
+  padding: 32px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
 }
-.hero-summary-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 8px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-}
+.summary-image-wrap { flex: 0 0 420px; max-width: 420px; }
+.summary-img { width: 100%; height: auto; display: block; border-radius: 4px; }
+.summary-desc { flex: 1; min-width: 240px; display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+.summary-lead { font-size: 18px; font-weight: 700; color: var(--text-01); line-height: 1.5; }
+.summary-desc p { font-size: 13px; color: var(--text-02); line-height: 1.8; }
 
 /* ── Container ── */
 .container { max-width: 1100px; margin: 0 auto; padding: 40px; }

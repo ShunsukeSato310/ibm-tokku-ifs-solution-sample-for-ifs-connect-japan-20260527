@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8.2.4.2 Enter Purchase Order, Basic Flow — IFS Cloud 教育マニュアル</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    ::cue { font-size: 0.75em; background: rgba(0,0,0,0.55); }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-brand">8.2.4.2 Enter Purchase Order, Basic Flow</div>
+  <nav class="site-header-nav">
+    <a href="../index.html">← 調達・購買</a>
+  </nav>
+</header>
+
+<section class="hero" style="padding-bottom:32px;">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">調達・購買 / PO 作成 — Process 8.2.4.2</div>
+      <h1>Enter Purchase Order<br>Basic Flow</h1>
+      <p>購買発注のヘッダー・明細入力から Planned ステータス確定まで。IFS Cloud における最も基本的な調達プロセスを 15 ステップで習得します。</p>
+      <div class="hero-badges">
+        <span class="hero-badge">15 アクティビティ</span>
+        <span class="hero-badge">Purchase Order</span>
+        <span class="hero-badge">IFS 25R2</span>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-val">15</div><div class="hero-stat-lbl">ステップ数</div></div>
+        <div><div class="hero-stat-val">3</div><div class="hero-stat-lbl">API 詳細解説</div></div>
+        <div><div class="hero-stat-val">P2P</div><div class="hero-stat-lbl">プロセス分類</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="section-label">プロセスフロー（15 ステップ）</div>
+  <div class="proc-flow" style="flex-direction:column; gap:16px;">
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0;">
+      <div class="pf-node"><a href="step-01.html" style="text-decoration:none;"><div class="pf-circle highlight">1</div><div class="pf-label" style="color:#0f62fe;">PO ヘッダー<br>入力</div></a></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node"><a href="step-02.html" style="text-decoration:none;"><div class="pf-circle">2</div><div class="pf-label">レンタル<br>明細</div></a></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node"><a href="step-03.html" style="text-decoration:none;"><div class="pf-circle">3</div><div class="pf-label">テキスト<br>入力</div></a></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node"><a href="step-04.html" style="text-decoration:none;"><div class="pf-circle">4</div><div class="pf-label">コスト<br>配賦(H)</div></a></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node"><a href="step-05.html" style="text-decoration:none;"><div class="pf-circle">5</div><div class="pf-label">事前転記<br>(H)</div></a></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node"><a href="step-06.html" style="text-decoration:none;"><div class="pf-circle" style="background:#8d8d8d;">6</div><div class="pf-label">ブラジル<br>固有</div></a></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node"><a href="step-07.html" style="text-decoration:none;"><div class="pf-circle highlight">7</div><div class="pf-label" style="color:#0f62fe;">PO 明細<br>入力</div></a></div>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0;">
+      <div class="pf-node"><a href="step-08.html" style="text-decoration:none;"><div class="pf-circle">8</div><div class="pf-label">キャンセル</div></a></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node"><a href="step-09.html" style="text-decoration:none;"><div class="pf-circle">9</div><div class="pf-label">コスト<br>配賦(L)</div></a></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node"><a href="step-10.html" style="text-decoration:none;"><div class="pf-circle">10</div><div class="pf-label">事前転記<br>(L)</div></a></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node"><a href="step-11.html" style="text-decoration:none;"><div class="pf-circle">11</div><div class="pf-label">PO 停止</div></a></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node"><a href="step-12.html" style="text-decoration:none;"><div class="pf-circle">12</div><div class="pf-label">税計算<br>基準</div></a></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node"><a href="step-13.html" style="text-decoration:none;"><div class="pf-circle">13</div><div class="pf-label">納品<br>管理</div></a></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node"><a href="step-14.html" style="text-decoration:none;"><div class="pf-circle">14</div><div class="pf-label">No-Num<br>明細</div></a></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node"><a href="step-15.html" style="text-decoration:none;"><div class="pf-circle">15</div><div class="pf-label">テキスト<br>処理</div></a></div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:32px;">操作デモ動画</div>
+  <div style="margin-bottom:32px;">
+    <video controls style="max-width:100%;border:1px solid #e0e0e0;box-shadow:0 2px 8px rgba(0,0,0,0.08);background:#000;border-radius:4px;">
+      <source src="videos/enter-purchase-order-walkthrough.webm" type="video/webm">
+      <track src="videos/enter-purchase-order-walkthrough.vtt" kind="captions" srclang="ja" label="日本語" default>
+      お使いのブラウザは video タグに対応していません。
+    </video>
+    <p style="font-size:12px;color:#525252;margin-top:8px;">全15ステップの操作フロー（IFS Cloud 25R2）</p>
+  </div>
+
+  <div class="section-label">ステップ一覧</div>
+  <div class="lp-grid">
+    <a href="step-01.html" class="lp-card available"><div class="lp-phase">PO 作成</div><div class="lp-number">Step 1 — EPH</div><div class="lp-title">Enter Purchase Order Header</div><div class="lp-acts">購買発注ヘッダーの入力</div><span class="lp-status-badge available">詳細を見る →</span></a>
+    <a href="step-02.html" class="lp-card available"><div class="lp-phase">PO 作成</div><div class="lp-number">Step 2 — EPORL</div><div class="lp-title">Enter Purchase Order Rental Line</div><div class="lp-acts">レンタル明細の入力（オプション）</div><span class="lp-status-badge available">詳細を見る →</span></a>
+    <a href="step-03.html" class="lp-card available"><div class="lp-phase">PO 作成</div><div class="lp-number">Step 3 — EIT</div><div class="lp-title">Enter Informational Text</div><div class="lp-acts">ドキュメントテキストの入力</div><span class="lp-status-badge available">詳細を見る →</span></a>
+    <a href="step-04.html" class="lp-card available"><div class="lp-phase">PO 作成</div><div class="lp-number">Step 4 — DCPO</div><div class="lp-title">Distribute Costs for PO</div><div class="lp-acts">コスト配賦設定（ヘッダー）</div><span class="lp-status-badge available">詳細を見る →</span></a>
+    <a href="step-05.html" class="lp-card available"><div class="lp-phase">PO 作成</div><div class="lp-number">Step 5 — EPPO</div><div class="lp-title">Enter Pre-Posting Purchase Order</div><div class="lp-acts">事前転記設定（ヘッダー）</div><span class="lp-status-badge available">詳細を見る →</span></a>
+    <a href="step-06.html" class="lp-card" style="opacity:0.6;"><div class="lp-phase">ローカライズ</div><div class="lp-number">Step 6 — BS</div><div class="lp-title">Brazil Specific</div><div class="lp-acts">ブラジル固有（日本案件は非対象）</div><span class="lp-status-badge soon">スキップ可</span></a>
+    <a href="step-07.html" class="lp-card available"><div class="lp-phase">PO 作成</div><div class="lp-number">Step 7 — EPOL</div><div class="lp-title">Enter Purchase Order Line</div><div class="lp-acts">購買発注明細の入力</div><span class="lp-status-badge available">詳細を見る →</span></a>
+    <a href="step-08.html" class="lp-card available"><div class="lp-phase">PO 修正</div><div class="lp-number">Step 8 — CPOL</div><div class="lp-title">Cancel Purchase Order or Line</div><div class="lp-acts">発注・明細のキャンセル</div><span class="lp-status-badge available">詳細を見る →</span></a>
+    <a href="step-09.html" class="lp-card available"><div class="lp-phase">PO 修正</div><div class="lp-number">Step 9 — DCPOL</div><div class="lp-title">Distribute Costs for PO Line</div><div class="lp-acts">コスト配賦設定（明細）</div><span class="lp-status-badge available">詳細を見る →</span></a>
+    <a href="step-10.html" class="lp-card available"><div class="lp-phase">PO 修正</div><div class="lp-number">Step 10 — EPPOL</div><div class="lp-title">Enter Pre-Posting PO Line</div><div class="lp-acts">事前転記設定（明細）</div><span class="lp-status-badge available">詳細を見る →</span></a>
+    <a href="step-11.html" class="lp-card available"><div class="lp-phase">PO 制御</div><div class="lp-number">Step 11 — SPO</div><div class="lp-title">Stop Purchase Order</div><div class="lp-acts">発注の一時停止（Freeze）</div><span class="lp-status-badge available">詳細を見る →</span></a>
+    <a href="step-12.html" class="lp-card available"><div class="lp-phase">PO 制御</div><div class="lp-number">Step 12 — MTCB</div><div class="lp-title">Modify Tax Calculation Basis</div><div class="lp-acts">税計算基準の変更</div><span class="lp-status-badge available">詳細を見る →</span></a>
+    <a href="step-13.html" class="lp-card available"><div class="lp-phase">PO 制御</div><div class="lp-number">Step 13 — EDCC</div><div class="lp-title">Enter Delivery Control Code</div><div class="lp-acts">納品管理コードの設定</div><span class="lp-status-badge available">詳細を見る →</span></a>
+    <a href="step-14.html" class="lp-card available"><div class="lp-phase">PO 作成</div><div class="lp-number">Step 14 — ENNPL</div><div class="lp-title">Enter No-Number Part Line</div><div class="lp-acts">No-Number 品目明細の入力</div><span class="lp-status-badge available">詳細を見る →</span></a>
+    <a href="step-15.html" class="lp-card available"><div class="lp-phase">PO 作成</div><div class="lp-number">Step 15 — TPPO</div><div class="lp-title">Text Processing, Purchase Order</div><div class="lp-acts">No-Number 品目の説明テキスト入力</div><span class="lp-status-badge available">詳細を見る →</span></a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">8.2.4.2 Enter Purchase Order, Basic Flow</div>
+      <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
+    </div>
+    <div class="footer-links">
+      <a href="../index.html">← 調達・購買</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
