@@ -1,27 +1,26 @@
-<PieChart>
+<BarChart>
   <Author>IBM Tokku Team</Author>
-  <Keywords>調達,発注数量,グラフ</Keywords>
+  <Keywords>調達,発注数量,棒グラフ</Keywords>
   <LastModified>2026-05-26-00.00.00</LastModified>
   <Locked>false</Locked>
   <Component>PURCH</Component>
   <Row>1</Row><Column>2</Column><RowSpan>2</RowSpan><ColumnSpan>2</ColumnSpan>
-  <Title>オーダ別発注数量</Title>
+  <Title>オーダ別発注数量（棒グラフ）</Title>
   <Background>#FFFFFFFF</Background>
   <Foreground>#FF000000</Foreground>
-  <Name>JP PO Qty By Order Chart</Name>
-  <ID>el-jp-pie-qty-006</ID>
+  <Name>JP PO Qty Bar Chart</Name>
+  <ID>el-jp-bar-qty-006</ID>
   <DataSourceId>ds-jp-po-by-order-006</DataSourceId>
   <ColumnMapping>
     <MappedColumns>
       <MappedColumn><Column>発注番号</Column><Name>発注番号</Name><DisplayName>発注番号</DisplayName><Aggregate>NA</Aggregate><ConditionalFormats/></MappedColumn>
-      <MappedColumn><Column>発注数量</Column><Name>COUNT 発注数量</Name><DisplayName>COUNT 発注数量</DisplayName><Aggregate>SUM</Aggregate><ConditionalFormats/></MappedColumn>
+      <MappedColumn><Column>発注数量</Column><Name>発注数量</Name><DisplayName>発注数量</DisplayName><Aggregate>SUM</Aggregate><ConditionalFormats/></MappedColumn>
     </MappedColumns>
   </ColumnMapping>
-  <DisplayNullValueAs>Zero</DisplayNullValueAs>
   <GroupedDataSeries>
     <TopNOptions><ShowOthers>false</ShowOthers></TopNOptions>
-    <GroupsColumn><Name>発注番号</Name><Aggregate>NA</Aggregate></GroupsColumn>
-    <ValuesColumn><Name>発注数量</Name><Aggregate>SUM</Aggregate></ValuesColumn>
+    <XColumn><Name>発注番号</Name><Aggregate>NA</Aggregate></XColumn>
+    <YColumn><Name>発注数量</Name><Aggregate>SUM</Aggregate></YColumn>
   </GroupedDataSeries>
   <UnifiedElement/><ElementConfig/>
-</PieChart>
+</BarChart>

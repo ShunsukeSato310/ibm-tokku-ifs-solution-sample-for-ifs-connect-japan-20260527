@@ -7,9 +7,60 @@
   <Locked>false</Locked>
   <Component>PURCH</Component>
   <AurenaLobby>true</AurenaLobby>
-  <PageId>0b0d4639-0276-44a3-ae71-2fe0a6410f2c</PageId>
+  <PageId>959eb171-a79c-4c5c-9f2c-1d8dc64ce330</PageId>
   <PageTitle>調達担当者ロビー</PageTitle>
   <Layout><Groups><Group><Elements>
+    <!-- el-jp-bar-qty-006.xml -->
+    <BarChart>
+    <Author>IBM Tokku Team</Author>
+    <Keywords>調達,発注数量,棒グラフ</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Component>PURCH</Component>
+    <Row>1</Row>
+    <Column>2</Column>
+    <RowSpan>2</RowSpan>
+    <ColumnSpan>2</ColumnSpan>
+    <Title>オーダ別発注数量（棒グラフ）</Title>
+    <Background>#FFFFFFFF</Background>
+    <Foreground>#FF000000</Foreground>
+    <Name>JP PO Qty Bar Chart</Name>
+    <ID>el-jp-bar-qty-006</ID>
+    <DataSourceId>ds-jp-po-by-order-006</DataSourceId>
+    <ColumnMapping>
+        <MappedColumns>
+            <MappedColumn>
+                <Column>発注番号</Column>
+                <Name>発注番号</Name>
+                <DisplayName>発注番号</DisplayName>
+                <Aggregate>NA</Aggregate>
+                <ConditionalFormats />
+            </MappedColumn>
+            <MappedColumn>
+                <Column>発注数量</Column>
+                <Name>発注数量</Name>
+                <DisplayName>発注数量</DisplayName>
+                <Aggregate>SUM</Aggregate>
+                <ConditionalFormats />
+            </MappedColumn>
+        </MappedColumns>
+    </ColumnMapping>
+    <GroupedDataSeries>
+        <TopNOptions>
+            <ShowOthers>false</ShowOthers>
+        </TopNOptions>
+        <XColumn>
+            <Name>発注番号</Name>
+            <Aggregate>NA</Aggregate>
+        </XColumn>
+        <YColumn>
+            <Name>発注数量</Name>
+            <Aggregate>SUM</Aggregate>
+        </YColumn>
+    </GroupedDataSeries>
+    <UnifiedElement />
+    <ElementConfig />
+</BarChart>
     <!-- el-jp-kpi-delayed-002.xml -->
     <Counter>
     <Author>IBM Tokku Team</Author>
@@ -149,9 +200,9 @@
     <Locked>false</Locked>
     <Component>PURCH</Component>
     <Row>3</Row>
-    <Column>0</Column>
-    <RowSpan>1</RowSpan>
-    <ColumnSpan>4</ColumnSpan>
+    <Column>3</Column>
+    <RowSpan>2</RowSpan>
+    <ColumnSpan>1</ColumnSpan>
     <Title>クイックリンク</Title>
     <Background>#FF6929C4</Background>
     <Foreground>#FFFFFFFF</Foreground>
@@ -196,6 +247,59 @@
     <UnifiedElement />
     <ElementConfig />
 </LinksList>
+    <!-- el-jp-list-remaining-007.xml -->
+    <List>
+    <Author>IBM Tokku Team</Author>
+    <Keywords>調達,発注残一覧</Keywords>
+    <LastModified>2026-05-26-00.00.00</LastModified>
+    <Locked>false</Locked>
+    <Component>PURCH</Component>
+    <Row>3</Row>
+    <Column>0</Column>
+    <RowSpan>2</RowSpan>
+    <ColumnSpan>3</ColumnSpan>
+    <Title>発注残一覧（Released）</Title>
+    <Background>#FFFFFFFF</Background>
+    <Foreground>#FF000000</Foreground>
+    <Name>JP PO Remaining List</Name>
+    <ID>el-jp-list-remaining-007</ID>
+    <WebUrl>page/PurchaseOrder/List</WebUrl>
+    <DataSourceId>ds-jp-po-remaining-001</DataSourceId>
+    <ColumnMapping>
+        <MappedColumns>
+            <MappedColumn>
+                <Column>ORDER_NO</Column>
+                <Name>購買オーダ番号</Name>
+                <DisplayName>購買オーダ番号</DisplayName>
+                <Aggregate>NA</Aggregate>
+                <ConditionalFormats />
+            </MappedColumn>
+            <MappedColumn>
+                <Column>DESCRIPTION</Column>
+                <Name>品目名称</Name>
+                <DisplayName>品目名称</DisplayName>
+                <Aggregate>NA</Aggregate>
+                <ConditionalFormats />
+            </MappedColumn>
+            <MappedColumn>
+                <Column>BUY_QTY_DUE</Column>
+                <Name>発注数量</Name>
+                <DisplayName>発注数量</DisplayName>
+                <Aggregate>NA</Aggregate>
+                <ConditionalFormats />
+            </MappedColumn>
+            <MappedColumn>
+                <Column>PLANNED_RECEIPT_DATE</Column>
+                <Name>入庫予定日</Name>
+                <DisplayName>入庫予定日</DisplayName>
+                <Aggregate>NA</Aggregate>
+                <ConditionalFormats />
+            </MappedColumn>
+        </MappedColumns>
+    </ColumnMapping>
+    <UnifiedElement />
+    <ElementConfig />
+</List>
     <!-- el-jp-pie-delay-005.xml -->
     <PieChart>
     <Author>IBM Tokku Team</Author>
@@ -239,58 +343,6 @@
         <ValuesColumn>
             <Name>件数</Name>
             <Aggregate>COUNT</Aggregate>
-        </ValuesColumn>
-    </GroupedDataSeries>
-    <UnifiedElement />
-    <ElementConfig />
-</PieChart>
-    <!-- el-jp-pie-qty-006.xml -->
-    <PieChart>
-    <Author>IBM Tokku Team</Author>
-    <Keywords>調達,発注数量,グラフ</Keywords>
-    <LastModified>2026-05-26-00.00.00</LastModified>
-    <Locked>false</Locked>
-    <Component>PURCH</Component>
-    <Row>1</Row>
-    <Column>2</Column>
-    <RowSpan>2</RowSpan>
-    <ColumnSpan>2</ColumnSpan>
-    <Title>オーダ別発注数量</Title>
-    <Background>#FFFFFFFF</Background>
-    <Foreground>#FF000000</Foreground>
-    <Name>JP PO Qty By Order Chart</Name>
-    <ID>el-jp-pie-qty-006</ID>
-    <DataSourceId>ds-jp-po-by-order-006</DataSourceId>
-    <ColumnMapping>
-        <MappedColumns>
-            <MappedColumn>
-                <Column>発注番号</Column>
-                <Name>発注番号</Name>
-                <DisplayName>発注番号</DisplayName>
-                <Aggregate>NA</Aggregate>
-                <ConditionalFormats />
-            </MappedColumn>
-            <MappedColumn>
-                <Column>発注数量</Column>
-                <Name>COUNT 発注数量</Name>
-                <DisplayName>COUNT 発注数量</DisplayName>
-                <Aggregate>SUM</Aggregate>
-                <ConditionalFormats />
-            </MappedColumn>
-        </MappedColumns>
-    </ColumnMapping>
-    <DisplayNullValueAs>Zero</DisplayNullValueAs>
-    <GroupedDataSeries>
-        <TopNOptions>
-            <ShowOthers>false</ShowOthers>
-        </TopNOptions>
-        <GroupsColumn>
-            <Name>発注番号</Name>
-            <Aggregate>NA</Aggregate>
-        </GroupsColumn>
-        <ValuesColumn>
-            <Name>発注数量</Name>
-            <Aggregate>SUM</Aggregate>
         </ValuesColumn>
     </GroupedDataSeries>
     <UnifiedElement />
