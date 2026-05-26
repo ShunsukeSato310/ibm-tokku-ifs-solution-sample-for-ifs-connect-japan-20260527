@@ -113,32 +113,17 @@
   </table>
 
   <div class="section-label">実画面イメージ</div>
-  <div class="sc-mock">
-    <div class="sc-mock-bar">
-      <span class="sc-dot red"></span><span class="sc-dot yellow"></span><span class="sc-dot green"></span>
-      <span class="sc-mock-title">発注残確認レポート — IFS Cloud</span>
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:960px;">
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--text-02);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">IFS Cloud クイックレポート実行画面（9件 / 入庫予定日昇順）</div>
+      <img src="screenshots/ev-05-qr-result.png" alt="IFS Cloud クイックレポート実行結果" style="width:100%;height:auto;border:1px solid var(--gray-20);border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
     </div>
-    <div class="sc-mock-toolbar">
-      <label>予定納期（自）</label><span class="sc-input">2026-05-26</span>
-      <label>予定納期（至）</label><span class="sc-input">2026-06-02</span>
-      <span class="sc-btn-run">実行</span>
-      <span class="sc-btn-sub">Excel出力</span>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--text-02);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">IFS Cloud ホーム画面（ログイン後）</div>
+      <img src="screenshots/ev-03-home.png" alt="IFS Cloud ホーム画面" style="width:100%;height:auto;border:1px solid var(--gray-20);border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
     </div>
-    <div style="overflow-x:auto;">
-      <table class="sc-data-table">
-        <thead><tr><th>発注番号</th><th>品目</th><th>仕入先</th><th>発注数</th><th>入荷済</th><th>残数</th><th>予定納期</th></tr></thead>
-        <tbody>
-          <tr class="sc-row-warn"><td>PO-2026-0421</td><td>ボルト M10×30</td><td>山田製作所</td><td>500</td><td>200</td><td><strong>300</strong></td><td><span class="sc-date-warn">2026-05-27</span></td></tr>
-          <tr><td>PO-2026-0438</td><td>プレート 200×300</td><td>鈴木金属</td><td>120</td><td>0</td><td><strong>120</strong></td><td>2026-05-29</td></tr>
-          <tr><td>PO-2026-0445</td><td>シール材 A-Type</td><td>東洋工業</td><td>1,000</td><td>400</td><td><strong>600</strong></td><td>2026-05-30</td></tr>
-          <tr><td>PO-2026-0461</td><td>ケーブル 2m</td><td>日本電材</td><td>80</td><td>80</td><td><strong>0</strong></td><td>2026-06-01</td></tr>
-          <tr><td>PO-2026-0477</td><td>フィルタユニット</td><td>山田製作所</td><td>30</td><td>10</td><td><strong>20</strong></td><td>2026-06-02</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="sc-mock-footer">5 件表示 / 全 5 件　合計残数: 1,040</div>
   </div>
-  <p style="font-size:11px;color:var(--text-03);margin-top:8px;">※ 実際の操作画面を模したモックアップです。実運用データは含みません。</p>
+  <p style="font-size:11px;color:var(--text-03);margin-top:8px;">IFS Cloud 25R2 実機（pwojaqu-dev1）での動作確認エビデンス。</p>
 
   <div class="section-label">成果物ドキュメント</div>
   <div class="lp-grid" style="margin-bottom:8px;">
