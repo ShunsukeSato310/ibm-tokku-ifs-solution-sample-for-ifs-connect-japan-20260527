@@ -304,12 +304,12 @@ function animScene(id){
     if(b){setTimeout(()=>{b.style.width=b.style.getPropertyValue('--w')||'0';},400);}
   });
   // kpi count-up
-  const kvs=[[' kn1',1200,'+'],[' kn2',12000,'+'],[' kn3',8000,'+']];
-  kvs.forEach(([sel,target,suf])=>{
-    const el=document.querySelector('#s3 '+sel);
+  [['kn1',1200],['kn2',12000],['kn3',8000]].forEach(([eid,target])=>{
+    const el=document.getElementById(eid);
     if(!el)return;
+    el.textContent='0';
     let n=0,step=Math.ceil(target/40);
-    const t2=setInterval(()=>{n=Math.min(n+step,target);el.textContent=n.toLocaleString()+suf;if(n>=target)clearInterval(t2);},50);
+    const t2=setInterval(()=>{n=Math.min(n+step,target);el.textContent=n.toLocaleString()+'+';if(n>=target)clearInterval(t2);},50);
   });
 }
 
