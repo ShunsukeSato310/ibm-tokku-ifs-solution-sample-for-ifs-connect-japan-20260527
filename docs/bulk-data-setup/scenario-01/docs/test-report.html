@@ -37,14 +37,14 @@
   <div class="hero-inner" style="display:block;">
     <div class="hero-eyebrow">大量データセットアップ — 投入検証レポート</div>
     <h1 style="font-size:28px;">調達・購買 データ投入<br>検証レポート（18,500件規模）</h1>
-    <p style="margin-bottom:0;">実測ベース推計　／　IFS Cloud 25R2 (pwojaqu-dev1) / Script-A-Rest</p>
+    <p style="margin-bottom:0;">実測ベース推計　／　IFS Cloud 25R2 / Script-A-Rest</p>
   </div>
 </section>
 
 <main class="container">
 
   <div class="measure-box">
-    <strong>実測値について：</strong>IFS Cloud 実機（pwojaqu-dev1）への API レスポンスタイムを実際に計測した結果、<strong>1リクエストあたり平均 300〜400ms</strong>（GET系）を確認。Script-A-Rest のエンティティ作成は GET（デフォルト値取得）+ POST（登録）の最低2コールを要するため、これを基に推計しています。発注明細は FK 依存のため直列処理です。
+    <strong>推計根拠：</strong>IFS Cloud API のレスポンスタイムを実際に計測した結果、<strong>1リクエストあたり平均 300〜400ms</strong>（GET系）を確認。Script-A-Rest のエンティティ作成は GET（デフォルト値取得）+ POST（登録）の最低2コールを要するため、これを基に推計しています。FK 非依存のエンティティ（仕入先・品目）は複数スクリプトの並列実行により大幅な時間短縮が可能です。
   </div>
 
   <div class="section-label">投入規模サマリー</div>
@@ -54,55 +54,45 @@
     <div class="kpi-box"><div class="kpi-val" style="color:var(--text-03);">0</div><div class="kpi-lbl">エラー件数（想定）</div></div>
   </div>
 
-  <div class="section-label">エンティティ別 実測ベース推計</div>
+  <div class="section-label">エンティティ別 推計（並列度考慮）</div>
   <table class="doc-table">
-    <thead><tr><th>エンティティ</th><th>件数</th><th>API コール/件</th><th>実測平均/コール</th><th>推計時間</th><th>備考</th></tr></thead>
+    <thead><tr><th>エンティティ</th><th>件数</th><th>APIコール/件</th><th>並列度</th><th>推計時間</th><th>備考</th></tr></thead>
     <tbody>
       <tr>
-        <td>仕入先マスタ</td><td>500件</td><td>2コール</td><td>300ms</td>
+        <td>仕入先マスタ</td><td>500件</td><td>2コール</td><td><strong>20並列</strong></td>
+        <td><strong>約1分</strong></td>
+        <td>FK 非依存・軽量。並列度を高くとれる</td>
+      </tr>
+      <tr>
+        <td>品目マスタ</td><td>2,000件</td><td>3コール</td><td><strong>20並列</strong></td>
         <td><strong>約5分</strong></td>
-        <td>GET Default + POST Create</td>
+        <td>FK 非依存。バリデーション込みでも並列化で短縮</td>
       </tr>
       <tr>
-        <td>品目マスタ</td><td>2,000件</td><td>3コール</td><td>400ms</td>
-        <td><strong>約40分</strong></td>
-        <td>バリデーション呼び出しを含むため1コール多い</td>
+        <td>購買発注ヘッダー</td><td>5,000件</td><td>2コール</td><td><strong>10並列</strong></td>
+        <td><strong>約5分</strong></td>
+        <td>仕入先マスタ完了後に開始。同一仕入先への集中を避けて並列化</td>
       </tr>
       <tr>
-        <td>購買発注ヘッダー</td><td>5,000件</td><td>2コール</td><td>300ms</td>
-        <td><strong>約50分</strong></td>
-        <td>仕入先マスタ登録後に実行（依存あり）</td>
+        <td>発注明細</td><td>10,000件</td><td>3コール</td><td><strong>10並列</strong>（ヘッダー別）</td>
+        <td><strong>約15分</strong></td>
+        <td>発注ヘッダー単位でグループ化し各グループを並列処理</td>
       </tr>
       <tr>
-        <td>発注明細</td><td>10,000件</td><td>3コール</td><td>300ms</td>
-        <td><strong>約2時間30分</strong></td>
-        <td>購買発注ヘッダーへの FK 依存のため直列処理必須</td>
-      </tr>
-      <tr>
-        <td>入荷処理</td><td>1,000件</td><td>4コール</td><td>350ms</td>
-        <td><strong>約23分</strong></td>
-        <td>GET + PATCH（数量入力）+ Action（Arrive）+ Action（MoveToInventory）</td>
-      </tr>
-      <tr style="background:#f6f2ff;">
-        <td><strong>合計（直列）</strong></td><td><strong>18,500件</strong></td><td>—</td><td>—</td>
-        <td><strong>約4.5時間</strong></td>
-        <td>オーバーヘッド（リトライ・コミット待ち）込みで <strong>約6〜7時間</strong></td>
+        <td>入荷処理</td><td>1,000件</td><td>4コール</td><td><strong>10並列</strong></td>
+        <td><strong>約3分</strong></td>
+        <td>明細投入完了後に開始。発注番号単位で並列化可能</td>
       </tr>
       <tr style="background:#e6f9ee;">
-        <td><strong>合計（並列度3）</strong></td><td><strong>18,500件</strong></td><td>—</td><td>—</td>
-        <td><strong>約2〜3時間</strong></td>
-        <td>FK 依存のない仕入先・品目・入荷処理を並列実行した場合</td>
+        <td><strong>合計（並列最適化）</strong></td><td><strong>18,500件</strong></td><td>—</td><td>—</td>
+        <td><strong>約30分</strong></td>
+        <td>ステージ間の待ち時間・オーバーヘッドを含む。環境負荷により変動</td>
       </tr>
-    </tbody>
-  </table>
-
-  <div class="section-label">API レスポンスタイム実測値（pwojaqu-dev1）</div>
-  <table class="doc-table">
-    <thead><tr><th>計測対象</th><th>最小</th><th>平均</th><th>最大</th><th>備考</th></tr></thead>
-    <tbody>
-      <tr><td>SupplierInfoGeneralSet GET（認証済み MCP 経由）</td><td>150ms</td><td>250ms</td><td>600ms</td><td>初回リクエストは JIT コンパイルで遅延あり</td></tr>
-      <tr><td>REST エンドポイント疎通確認（HTTP GET）</td><td>133ms</td><td>225ms</td><td>695ms</td><td>初回セッション確立時が最大</td></tr>
-      <tr><td>POST（登録系）推定</td><td>300ms</td><td>500ms</td><td>2,000ms</td><td>バリデーション・DB commit を含むため GET より遅い</td></tr>
+      <tr style="background:#f6f2ff;">
+        <td><strong>参考（完全直列）</strong></td><td><strong>18,500件</strong></td><td>—</td><td>1</td>
+        <td><strong>約6〜7時間</strong></td>
+        <td>並列化なしの場合</td>
+      </tr>
     </tbody>
   </table>
 
@@ -120,14 +110,16 @@
     </tbody>
   </table>
 
-  <div class="section-label">実行時間変動要因</div>
+  <div class="section-label">並列化戦略と留意点</div>
   <table class="doc-table">
-    <thead><tr><th>要因</th><th>影響度</th><th>対策</th></tr></thead>
+    <thead><tr><th>ステージ</th><th>並列化方針</th><th>留意点</th></tr></thead>
     <tbody>
-      <tr><td>FK 依存による直列処理（発注明細）</td><td>大 — 全体の約55%を占める</td><td>ヘッダー一括完了後に明細を別スクリプトで実行</td></tr>
-      <tr><td>IFS Cloud API バリデーション</td><td>中 — 品目マスタ等で1コール追加</td><td>必須フィールドを事前確認し無効値を排除</td></tr>
-      <tr><td>API レート制限（429）</td><td>中 — リトライで最大6秒遅延/件</td><td>スクリプトに指数バックオフリトライを実装</td></tr>
-      <tr><td>SaaS 共有リソースの負荷変動</td><td>小〜中 — 時間帯により±50%程度</td><td>業務時間外（深夜〜早朝）での実行を推奨</td></tr>
+      <tr><td>仕入先・品目マスタ</td><td>20並列まで引き上げ可。スクリプトをデータ範囲で分割して同時実行</td><td>エンティティ間に依存なし。積極的に並列化できる</td></tr>
+      <tr><td>購買発注ヘッダー</td><td>10並列。仕入先ごとにグループ分けして並列実行</td><td>同一仕入先の連続アクセスを分散させると効果的</td></tr>
+      <tr><td>発注明細</td><td>発注ヘッダー単位で10並列。各ヘッダーの明細を独立スクリプトで処理</td><td>同一ヘッダー内は順次処理。ヘッダーをまたぐ並列化は安全</td></tr>
+      <tr><td>入荷処理</td><td>10並列。発注単位でグループ化</td><td>明細投入フェーズの完了を確認してから開始</td></tr>
+      <tr><td>API レート制限（429）</td><td>並列度が高い場合は発生しやすい</td><td>指数バックオフリトライを実装。並列度を落とさず対応可能</td></tr>
+      <tr><td>SaaS 環境の負荷</td><td>時間帯による変動あり</td><td>業務時間外での実行推奨。並列度は環境に合わせて調整</td></tr>
     </tbody>
   </table>
   <p style="font-size:11px;color:var(--text-03);">データ名称はデモ用フィクションです。実在の企業・人物とは無関係です。</p>
