@@ -53,7 +53,6 @@
       <div class="hero-badges">
         <span class="hero-badge">FNDMIG標準準拠</span>
         <span class="hero-badge">7ジョブ自動生成</span>
-        <span class="hero-badge">AUTOCREATE変換済み</span>
       </div>
     </div>
   </div>
@@ -67,16 +66,16 @@
       <div class="sc-ctx-label">従来の課題</div>
       <ul class="sc-ctx-list">
         <li>7ジョブの手動作成に半日〜1日かかっていた</li>
-        <li>AUTOCREATE変換・IID列設定を手書きでミスしやすい</li>
-        <li>DELジョブのViewName設定誤りで実行時エラーが頻発</li>
+        <li>ジョブ設定ミスによる実行時エラーが頻発していた</li>
+        <li>定義書のメンテが追いつかず属人化していた</li>
       </ul>
     </div>
     <div class="sc-context-card sc-context-after">
       <div class="sc-ctx-label">AI自動生成で解決</div>
       <ul class="sc-ctx-list">
-        <li>ビュー名入力だけで7ジョブ＋グループを10分以内に作成</li>
-        <li>AUTOCREATE変換・3ポイントセット・IID列処理を自動適用</li>
-        <li>DELジョブのViewName除外ルールも自動適用（失敗ゼロ）</li>
+        <li>ビュー名入力だけで7ジョブを10分以内に自動作成</li>
+        <li>IFS標準の制約・設定ルールをAIが自動適用（失敗ゼロ）</li>
+        <li>定義書（YAML形式）を自動出力・バージョン管理可能</li>
       </ul>
     </div>
   </div>
@@ -85,13 +84,9 @@
   <div class="flow-line">
     <div class="fl-node"><div class="fl-box">ビュー名<br>入力</div></div>
     <div class="fl-arr">→</div>
-    <div class="fl-node"><div class="fl-box">グループ<br>作成</div></div>
-    <div class="fl-arr">→</div>
-    <div class="fl-node"><div class="fl-box">7ジョブ<br>初期作成</div></div>
+    <div class="fl-node"><div class="fl-box">7ジョブ<br>自動作成</div></div>
     <div class="fl-arr">→</div>
     <div class="fl-node"><div class="fl-box">FNDMIG<br>EXPORT</div></div>
-    <div class="fl-arr">→</div>
-    <div class="fl-node"><div class="fl-box">AUTOCREATE<br>変換</div></div>
     <div class="fl-arr">→</div>
     <div class="fl-node"><div class="fl-box">IMPORT<br>適用</div></div>
     <div class="fl-arr">→</div>

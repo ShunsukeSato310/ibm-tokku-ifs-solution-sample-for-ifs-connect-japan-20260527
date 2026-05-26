@@ -43,9 +43,9 @@
     <div class="hero-text">
       <div class="hero-eyebrow">Fit to Standard 分析 — 調達・購買 20要件</div>
       <h1>調達領域 20要件<br>Fit to Standard 分析レポート</h1>
-      <p>仮想プロジェクトの調達要件20件に対し、IFS Cloud 1,200+プロセスと照合してFit/Config/Devを自動判定したサンプルです。</p>
+      <p>仮想プロジェクトの調達要件20件に対し、IFS標準プロセスと照合してFit/Config/Devを自動判定したサンプルです。</p>
       <div class="hero-badges">
-        <span class="hero-badge">20要件分析</span><span class="hero-badge">Fit 55%</span><span class="hero-badge">標準プロセス動画付き</span>
+        <span class="hero-badge">20要件分析</span><span class="hero-badge">Fit 55%</span>
       </div>
     </div>
   </div>
@@ -65,55 +65,6 @@
     <div class="bar-row"><div class="bar-label">Config（設定で対応）</div><div class="bar-track"><div class="bar-fill" style="width:25%;background:#0f62fe;"></div></div><div class="bar-pct" style="color:#0f62fe;">25%</div></div>
     <div class="bar-row"><div class="bar-label">Dev（開発が必要）</div><div class="bar-track"><div class="bar-fill" style="width:20%;background:#da1e28;"></div></div><div class="bar-pct" style="color:#da1e28;">20%</div></div>
   </div>
-
-  <div class="section-label">標準プロセス実現デモ — 購買発注フロー（実機スクリーンショット）</div>
-  <p style="font-size:13px;color:var(--text-02);margin-bottom:12px;">Fit判定した「購買発注の登録〜リリース」を IFS Cloud 25R2 実機で操作した画面です。標準機能のみで実現できることを確認できます。</p>
-  <div id="slideshow" style="border:1px solid var(--gray-20);border-radius:4px;overflow:hidden;max-width:900px;margin-bottom:8px;box-shadow:0 4px 16px rgba(0,0,0,.08);">
-    <div style="background:#3d3d3d;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;">
-      <div style="display:flex;align-items:center;gap:6px;">
-        <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
-        <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
-        <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block;"></span>
-        <span style="font-size:12px;color:rgba(255,255,255,.7);margin-left:8px;">IFS Cloud 25R2 — 購買オーダ (pwojaqu-dev1)</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <button onclick="prevSlide()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:4px 10px;cursor:pointer;border-radius:2px;font-size:12px;">◀</button>
-        <span id="slide-counter" style="font-size:11px;color:rgba(255,255,255,.6);">1 / 5</span>
-        <button onclick="nextSlide()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:4px 10px;cursor:pointer;border-radius:2px;font-size:12px;">▶</button>
-      </div>
-    </div>
-    <div style="position:relative;">
-      <img id="slide-img" src="screenshots/po-step-01.png" alt="購買オーダ 新規作成" style="width:100%;display:block;transition:opacity 0.15s;">
-    </div>
-    <div style="background:var(--gray-10);padding:10px 16px;border-top:1px solid var(--gray-20);">
-      <span id="slide-caption" style="font-size:12px;color:var(--text-02);">Step 1 — 購買オーダ画面を開き、仕入先・サイト・通貨を入力して新規ヘッダーを作成する</span>
-    </div>
-  </div>
-  <p style="font-size:11px;color:var(--text-03);margin-bottom:24px;">▲ IFS Cloud 25R2 実機スクリーンショット（pwojaqu-dev1）。◀▶ボタンで操作ステップを切り替えできます。</p>
-  <script>
-    var slides = [
-      {src:"screenshots/po-step-01.png", cap:"Step 1 — 購買オーダ画面を開き、仕入先・サイト・通貨を入力して新規ヘッダーを作成する"},
-      {src:"screenshots/po-step-03.png", cap:"Step 2 — 既存発注一覧から対象を確認。オーダ金額・明細・ステータスを確認できる"},
-      {src:"screenshots/po-step-07.png", cap:"Step 3 — 品目明細タブで品目番号・数量・入庫予定日を入力して明細を追加する"},
-      {src:"screenshots/po-step-11.png", cap:"Step 4 — ステータスメニューから「リリース」を選択して発注をリリース状態に遷移させる"},
-      {src:"screenshots/po-step-15.png", cap:"Step 5 — リリース完了。ステータスが「リリース済」に変わり、仕入先への発注が確定される"}
-    ];
-    var idx = 0;
-    function showSlide(i) {
-      idx = (i + slides.length) % slides.length;
-      var img = document.getElementById('slide-img');
-      img.style.opacity = '0';
-      setTimeout(function() {
-        img.src = slides[idx].src + '?v=' + idx;
-        img.alt = slides[idx].cap;
-        img.style.opacity = '1';
-      }, 100);
-      document.getElementById('slide-caption').textContent = slides[idx].cap;
-      document.getElementById('slide-counter').textContent = (idx+1) + ' / ' + slides.length;
-    }
-    function nextSlide() { showSlide(idx + 1); }
-    function prevSlide() { showSlide(idx - 1); }
-  </script>
 
   <div class="section-label">全要件 判定一覧（20件）</div>
   <table class="fts-table">
@@ -146,21 +97,13 @@
     <p style="font-size:12px;color:var(--text-02);margin:0;line-height:1.7;">本判定はAIによる自動分析の結果であり、<strong>架空のプロジェクト要件に基づくサンプル</strong>です。実在するプロジェクト・顧客とは無関係です。また、実際のプロジェクトにおいてはAIの判定をそのまま採用するのではなく、<strong>IFSに精通した人間のレビュアーが業務要件・カスタマイズ方針・運用制約を踏まえて最終判断を行うこと</strong>が不可欠です。</p>
   </div>
 
-  <div class="section-label">成果物ドキュメント</div>
+  <div class="section-label">詳細分析レポート</div>
   <div class="lp-grid">
     <div class="lp-card available">
-      <a href="docs/all-requirements.html">
-        <div class="lp-phase">全要件詳細</div>
-        <div class="lp-title">全要件 詳細分析レポート</div>
-        <div class="lp-acts">20要件の判定根拠 — No.15はプロセスモデル+PL/SQL解析付き</div>
-        <span class="lp-status-badge available">開く →</span>
-      </a>
-    </div>
-    <div class="lp-card available">
-      <a href="docs/report.html">
-        <div class="lp-phase">分析レポート</div>
-        <div class="lp-title">Fit to Standard 分析レポート</div>
-        <div class="lp-acts">判定根拠・優先度・推奨アクション（フェーズ別）</div>
+      <a href="docs/lot-serial-fit-report.html">
+        <div class="lp-phase">No.15 詳細</div>
+        <div class="lp-title">ロット・シリアル番号管理 Fit 判定レポート</div>
+        <div class="lp-acts">標準プロセス特定 → PL/SQL 解析 → Fit 確定までの詳細分析</div>
         <span class="lp-status-badge available">開く →</span>
       </a>
     </div>

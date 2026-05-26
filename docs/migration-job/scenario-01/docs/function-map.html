@@ -74,7 +74,7 @@
         <div class="arr">→</div>
         <div class="jbox inp"><div class="jbox-id">SUPPLIER_INS_INPUT</div><div class="jbox-proc">CREATE_TABLE_FROM_FILE</div></div>
         <div class="arr">→</div>
-        <div class="file-box">🗄 ステージングTBL<br><span style="font-size:10px;">INTFACE_TMP_INS</span></div>
+        <div class="file-box">🗄 ステージングTBL<br><span style="font-size:10px;">IC_SUPPLIER_INS_INPUT</span></div>
         <div class="arr">→</div>
         <div class="jbox ins"><div class="jbox-id">SUPPLIER_INS</div><div class="jbox-proc">MIGRATE_SOURCE_DATA<br>OnInsert=TRUE</div></div>
         <div class="arr">→</div>
@@ -89,7 +89,7 @@
         <div class="arr">→</div>
         <div class="jbox inp"><div class="jbox-id">SUPPLIER_UPD_INPUT</div><div class="jbox-proc">CREATE_TABLE_FROM_FILE</div></div>
         <div class="arr">→</div>
-        <div class="file-box">🗄 ステージングTBL<br><span style="font-size:10px;">INTFACE_TMP_UPD</span></div>
+        <div class="file-box">🗄 ステージングTBL<br><span style="font-size:10px;">IC_SUPPLIER_UPD_INPUT</span></div>
         <div class="arr">→</div>
         <div class="jbox upd"><div class="jbox-id">SUPPLIER_UPD</div><div class="jbox-proc">MIGRATE_SOURCE_DATA<br>OnUpdate=TRUE</div></div>
         <div class="arr">→</div>
@@ -104,18 +104,13 @@
         <div class="arr">→</div>
         <div class="jbox inp"><div class="jbox-id">SUPPLIER_DEL_INPUT</div><div class="jbox-proc">CREATE_TABLE_FROM_FILE</div></div>
         <div class="arr">→</div>
-        <div class="file-box">🗄 ステージングTBL<br><span style="font-size:10px;">INTFACE_TMP_DEL</span></div>
+        <div class="file-box">🗄 ステージングTBL<br><span style="font-size:10px;">IC_SUPPLIER_DEL_INPUT</span></div>
         <div class="arr">→</div>
-        <div class="jbox del"><div class="jbox-id">SUPPLIER_DEL</div><div class="jbox-proc">MIGRATE_SOURCE_DATA<br>ViewName=なし ★</div></div>
+        <div class="jbox del"><div class="jbox-id">SUPPLIER_DEL</div><div class="jbox-proc">MIGRATE_SOURCE_DATA<br>Remove__ API</div></div>
         <div class="arr">→</div>
         <div class="file-box">✅ SUPPLIER_INFO_TAB<br><span style="font-size:10px;">削除/Blocked</span></div>
       </div>
     </div>
-  </div>
-
-  <div style="background:#fff3e0;border:1px solid #ff832b;border-left:4px solid #ff832b;padding:14px 16px;margin-bottom:24px;">
-    <strong style="color:#ff832b;font-size:12px;">★ DELジョブのViewName除外ルール</strong>
-    <p style="font-size:12px;color:var(--text-02);margin-top:6px;">DELジョブにViewNameを設定するとIFSがExecuteSeq=10（OnModify=TRUE）を自動追加し、MODIFY__バリデーションが実行時に走って必須列エラーが発生します。AIはこのルールを自動適用し、SourceName/WhereClauseはPATCHで後から設定します。</p>
   </div>
 
   <div class="section-label">2. ジョブ設定一覧</div>
@@ -128,7 +123,7 @@
       <tr><td style="font-family:monospace;font-size:11px;">SUPPLIER_UPD_INPUT</td><td>CREATE_TABLE_FROM_FILE</td><td>—</td><td>TRUE</td><td>SUPPLIER_INFO</td><td>ColumnSeparator=Tab, SKIPLINES=1</td></tr>
       <tr><td style="font-family:monospace;font-size:11px;">SUPPLIER_UPD</td><td>MIGRATE_SOURCE_DATA</td><td>—</td><td>TRUE</td><td>SUPPLIER_INFO</td><td></td></tr>
       <tr><td style="font-family:monospace;font-size:11px;">SUPPLIER_DEL_INPUT</td><td>CREATE_TABLE_FROM_FILE</td><td>—</td><td>—</td><td>SUPPLIER_INFO</td><td>ColumnSeparator=Tab, SKIPLINES=1</td></tr>
-      <tr><td style="font-family:monospace;font-size:11px;color:#da1e28;">SUPPLIER_DEL</td><td>MIGRATE_SOURCE_DATA</td><td>—</td><td>—</td><td style="color:#da1e28;font-weight:700;">指定なし ★</td><td>SourceName/WhereClauseをPATCHで設定</td></tr>
+      <tr><td style="font-family:monospace;font-size:11px;color:#da1e28;">SUPPLIER_DEL</td><td>MIGRATE_SOURCE_DATA</td><td>—</td><td>—</td><td>—</td><td>Remove__ API で削除処理</td></tr>
     </tbody>
   </table>
 </main>

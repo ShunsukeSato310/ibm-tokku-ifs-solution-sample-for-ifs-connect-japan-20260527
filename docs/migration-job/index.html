@@ -100,62 +100,11 @@
   </div>
   <p style="font-size:12px;color:var(--text-03);margin-bottom:24px;">★ すべてのステップをAIが自律実行。人手による設計・テスト・書き起こし作業は不要です。</p>
 
-  <div class="section-label">自動作成サンプル — 仕入先マスタ 基本ジョブセット</div>
-  <table class="job-table">
-    <thead><tr><th>ジョブ種別</th><th>ジョブ名</th><th>対象</th><th>テスト件数</th><th>状態</th></tr></thead>
-    <tbody>
-      <tr>
-        <td>抽出</td>
-        <td>SUPPLIER_EXTRACT_ALL</td>
-        <td>全仕入先マスタ</td>
-        <td>5件</td>
-        <td><span class="badge-ok">✓ テスト済</span> <span class="badge-auto">自動</span></td>
-      </tr>
-      <tr>
-        <td>登録</td>
-        <td>SUPPLIER_INSERT_BATCH</td>
-        <td>新規仕入先一括登録</td>
-        <td>5件</td>
-        <td><span class="badge-ok">✓ テスト済</span> <span class="badge-auto">自動</span></td>
-      </tr>
-      <tr>
-        <td>更新</td>
-        <td>SUPPLIER_UPDATE_SLA</td>
-        <td>SLA日数フィールド更新</td>
-        <td>3件</td>
-        <td><span class="badge-ok">✓ テスト済</span> <span class="badge-auto">自動</span></td>
-      </tr>
-      <tr>
-        <td>削除</td>
-        <td>SUPPLIER_DELETE_INACTIVE</td>
-        <td>非アクティブ仕入先の削除</td>
-        <td>2件</td>
-        <td><span class="badge-ok">✓ テスト済</span> <span class="badge-auto">自動</span></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="section-label">定義出力サンプル（抜粋）</div>
-  <div class="output-box"><span class="out-kw">MIGRATION_JOB</span>: <span class="out-str">SUPPLIER_INSERT_BATCH</span>
-  <span class="out-kw">TARGET_ENTITY</span>: <span class="out-str">SupplierHandling</span>
-  <span class="out-kw">OPERATION</span>:    <span class="out-str">INSERT</span>
-  <span class="out-kw">COLUMNS</span>: [SUPPLIER_NO, NAME, CATEGORY, PREFERRED_CARRIER, SLA_DAYS]
-  <span class="out-kw">SOURCE_SQL</span>: |
-    SELECT supplier_no, name, category, preferred_carrier, sla_days
-    FROM   staging.supplier_import
-    WHERE  status = <span class="out-str">'PENDING'</span>
-
-  <span class="out-kw">TEST_RESULTS</span>:
-    - case: <span class="out-str">"新規5件登録"</span>  result: <span class="out-ok">PASS</span>  inserted: 5
-    - case: <span class="out-str">"重複チェック"</span> result: <span class="out-ok">PASS</span>  skipped: 0
-    - case: <span class="out-str">"必須項目検証"</span> result: <span class="out-ok">PASS</span>  errors: 0</div>
-
   <div style="background:#f6f2ff;border:1px solid #d4bbff;border-left:4px solid #8a3ffc;padding:20px;margin-bottom:32px;">
     <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#8a3ffc;margin-bottom:8px;">サンプル公開中</div>
-    <div style="font-size:15px;font-weight:700;margin-bottom:6px;">仕入先マスタ — 基本移行ジョブセット</div>
-    <div style="font-size:13px;color:var(--text-02);margin-bottom:12px;">自動作成された4種ジョブ（抽出・登録・更新・削除）とテスト結果・定義出力の全体像をご確認いただけます。</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:6px;">仕入先マスタ — FNDMIG 7ジョブセット</div>
+    <div style="font-size:13px;color:var(--text-02);margin-bottom:12px;">自動生成された7ジョブの構成・機能関連図をご確認いただけます。</div>
     <a href="scenario-01/index.html" style="display:inline-block;background:#6929c4;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;text-decoration:none;">サンプルを見る →</a>
-    <a href="scenario-01/docs/job-definition.html" style="display:inline-block;background:#fff;color:#6929c4;border:1px solid #6929c4;font-size:13px;font-weight:700;padding:10px 20px;text-decoration:none;margin-left:8px;">定義書を見る →</a>
   </div>
 
 </main>
