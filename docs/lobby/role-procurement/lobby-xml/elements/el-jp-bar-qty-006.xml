@@ -13,14 +13,14 @@
   <DataSourceId>ds-jp-po-by-order-006</DataSourceId>
   <ColumnMapping>
     <MappedColumns>
-      <MappedColumn><Column>発注番号</Column><Name>発注番号</Name><DisplayName>発注番号</DisplayName><Aggregate>NA</Aggregate><ConditionalFormats/></MappedColumn>
-      <MappedColumn><Column>発注数量</Column><Name>発注数量</Name><DisplayName>発注数量</DisplayName><Aggregate>SUM</Aggregate><ConditionalFormats/></MappedColumn>
+      <MappedColumn><Column>ORDER_NO</Column><Name>発注番号</Name><DisplayName>発注番号</DisplayName><ConditionalFormats/></MappedColumn>
+      <MappedColumn><Column>BUY_QTY_DUE</Column><Name>発注数量</Name><DisplayName>発注数量</DisplayName><ConditionalFormats/></MappedColumn>
     </MappedColumns>
   </ColumnMapping>
-  <GroupedDataSeries>
-    <TopNOptions><ShowOthers>false</ShowOthers></TopNOptions>
-    <XColumn><Name>発注番号</Name><Aggregate>NA</Aggregate></XColumn>
-    <YColumn><Name>発注数量</Name><Aggregate>SUM</Aggregate></YColumn>
-  </GroupedDataSeries>
+  <XYDataSeries>
+    <TopNOptions/>
+    <XColumn><Name>発注番号</Name></XColumn>
+    <YColumn><Name>発注数量</Name></YColumn>
+  </XYDataSeries>
   <UnifiedElement/><ElementConfig/>
 </BarChart>

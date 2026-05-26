@@ -7,7 +7,7 @@
   <Locked>false</Locked>
   <Component>PURCH</Component>
   <AurenaLobby>true</AurenaLobby>
-  <PageId>959eb171-a79c-4c5c-9f2c-1d8dc64ce330</PageId>
+  <PageId>0ce6e3f6-2fc3-4f24-ae0b-dd2954b0adce</PageId>
   <PageTitle>調達担当者ロビー</PageTitle>
   <Layout><Groups><Group><Elements>
     <!-- el-jp-bar-qty-006.xml -->
@@ -30,34 +30,28 @@
     <ColumnMapping>
         <MappedColumns>
             <MappedColumn>
-                <Column>発注番号</Column>
+                <Column>ORDER_NO</Column>
                 <Name>発注番号</Name>
                 <DisplayName>発注番号</DisplayName>
-                <Aggregate>NA</Aggregate>
                 <ConditionalFormats />
             </MappedColumn>
             <MappedColumn>
-                <Column>発注数量</Column>
+                <Column>BUY_QTY_DUE</Column>
                 <Name>発注数量</Name>
                 <DisplayName>発注数量</DisplayName>
-                <Aggregate>SUM</Aggregate>
                 <ConditionalFormats />
             </MappedColumn>
         </MappedColumns>
     </ColumnMapping>
-    <GroupedDataSeries>
-        <TopNOptions>
-            <ShowOthers>false</ShowOthers>
-        </TopNOptions>
+    <XYDataSeries>
+        <TopNOptions />
         <XColumn>
             <Name>発注番号</Name>
-            <Aggregate>NA</Aggregate>
         </XColumn>
         <YColumn>
             <Name>発注数量</Name>
-            <Aggregate>SUM</Aggregate>
         </YColumn>
-    </GroupedDataSeries>
+    </XYDataSeries>
     <UnifiedElement />
     <ElementConfig />
 </BarChart>
