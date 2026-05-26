@@ -40,117 +40,10 @@
 
 <main class="container">
 
-  <!-- 背景 -->
-  <div class="section-label">このロビーの背景</div>
-  <div class="lb-context-grid">
-    <div class="lb-context-before">
-      <div class="lb-ctx-label">現状の課題</div>
-      <ul class="lb-ctx-list">
-        <li>ログイン後に目的の画面を探すのに時間がかかる</li>
-        <li>遅延発注・承認待ちに気づくのが遅れる</li>
-        <li>月別トレンドを把握するには別途レポートを開く必要がある</li>
-      </ul>
-    </div>
-    <div class="lb-context-after">
-      <div class="lb-ctx-label">ロビーで解決</div>
-      <ul class="lb-ctx-list">
-        <li>ログイン直後に9種のKPI・発注残・超過遅延が一目で把握できる</li>
-        <li>遅延・承認待ちを色・数値で即認識</li>
-        <li>クイックリンクで頻用画面へワンクリック遷移</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 実機エビデンス -->
-  <div class="section-label" style="margin-top:32px;">実機エビデンス（IFS Cloud pwojaqu-dev1）</div>
-  <img src="screenshots/ev-04-lobby-dashboard.png" alt="調達担当者ダッシュボード 実機画面" style="width:100%;border-radius:8px;border:1px solid var(--border);margin-bottom:8px;">
-  <p style="font-size:11px;color:var(--text-03);margin-top:4px;">IFS Cloud 25R2.5 実機データ（2026-05-27 取得）</p>
-
-  <!-- KPI -->
-  <div class="section-label" style="margin-top:32px;">KPI サマリー（実データ）</div>
-  <div class="lb-kpi-row">
-    <div class="lb-kpi-card lb-kpi-warn">
-      <div class="lb-kpi-value">7</div>
-      <div class="lb-kpi-label">発注残（Released）</div>
-      <div class="lb-kpi-sub">COUNT</div>
-    </div>
-    <div class="lb-kpi-card lb-kpi-green">
-      <div class="lb-kpi-value">8</div>
-      <div class="lb-kpi-label">正常予定</div>
-      <div class="lb-kpi-sub">遅延なし</div>
-    </div>
-    <div class="lb-kpi-card lb-kpi-alert">
-      <div class="lb-kpi-value">0</div>
-      <div class="lb-kpi-label">遅延アラート</div>
-      <div class="lb-kpi-sub">入庫予定日超過</div>
-    </div>
-    <div class="lb-kpi-card lb-kpi-blue">
-      <div class="lb-kpi-value">10</div>
-      <div class="lb-kpi-label">今週納期</div>
-      <div class="lb-kpi-sub">7日以内入庫予定</div>
-    </div>
-  </div>
-  <div class="lb-kpi-row" style="margin-top:12px;">
-    <div class="lb-kpi-card lb-kpi-blue">
-      <div class="lb-kpi-value">13</div>
-      <div class="lb-kpi-label">発注オーダ数</div>
-      <div class="lb-kpi-sub">Released ヘッダー</div>
-    </div>
-    <div class="lb-kpi-card">
-      <div class="lb-kpi-value">0</div>
-      <div class="lb-kpi-label">仕入先数</div>
-      <div class="lb-kpi-sub">DISTINCT</div>
-    </div>
-    <div class="lb-kpi-card lb-kpi-alert">
-      <div class="lb-kpi-value">7</div>
-      <div class="lb-kpi-label">7日超過遅延</div>
-      <div class="lb-kpi-sub">SYSDATE-7 超過</div>
-    </div>
-    <div class="lb-kpi-card">
-      <div class="lb-kpi-value">20</div>
-      <div class="lb-kpi-label">合計発注数量</div>
-      <div class="lb-kpi-sub">SUM BUY_QTY_DUE</div>
-    </div>
-    <div class="lb-kpi-card lb-kpi-alert">
-      <div class="lb-kpi-value">0</div>
-      <div class="lb-kpi-label">3日超過遅延</div>
-      <div class="lb-kpi-sub">SYSDATE-3 超過</div>
-    </div>
-  </div>
-
-  <!-- メイン -->
-  <div class="section-label" style="margin-top:32px;">発注残一覧（Released）</div>
-  <div class="lb-main-grid">
-    <div class="lb-col-main">
-      <div class="lb-widget">
-        <div class="lb-widget-header">
-          <span class="lb-widget-title">📋 発注残一覧（Released）</span>
-        </div>
-        <table class="lb-inner-table">
-          <thead><tr><th>発注番号</th><th>明細</th><th>品目名称</th><th>発注数</th><th>入庫予定日</th></tr></thead>
-          <tbody>
-            <tr><td>7</td><td>1</td><td>デモ品目</td><td>10</td><td>4/1/2026</td></tr>
-            <tr><td>23</td><td>4</td><td>ケーブル 2m (23-4)</td><td>40</td><td class="lb-date-warn">4/26/2026</td></tr>
-            <tr><td>21</td><td>5</td><td>フィルタユニット (21-5)</td><td>50</td><td>4/27/2026</td></tr>
-            <tr><td>JP-PO-005</td><td>1</td><td>Sample Purchase Part</td><td>10</td><td>4/28/2026</td></tr>
-            <tr><td>26</td><td>3</td><td>シール材 A-Type (26-3)</td><td>30</td><td>4/28/2026</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="lb-col-side">
-      <div class="lb-widget">
-        <div class="lb-widget-header"><span class="lb-widget-title">🔗 クイックリンク</span></div>
-        <div class="lb-quicklinks">
-          <a href="#" class="lb-ql-item">📦 購買発注</a>
-          <a href="#" class="lb-ql-item">📥 入荷処理</a>
-          <a href="#" class="lb-ql-item">👥 仕入先マスタ</a>
-          <a href="#" class="lb-ql-item">📄 請求書照合</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <p style="font-size:11px;color:var(--text-03);margin-top:8px;">KPI は IFS Cloud 25R2.5 実機データに基づく（2026-05-27）。</p>
+  <!-- 実機画面 -->
+  <div class="section-label">実機画面（IFS Cloud pwojaqu-dev1）</div>
+  <img src="screenshots/ev-04-lobby-dashboard.png" alt="調達担当者ダッシュボード 実機画面" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+  <p style="font-size:11px;color:var(--text-03);margin-top:6px;">IFS Cloud 25R2.5 実機データ（2026-05-27 取得）</p>
 
   <!-- 成果物 -->
   <div class="section-label" style="margin-top:40px;">成果物ドキュメント</div>
@@ -168,14 +61,6 @@
         <div class="lp-phase">詳細設計</div>
         <div class="lp-title">詳細設計書</div>
         <div class="lp-acts">ウィジェット構成・XML設計・データソース</div>
-        <span class="lp-status-badge available">開く →</span>
-      </a>
-    </div>
-    <div class="lp-card available">
-      <a href="docs/test-report.html">
-        <div class="lp-phase">テスト</div>
-        <div class="lp-title">テスト結果報告書</div>
-        <div class="lp-acts">実機データ検証・画面エビデンス</div>
         <span class="lp-status-badge available">開く →</span>
       </a>
     </div>
