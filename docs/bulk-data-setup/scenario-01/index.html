@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大量データセットアップ — 調達・購買サンプル</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .sc-context-block{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+    .sc-context-card{padding:20px;border:1px solid var(--gray-20);}
+    .sc-context-before{background:#fff8f0;border-left:4px solid var(--orange);}
+    .sc-context-after{background:#f6f2ff;border-left:4px solid #6929c4;}
+    .sc-ctx-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-03);margin-bottom:10px;}
+    .sc-ctx-list{list-style:none;padding:0;}
+    .sc-ctx-list li{font-size:13px;color:var(--text-02);padding:5px 0;border-bottom:1px solid var(--gray-20);line-height:1.6;}
+    .sc-ctx-list li:last-child{border-bottom:none;}
+    .code-block{background:#1e1e1e;color:#d4d4d4;font-family:'IBM Plex Mono',monospace;font-size:12px;padding:16px;border-radius:4px;overflow-x:auto;margin-bottom:16px;line-height:1.7;}
+    .code-kw{color:#569cd6;} .code-str{color:#ce9178;} .code-cmt{color:#6a9955;} .code-fn{color:#dcdcaa;}
+    .data-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:16px;}
+    .data-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
+    .data-table td{font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);}
+    .data-table tr:last-child td{border-bottom:none;}
+    .badge-ok{color:var(--green);font-weight:700;}
+    .mock-window{border:1px solid var(--gray-20);border-radius:4px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-bottom:16px;}
+    .mock-bar{background:#3d3d3d;padding:8px 12px;display:flex;align-items:center;gap:6px;}
+    .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+    .mock-toolbar{background:#f0f4f8;border-bottom:1px solid var(--gray-20);padding:10px 16px;font-size:12px;color:var(--text-02);}
+    .mock-body{background:#fff;padding:0;}
+    @media(max-width:768px){.sc-context-block{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,.7);">大量データセットアップ</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <span>調達・購買サンプル</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← 一覧</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#491d8b 0%,#6929c4 60%,#8a3ffc 100%);padding-bottom:32px;">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">大量データセットアップ — 調達・購買領域</div>
+      <h1>Script-A-Rest で購買データを<br>一括投入する</h1>
+      <p>仕入先 5件・品目 20件・購買発注 50件・発注明細 100件・入荷処理 30件を自動投入するサンプルです。</p>
+      <div class="hero-badges">
+        <span class="hero-badge">185件一括投入</span>
+        <span class="hero-badge">UUID自動生成</span>
+        <span class="hero-badge">実画面確認済み</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="section-label">課題と解決</div>
+  <div class="sc-context-block">
+    <div class="sc-context-card sc-context-before">
+      <div class="sc-ctx-label">よくある課題</div>
+      <ul class="sc-ctx-list">
+        <li>環境リセット後のデータ再投入に2〜3日かかる</li>
+        <li>手作業投入でデータ不整合が発生しやすい</li>
+        <li>デモ用データに実顧客名が混入するリスク</li>
+      </ul>
+    </div>
+    <div class="sc-context-card sc-context-after">
+      <div class="sc-ctx-label">Script-A-Rest で解決</div>
+      <ul class="sc-ctx-list">
+        <li>スクリプト1実行で185件を30分以内に投入</li>
+        <li>UUID・依存順序をAIが自動制御し整合性を保証</li>
+        <li>IBM / Bob など架空名称でデモデータを安全に作成</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">スクリプト構造（抜粋）</div>
+  <div class="code-block"><span class="code-cmt">// Step 1: 仕入先マスタ登録</span>
+<span class="code-kw">POST</span> /ifsapp/projection/<span class="code-str">"SupplierHandling"</span>
+{
+  <span class="code-str">"SupplierNo"</span>: <span class="code-str">"IBM-001"</span>,
+  <span class="code-str">"SupplierName"</span>: <span class="code-str">"IBM Japan Ltd."</span>,
+  <span class="code-str">"SupplierCategory"</span>: <span class="code-str">"SUPPLIER"</span>,
+  <span class="code-str">"DefaultLanguage"</span>: <span class="code-str">"ja"</span>
+}
+<span class="code-cmt">// Step 2: 購買発注ヘッダー登録（仕入先参照）</span>
+<span class="code-kw">POST</span> /ifsapp/projection/<span class="code-str">"PurchaseOrderHandling"</span>
+{
+  <span class="code-str">"OrderNo"</span>: <span class="code-str">"PO-IBM-2026-001"</span>,
+  <span class="code-str">"SupplierNo"</span>: <span class="code-str">"IBM-001"</span>,
+  <span class="code-str">"AuthorizeCode"</span>: <span class="code-str">"IBM-BOB"</span>,
+  <span class="code-str">"WantedDeliveryDate"</span>: <span class="code-str">"2026-06-30"</span>
+}
+<span class="code-cmt">// Step 3: 発注明細登録（100件をループ処理）</span>
+<span class="code-fn">ForEach</span> line <span class="code-kw">in</span> lines_data {
+  <span class="code-kw">POST</span> /ifsapp/projection/<span class="code-str">"PurchaseOrderLineHandling"</span>
+  { <span class="code-str">"OrderNo"</span>: line.order_no, <span class="code-str">"PartNo"</span>: line.part_no, <span class="code-str">"BuyQty"</span>: line.qty }
+}</div>
+
+  <div class="section-label">投入データ一覧</div>
+  <table class="data-table">
+    <thead><tr><th>エンティティ</th><th>件数</th><th>代表サンプル</th><th>結果</th></tr></thead>
+    <tbody>
+      <tr><td>仕入先</td><td>5件</td><td>IBM Japan Ltd. / Bob Components Inc. / Acme Supply Co.</td><td><span class="badge-ok">✓ 登録済</span></td></tr>
+      <tr><td>品目マスタ</td><td>20件</td><td>IBM-SERVER-01 / BOB-CABLE-NW / ACME-RACK-42U</td><td><span class="badge-ok">✓ 登録済</span></td></tr>
+      <tr><td>購買発注</td><td>50件</td><td>PO-IBM-2026-001 〜 PO-IBM-2026-050</td><td><span class="badge-ok">✓ 登録済</span></td></tr>
+      <tr><td>発注明細</td><td>100件</td><td>サーバーラック×5 / NWスイッチ×10 / ライセンス×20</td><td><span class="badge-ok">✓ 登録済</span></td></tr>
+      <tr><td>入荷処理</td><td>30件</td><td>PO-IBM-2026-001〜030 各1明細入荷完了</td><td><span class="badge-ok">✓ 登録済</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">実画面イメージ — 購買発注一覧</div>
+  <div class="mock-window">
+    <div class="mock-bar">
+      <span class="dot" style="background:#ff5f57;"></span>
+      <span class="dot" style="background:#febc2e;"></span>
+      <span class="dot" style="background:#28c840;"></span>
+      <span style="font-size:12px;color:rgba(255,255,255,.7);margin-left:8px;">IFS Cloud 25R2 — 購買発注一覧</span>
+    </div>
+    <div class="mock-toolbar">検索条件: 仕入先 = IBM Japan Ltd. ／ ステータス = 発注済み　<strong>50件</strong> 表示中</div>
+    <table class="data-table" style="margin:0;border:none;">
+      <thead><tr><th>発注番号</th><th>仕入先</th><th>担当者</th><th>発注日</th><th>納期</th><th>ステータス</th><th>発注金額</th></tr></thead>
+      <tbody>
+        <tr><td>PO-IBM-2026-001</td><td>IBM Japan Ltd.</td><td>IBM Bob</td><td>2026-04-01</td><td>2026-05-31</td><td style="color:#24a148;font-weight:700;">入荷済</td><td>¥1,250,000</td></tr>
+        <tr><td>PO-IBM-2026-002</td><td>IBM Japan Ltd.</td><td>IBM Bob</td><td>2026-04-03</td><td>2026-06-15</td><td style="color:#0f62fe;font-weight:700;">発注済</td><td>¥890,000</td></tr>
+        <tr><td>PO-IBM-2026-003</td><td>Bob Components Inc.</td><td>IBM Alice</td><td>2026-04-05</td><td>2026-06-20</td><td style="color:#0f62fe;font-weight:700;">発注済</td><td>¥450,000</td></tr>
+        <tr><td>PO-IBM-2026-004</td><td>Acme Supply Co.</td><td>IBM Tom</td><td>2026-04-08</td><td style="color:var(--red);font-weight:700;">2026-05-25</td><td style="color:#da1e28;font-weight:700;">遅延リスク</td><td>¥2,100,000</td></tr>
+        <tr><td>PO-IBM-2026-005</td><td>IBM Japan Ltd.</td><td>IBM Bob</td><td>2026-04-10</td><td>2026-07-01</td><td style="color:#0f62fe;font-weight:700;">発注済</td><td>¥330,000</td></tr>
+        <tr style="background:var(--gray-10);"><td colspan="7" style="text-align:center;font-size:11px;color:var(--text-03);padding:6px;">... 他 45件 ...</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:11px;color:var(--text-03);margin-bottom:24px;">Script-A-Rest で投入したサンプルデータの画面表示イメージ。データ名称はデモ用フィクションです。</p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">大量データセットアップ — 調達・購買サンプル</div>
+      <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
+    </div>
+    <div class="footer-links"><a href="../index.html">← 一覧に戻る</a></div>
+  </div>
+</footer>
+</body>
+</html>

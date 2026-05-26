@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>データモデル設計 — IFS Cloud ソリューションサンプル</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .approach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:24px;}
+    .approach-card{background:#fff;border:1px solid var(--gray-20);padding:20px;border-left:4px solid #525252;}
+    .approach-card h4{font-size:13px;font-weight:700;margin-bottom:8px;}
+    .approach-card p{font-size:12px;color:var(--text-02);line-height:1.6;}
+    .erd{background:#fff;border:1px solid var(--gray-20);padding:24px;margin-bottom:24px;overflow-x:auto;}
+    .erd-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-03);margin-bottom:16px;}
+    .erd-boxes{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;}
+    .erd-box{border:2px solid var(--gray-20);min-width:180px;}
+    .erd-box-head{background:var(--gray-10);padding:6px 12px;font-size:12px;font-weight:700;border-bottom:1px solid var(--gray-20);}
+    .erd-box-head.entity-ext{background:#e8f4fd;border-color:#0f62fe;color:#0043ce;}
+    .erd-field{font-size:11px;padding:4px 12px;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
+    .erd-field:last-child{border-bottom:none;}
+    .erd-field.pk{color:#6929c4;font-weight:700;}
+    .erd-field.fk{color:#0f62fe;}
+    .erd-field.ext{color:#24a148;font-style:italic;}
+    .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;margin-bottom:24px;}
+    .legend-item{display:flex;align-items:center;gap:6px;}
+    .legend-dot{width:12px;height:12px;border-radius:2px;}
+    .sample-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:8px;}
+    .sample-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
+    .sample-table td{font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);}
+    .sample-table tr:last-child td{border-bottom:none;}
+    .tag-ext{background:#e8f4fd;color:#0043ce;border:1px solid #0f62fe;font-size:10px;font-weight:700;padding:1px 6px;border-radius:2px;margin-left:4px;}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <span>データモデル設計</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← ソリューション一覧</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#1a4d1a 0%,#198038 60%,#24a148 100%);padding-bottom:36px;">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">IFS Cloud — Data Model Design / 設計・アーキテクチャ</div>
+      <h1>データモデル設計</h1>
+      <p>KCM（IFS Cloud標準）プロジェクトの拡張要件をプログラムから逆設計。業務要件を正確にシステム構造へ落とし込み、将来の拡張にも耐えられる設計を実現します。</p>
+      <div class="hero-badges">
+        <span class="hero-badge">標準 + 拡張設計</span>
+        <span class="hero-badge">逆設計アプローチ</span>
+        <span class="hero-badge">サンプル公開中</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="section-label">設計アプローチ</div>
+  <div class="approach-grid">
+    <div class="approach-card" style="border-left-color:#0f62fe;">
+      <h4>標準モデルの把握</h4>
+      <p>IFS Cloud の標準エンティティ・ビュー・APIを分析し、業務要件を標準機能でどこまで満たせるかを判定します。</p>
+    </div>
+    <div class="approach-card" style="border-left-color:#24a148;">
+      <h4>拡張点の逆設計</h4>
+      <p>既存プロジェクトのプログラム（IEF/AURENA）から拡張フィールド・カスタムエンティティを逆算し、設計書を自動生成します。</p>
+    </div>
+    <div class="approach-card" style="border-left-color:#ff832b;">
+      <h4>依存関係の可視化</h4>
+      <p>エンティティ間の参照関係・ライフサイクル依存を図解。移行順序・テスト計画の根拠として活用できます。</p>
+    </div>
+    <div class="approach-card" style="border-left-color:#6929c4;">
+      <h4>匿名化サンプル生成</h4>
+      <p>実プロジェクトの構造を参考にしながら、顧客が特定されないよう架空名称・汎用業種に置き換えたサンプルを生成します。</p>
+    </div>
+  </div>
+
+  <div class="section-label">サンプル ER 図 — 調達拡張モデル</div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--gray-10);border:2px solid var(--gray-30);"></div><span>IFS Cloud 標準エンティティ</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#e8f4fd;border:2px solid #0f62fe;"></div><span>プロジェクト拡張エンティティ</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f0fff4;border:2px solid #24a148;"></div><span>拡張フィールド</span></div>
+  </div>
+  <div class="erd">
+    <div class="erd-title">調達領域 — データモデル（簡略図）</div>
+    <div class="erd-boxes">
+      <div class="erd-box">
+        <div class="erd-box-head">SUPPLIER (標準)</div>
+        <div class="erd-field pk">PK: SUPPLIER_NO</div>
+        <div class="erd-field">NAME</div>
+        <div class="erd-field">CATEGORY</div>
+        <div class="erd-field ext">+ PREFERRED_CARRIER <span class="tag-ext">拡張</span></div>
+        <div class="erd-field ext">+ SLA_DAYS <span class="tag-ext">拡張</span></div>
+      </div>
+      <div class="erd-box">
+        <div class="erd-box-head">PURCHASE_ORDER (標準)</div>
+        <div class="erd-field pk">PK: ORDER_NO</div>
+        <div class="erd-field fk">FK: SUPPLIER_NO</div>
+        <div class="erd-field">WANTED_DELIVERY_DATE</div>
+        <div class="erd-field">AUTHORIZE_CODE</div>
+        <div class="erd-field ext">+ PROJECT_CODE <span class="tag-ext">拡張</span></div>
+      </div>
+      <div class="erd-box">
+        <div class="erd-box-head entity-ext">PO_APPROVAL_LOG (拡張)</div>
+        <div class="erd-field pk">PK: LOG_ID (UUID)</div>
+        <div class="erd-field fk">FK: ORDER_NO</div>
+        <div class="erd-field">APPROVER_ID</div>
+        <div class="erd-field">APPROVED_AT</div>
+        <div class="erd-field">APPROVAL_LEVEL</div>
+      </div>
+      <div class="erd-box">
+        <div class="erd-box-head">PURCHASE_ORDER_LINE (標準)</div>
+        <div class="erd-field pk">PK: ORDER_NO + LINE_NO</div>
+        <div class="erd-field fk">FK: ORDER_NO</div>
+        <div class="erd-field">PART_NO</div>
+        <div class="erd-field">BUY_QTY_DUE</div>
+        <div class="erd-field ext">+ COST_CENTER <span class="tag-ext">拡張</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">拡張設計サンプル一覧</div>
+  <table class="sample-table">
+    <thead><tr><th>拡張種別</th><th>対象エンティティ</th><th>拡張内容</th><th>背景（推定要件）</th></tr></thead>
+    <tbody>
+      <tr><td>フィールド追加</td><td>SUPPLIER</td><td>優先配送業者 / SLA日数</td><td>物流コスト管理・SLA管理の業務要件</td></tr>
+      <tr><td>フィールド追加</td><td>PURCHASE_ORDER</td><td>プロジェクトコード</td><td>プロジェクト別原価管理の要件</td></tr>
+      <tr><td>カスタムエンティティ</td><td>PO_APPROVAL_LOG</td><td>承認履歴テーブル</td><td>多段階承認フローの証跡管理</td></tr>
+      <tr><td>フィールド追加</td><td>PURCHASE_ORDER_LINE</td><td>コストセンター</td><td>部門別費用配賦の要件</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:var(--text-03);margin-bottom:24px;">※ サンプルは標準プロジェクトから推測した汎用的な拡張パターンです。実在のプロジェクト・顧客は特定できません。</p>
+
+  <div style="background:#e6f9ee;border:1px solid #24a148;border-left:4px solid #24a148;padding:20px;margin-bottom:32px;">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#24a148;margin-bottom:8px;">サンプル公開中</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:6px;">調達拡張モデル — 設計書サンプル</div>
+    <div style="font-size:13px;color:var(--text-02);margin-bottom:12px;">ER図・フィールド定義・移行設計への連携方法をまとめた詳細サンプルをご確認いただけます。</div>
+    <a href="scenario-01/index.html" style="display:inline-block;background:#198038;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;text-decoration:none;">サンプルを見る →</a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">IFS Cloud Solution Samples — データモデル設計</div>
+      <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
+    </div>
+    <div class="footer-links"><a href="../index.html">← ソリューション一覧</a></div>
+  </div>
+</footer>
+</body>
+</html>

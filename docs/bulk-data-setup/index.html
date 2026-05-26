@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大量データセットアップ — IFS Cloud ソリューションサンプル</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .use-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; margin-bottom:24px; }
+    .use-card { background:#fff; border:1px solid var(--gray-20); padding:20px; border-left:4px solid #6929c4; }
+    .use-card h4 { font-size:13px; font-weight:700; margin-bottom:8px; color:#6929c4; }
+    .use-card p { font-size:12px; color:var(--text-02); line-height:1.6; }
+    .flow-step { display:flex; gap:16px; align-items:flex-start; margin-bottom:16px; }
+    .step-num { width:32px; height:32px; border-radius:50%; background:#6929c4; color:#fff; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .step-body h4 { font-size:13px; font-weight:700; margin-bottom:4px; }
+    .step-body p { font-size:12px; color:var(--text-02); line-height:1.6; }
+    .sample-table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--gray-20); margin-bottom:8px; }
+    .sample-table th { background:var(--gray-10); font-size:11px; font-weight:700; padding:8px 12px; text-align:left; border-bottom:1px solid var(--gray-20); color:var(--text-02); }
+    .sample-table td { font-size:12px; padding:7px 12px; border-bottom:1px solid var(--gray-20); }
+    .sample-table tr:last-child td { border-bottom:none; }
+    .tag-purple { background:#f6f2ff; color:#6929c4; border:1px solid #d4bbff; font-size:11px; font-weight:700; padding:2px 8px; border-radius:2px; }
+    .kpi-row { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; }
+    .kpi-box { background:#fff; border:1px solid var(--gray-20); padding:16px 24px; text-align:center; min-width:120px; }
+    .kpi-val { font-size:28px; font-weight:700; color:#6929c4; }
+    .kpi-lbl { font-size:11px; color:var(--text-02); margin-top:4px; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <span>大量データセットアップ</span>
+  </div>
+  <nav class="site-header-nav">
+    <a href="../index.html">← ソリューション一覧</a>
+  </nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#491d8b 0%,#6929c4 60%,#8a3ffc 100%);padding-bottom:36px;">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">IFS Cloud — Bulk Data Setup / 環境管理・テスト</div>
+      <h1>大量データセットアップ</h1>
+      <p>Script-A-Rest を活用して、プロトタイプ環境・テスト環境・リグレッションテスト用データ基盤を一括構築。IFS Cloud SaaS の45日リセットにも即対応できます。</p>
+      <div class="hero-badges">
+        <span class="hero-badge">Script-A-Rest</span>
+        <span class="hero-badge">環境自動構築</span>
+        <span class="hero-badge">サンプル公開中</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="section-label">主な活用シーン</div>
+  <div class="use-grid">
+    <div class="use-card">
+      <h4>プロトタイプ環境</h4>
+      <p>提案・デモ用の環境を素早く整備。仕入先・品目・発注データをリアルな名称で一括投入し、すぐに動くデモ環境を構築します。</p>
+    </div>
+    <div class="use-card">
+      <h4>テスト環境セットアップ</h4>
+      <p>UAT・単体テスト用の前提データを自動生成。テストケースに合わせた条件データを確実・再現性高く準備できます。</p>
+    </div>
+    <div class="use-card">
+      <h4>自動リグレッションテスト</h4>
+      <p>ビルドプロセス内でデータ投入→テスト実行→結果検証までをパイプライン化。標準機能の回帰テストを継続的に実施できます。</p>
+    </div>
+    <div class="use-card">
+      <h4>45日リセット対応</h4>
+      <p>IFS Cloud SaaS 開発環境は45日でリセットされます。スクリプト実行だけで元の状態に戻せるため、再セットアップ工数をほぼゼロにできます。</p>
+    </div>
+  </div>
+
+  <div class="section-label">AI駆動型データセットアップの流れ</div>
+  <div style="max-width:720px;margin-bottom:32px;">
+    <div class="flow-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>データ設計の入力</h4>
+        <p>「IBM社の購買データ100件、IBM Bob を主担当者として」のような自然言語で指示。AIがエンティティ・件数・名称規則を自動設計します。</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Script-A-Rest スクリプト自動生成</h4>
+        <p>IFS Cloud API の制約（UUID必須・OBJSTATE・依存順序）を考慮したスクリプトをAIが自動生成。手書きは不要です。</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>実機投入・検証</h4>
+        <p>スクリプトを IFS Cloud 環境に投入し、画面上でデータが正しく表示されることを自動確認。エラーはAIが自律的に修正します。</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>スクリプト定義の保存・再利用</h4>
+        <p>投入スクリプトをリポジトリに保存。次回の環境リセット後も1コマンドで同じデータを再現できます。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">投入サンプルデータ — 調達・購買領域</div>
+  <div class="kpi-row">
+    <div class="kpi-box"><div class="kpi-val">5</div><div class="kpi-lbl">仕入先</div></div>
+    <div class="kpi-box"><div class="kpi-val">20</div><div class="kpi-lbl">品目マスタ</div></div>
+    <div class="kpi-box"><div class="kpi-val">50</div><div class="kpi-lbl">購買発注</div></div>
+    <div class="kpi-box"><div class="kpi-val">100</div><div class="kpi-lbl">発注明細</div></div>
+    <div class="kpi-box"><div class="kpi-val">30</div><div class="kpi-lbl">入荷処理済</div></div>
+  </div>
+
+  <table class="sample-table">
+    <thead><tr><th>エンティティ</th><th>件数</th><th>サンプル名称（抜粋）</th><th>ステータス分布</th></tr></thead>
+    <tbody>
+      <tr><td>仕入先</td><td>5件</td><td>IBM Japan Ltd. / Bob Components Inc. / Acme Supply Co.</td><td>全件アクティブ</td></tr>
+      <tr><td>購買発注</td><td>50件</td><td>PO-IBM-2026-001 〜 PO-IBM-2026-050</td><td>発注済40件 / 入荷済10件</td></tr>
+      <tr><td>発注明細</td><td>100件</td><td>サーバーラック / ネットワーク機器 / ソフトウェアライセンス 等</td><td>未着20件 / 一部入荷30件</td></tr>
+      <tr><td>担当者</td><td>3名</td><td>IBM Bob（調達担当）/ IBM Alice（承認者）/ IBM Tom（在庫担当）</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:var(--text-03);margin-bottom:24px;">※ データ名称はデモ用フィクションです。実在の企業・人物とは無関係です。</p>
+
+  <div style="background:#f6f2ff;border:1px solid #d4bbff;border-left:4px solid #6929c4;padding:20px;margin-bottom:32px;">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#6929c4;margin-bottom:8px;">サンプル公開中</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:6px;">調達・購買 大量データセットアップ スクリプト</div>
+    <div style="font-size:13px;color:var(--text-02);margin-bottom:12px;">仕入先・品目・購買発注・入荷処理データ計185件を一括投入するサンプルスクリプトと、実画面での動作確認イメージをご確認いただけます。</div>
+    <a href="scenario-01/index.html" style="display:inline-block;background:#6929c4;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;text-decoration:none;">サンプルを見る →</a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">IFS Cloud Solution Samples — 大量データセットアップ</div>
+      <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
+    </div>
+    <div class="footer-links">
+      <a href="../index.html">← ソリューション一覧</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
