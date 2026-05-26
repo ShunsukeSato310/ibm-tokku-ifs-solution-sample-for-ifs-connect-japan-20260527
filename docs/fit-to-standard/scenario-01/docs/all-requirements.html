@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全要件 詳細分析レポート — Fit to Standard</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .req-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:24px;}
+    .req-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
+    .req-table td{font-size:12px;padding:8px 12px;border-bottom:1px solid var(--gray-20);vertical-align:top;line-height:1.6;}
+    .req-table tr:last-child td{border-bottom:none;}
+    .fit{color:#24a148;font-weight:700;} .cfg{color:#0f62fe;font-weight:700;} .dev{color:#da1e28;font-weight:700;}
+    .detail-link{display:inline-block;background:#ff832b;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px;text-decoration:none;margin-top:4px;}
+    .notice{background:#f4f4f4;border:1px solid var(--gray-20);border-left:4px solid var(--text-03);padding:14px 16px;margin-bottom:24px;font-size:12px;color:var(--text-02);line-height:1.7;}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../../index.html" style="color:rgba(255,255,255,.7);">Fit to Standard</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,.7);">調達 20要件</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <span>全要件 詳細分析</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← 戻る</a></nav>
+</header>
+<section class="hero" style="background:linear-gradient(135deg,#b45309 0%,#ff832b 100%);padding:36px 40px 28px;">
+  <div class="hero-inner" style="display:block;">
+    <div class="hero-eyebrow">Fit to Standard — 全要件 詳細分析レポート</div>
+    <h1 style="font-size:26px;">調達・購買 20要件 詳細分析</h1>
+    <p style="margin-bottom:0;">No.15「ロット・シリアル番号管理」はプロセスモデル検索・PL/SQL解析付き詳細レポートあり</p>
+  </div>
+</section>
+<main class="container">
+  <div class="notice">
+    <strong>⚠️ 架空プロジェクトのサンプルです。</strong>本判定はAIによる自動分析であり、実際のプロジェクトでは<strong>IFSに精通した人間のレビュアーが業務要件・運用制約を踏まえて最終判断を行う</strong>ことが不可欠です。
+  </div>
+
+  <div class="section-label">全要件 判定一覧（20件）</div>
+  <table class="req-table">
+    <thead><tr><th>No.</th><th>要件（詳細）</th><th>判定</th><th>根拠・対応方針</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>購買発注の登録・リリース・確認。仕入先・品目・数量・納期を入力しリリース→確認まで処理する。</td><td><span class="fit">Fit</span></td><td>Purchase Order 標準機能（PurchaseOrderHandling）で全フロー対応。</td></tr>
+      <tr><td>2</td><td>発注済み未着荷明細を一覧化し仕入先・残数・予定納期をExcelにエクスポートして日次業務で使う。</td><td><span class="fit">Fit</span></td><td>クイックレポートで発注残ビューを設定するだけ。SQL設定のみ、開発不要。</td></tr>
+      <tr><td>3</td><td>入荷ごとに品質検査結果（合格/不合格/条件付き）を記録し、不合格品を返品処理フローへ誘導する。</td><td><span class="fit">Fit</span></td><td>Receipt Inspection 標準機能で検品・判定・返品フローまで一括対応。</td></tr>
+      <tr><td>4</td><td>購買発注・入荷実績・仕入先請求書の金額・数量を突合し差異を担当者に通知する。</td><td><span class="fit">Fit</span></td><td>Supplier Invoice Matching 標準機能で3方向照合・差異通知まで対応。</td></tr>
+      <tr><td>5</td><td>50万円未満は部長1段階、50万円以上は部長→役員の2段階承認。不在時は代理者へ自動転送する。</td><td><span class="cfg">Config</span></td><td>承認グループ・承認テンプレート設定で金額別多段階承認を実現。代理者設定も標準対応。</td></tr>
+      <tr><td>6</td><td>仕入先ごとに納期遵守率・品質不良率・発注金額を集計し月次評価レポートとして出力する。</td><td><span class="fit">Fit</span></td><td>Supplier Performance Management 標準レポートで KPI 集計・出力まで対応。</td></tr>
+      <tr><td>7</td><td>1発注に複数部門のコストセンターを明細単位で指定し、部門別原価管理レポートに反映させる。</td><td><span class="cfg">Config</span></td><td>コストセンター設定 + C_COST_CENTER 拡張フィールドを明細に追加することで実現。</td></tr>
+      <tr><td>8</td><td>仕入先ごとに定めたリードタイム（SLA）を超えた発注が存在する場合、担当者に自動メールを送信する。</td><td><span class="dev">Dev</span></td><td>標準にSLA管理機能なし。C_SLA_DAYS 拡張フィールド + IFS Event によるアラート実装が必要。</td></tr>
+      <tr><td>9</td><td>発注リリース時に発注書PDFを自動生成し、仕入先メールアドレスへ自動送信する。</td><td><span class="fit">Fit</span></td><td>Document Management + Report Designer 標準機能でPDF自動生成・メール送信まで対応。</td></tr>
+      <tr><td>10</td><td>社内ユーザーがカタログから品目を選んで発注依頼を起票し、購買担当者の承認後に発注に変換する。</td><td><span class="fit">Fit</span></td><td>Purchase Requisition + Supplier Catalog 標準機能で依頼→承認→発注変換まで対応。</td></tr>
+      <tr><td>11</td><td>同一品目・仕様を複数の仕入先に一括で見積依頼し、回答を比較して最適仕入先を選定・発注する。</td><td><span class="fit">Fit</span></td><td>Request for Quotation 標準機能で一括送付・比較・発注変換まで対応。</td></tr>
+      <tr><td>12</td><td>発注ヘッダーにプロジェクトコードを紐付けてプロジェクト別購買コストを会計システムへ自動連携する。</td><td><span class="cfg">Config</span></td><td>Project Accounting 設定 + C_PROJECT_CODE 拡張フィールドを発注ヘッダーに追加して実現。</td></tr>
+      <tr><td>13</td><td>誰がいつ何の発注を承認したかをすべて記録し、内部監査・コンプライアンス対応のために出力できる。</td><td><span class="dev">Dev</span></td><td>標準承認履歴は保持期間・項目が限定的。C_PO_APPROVAL_LOG_TAB カスタムエンティティの実装が必要。</td></tr>
+      <tr><td>14</td><td>発注品目が入庫された際に特定の受注や製造オーダに対して在庫を自動引当・予約する。</td><td><span class="fit">Fit</span></td><td>Inventory Reservation 標準機能で引当・予約・解放まで対応。</td></tr>
+      <tr><td>15</td><td><strong>入荷時にロット番号またはシリアル番号を付与し、払出・在庫移動・品質追跡をロット/シリアル単位で行う。</strong><br><a href="lot-serial-fit-report.html" class="detail-link">詳細分析レポート（プロセスモデル＋PL/SQL解析付き）→</a></td><td><span class="fit">Fit</span></td><td>Lot/Serial Tracking 標準機能。INVENT_PART_LOT_MANAGER_API で追跡種別を管理。</td></tr>
+      <tr><td>16</td><td>USD・EUR等の外貨で発注を作成し、入力日の為替レートで自動換算して会計仕訳を生成する。</td><td><span class="fit">Fit</span></td><td>Multi-Currency 標準機能で外貨発注・為替換算・会計仕訳生成まで一貫対応。</td></tr>
+      <tr><td>17</td><td>仕入先マスタに優先配送業者を設定し、発注書作成時に自動的に配送業者情報を引き継ぐ。</td><td><span class="dev">Dev</span></td><td>標準に配送業者マスタ連携機能なし。C_PREFERRED_CARRIER 拡張フィールド追加と画面カスタマイズが必要。</td></tr>
+      <tr><td>18</td><td>承認グループに設定した金額上限を超える発注が登録された場合、承認者に警告を表示し上位者へ転送する。</td><td><span class="cfg">Config</span></td><td>承認グループの Maximum Amount 設定で自動警告・上位転送を実現。設定のみ。</td></tr>
+      <tr><td>19</td><td>標準支払条件とは別に自社独自の支払条件コード体系を持ち、仕入先別に設定・管理する。</td><td><span class="dev">Dev</span></td><td>標準支払条件では自社コード体系に対応不可。C_PAYMENT_TERMS 拡張コードテーブルの実装が必要。</td></tr>
+      <tr><td>20</td><td>年次・期次の棚卸で全品目の現物数を記録しシステム在庫との差異を自動計算して差異仕訳を生成する。</td><td><span class="fit">Fit</span></td><td>Physical Inventory 標準機能で棚卸リスト作成・差異計算・仕訳生成まで対応。</td></tr>
+    </tbody>
+  </table>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">全要件 詳細分析レポート</div><div class="footer-copy">© 2026 Tokku Team</div></div>
+    <div class="footer-links"><a href="../index.html">← 戻る</a></div>
+  </div>
+</footer>
+</body>
+</html>

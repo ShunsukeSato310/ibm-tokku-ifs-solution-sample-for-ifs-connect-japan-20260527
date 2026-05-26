@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No.15 ロット・シリアル管理 Fit判定レポート</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .doc-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:20px;}
+    .doc-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);}
+    .doc-table td{font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);vertical-align:top;line-height:1.6;}
+    .doc-table tr:last-child td{border-bottom:none;}
+    .code-block{background:#1e1e1e;color:#d4d4d4;font-family:monospace;font-size:11px;padding:14px;border-radius:4px;overflow-x:auto;margin-bottom:16px;line-height:1.7;}
+    .kw{color:#569cd6;}.str{color:#ce9178;}.cmt{color:#6a9955;}.fn{color:#dcdcaa;}
+    .api-box{background:#1a1a2e;color:#e0e0e0;border:1px solid #444;padding:14px;border-radius:4px;font-family:monospace;font-size:11px;line-height:1.6;margin-bottom:16px;}
+    .api-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:8px;}
+    .verdict-box{background:#e6f9ee;border:1px solid #24a148;border-left:4px solid #24a148;padding:16px;margin-bottom:20px;}
+    .notice{background:#f4f4f4;border:1px solid var(--gray-20);border-left:4px solid var(--text-03);padding:12px 16px;margin-bottom:20px;font-size:12px;color:var(--text-02);line-height:1.7;}
+    h3{font-size:14px;font-weight:700;margin:20px 0 8px;}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../../index.html" style="color:rgba(255,255,255,.7);">Fit to Standard</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,.7);">調達 20要件</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="all-requirements.html" style="color:rgba(255,255,255,.7);">全要件詳細</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <span>No.15 詳細分析</span>
+  </div>
+  <nav class="site-header-nav"><a href="all-requirements.html">← 戻る</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#b45309 0%,#ff832b 100%);padding:36px 40px 28px;">
+  <div class="hero-inner" style="display:block;">
+    <div class="hero-eyebrow">Fit to Standard 詳細分析 — No.15</div>
+    <h1 style="font-size:26px;">品目のロット・シリアル番号管理<br><span style="font-size:.65em;opacity:.85;">判定: <span style="color:#defbe6;">Fit ✓</span></span></h1>
+    <p style="margin-bottom:0;">プロセスモデル検索 + PL/SQL ソース解析 + エラーメッセージDB に基づく判定根拠レポート</p>
+  </div>
+</section>
+
+<main class="container">
+  <div class="notice"><strong>⚠️ 架空プロジェクトのサンプルです。</strong>本判定はAIによる自動分析であり、実際のプロジェクトでは<strong>IFSに精通した人間のレビュアーが最終判断を行う</strong>ことが不可欠です。</div>
+
+  <div class="section-label">1. 要件定義</div>
+  <table class="doc-table">
+    <tbody>
+      <tr><td style="width:160px;background:var(--gray-10);font-weight:600;">要件No.</td><td>15</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">要件</td><td>品目のロット・シリアル番号管理</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">詳細</td><td>入荷時にロット番号またはシリアル番号を付与し、払出・在庫移動・品質追跡をロット/シリアル単位で行う。不良ロットが発生した場合は影響範囲を即座に追跡できる。</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">最終判定</td><td><strong style="color:#24a148;">Fit — IFS Cloud 標準機能で完全対応可能。開発不要。</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">2. プロセスモデル検索結果</div>
+  <p style="font-size:12px;color:var(--text-02);margin-bottom:8px;">AI が IFS Cloud 25R2 公式プロセスモデル（1,176件）を検索した結果です。</p>
+
+  <div class="api-label">MCP ツール呼び出し: ifs-knowledge.search_process_models（query: "lot serial tracking inventory"）</div>
+  <div class="api-box">RESULT 1: <span style="color:#dcdcaa;">7.9.6.2 Handle Shop Order Batch and Serial Tracking</span>
+  activities: 14  inputs: Planned Manufacturing Shop Order
+  outputs: Lot/Batch Number Reservations, Serial Number Reservations
+
+RESULT 2: <span style="color:#dcdcaa;">7.34.2.2 Handle Disassembly Shop Order Lot/Batch and Serial Tracking</span>
+  activities: 3  inputs: Planned Disassembly Shop Order
+  outputs: Lot/Batch Number Reservations, Serial Number Reservations</div>
+
+  <p style="font-size:12px;color:var(--text-02);margin-bottom:8px;">また購買入荷時のエラーメッセージDBから、標準機能でロット管理が強制される仕組みも確認されました：</p>
+  <div class="api-box">MODULE: INVENT  PATH: KitAssemblyOrder.LOTBATCHREQUIRED
+  EN: "A lot/batch no is required for the lot tracked part :P1."
+  JP: "ロット追跡された品目 :P1 には、ロット/バッチ番号が必要です。"
+
+MODULE: PURCH  PATH: MtrlPurchaseTaskUtil.SERTRKERR
+  EN: "Part must be a serial tracking or lot tracking part for purchase method :P1"
+  JP: "購買方法 :P1 の品目にはシリアル追跡またはロット追跡が必要です"</div>
+
+  <div class="section-label">3. PL/SQL ソース解析</div>
+  <p style="font-size:12px;color:var(--text-02);margin-bottom:8px;">AI が <code>INVENT_PART_LOT_MANAGER_API.Check_Lot_Track_Change</code> のソースコードを取得・解析しました。</p>
+
+  <div class="code-block"><span class="cmt">-- INVENT_PART_LOT_MANAGER_API (INVENTモジュール / Core レイヤー)</span>
+<span class="cmt">-- ロット追跡設定変更時のバリデーション処理</span>
+<span class="kw">PROCEDURE</span> <span class="fn">Check_Lot_Track_Change</span> (
+   part_no_                       <span class="kw">IN</span> VARCHAR2,
+   lot_tracking_code_db_          <span class="kw">IN</span> VARCHAR2,  <span class="cmt">-- 追跡種別</span>
+   serial_tracking_code_db_       <span class="kw">IN</span> VARCHAR2,
+   receipt_issue_serial_track_db_ <span class="kw">IN</span> VARCHAR2 )
+<span class="kw">IS</span>
+   lot_state_ VARCHAR2(30);
+<span class="kw">BEGIN</span>
+   <span class="cmt">-- 在庫に存在するロット状態を取得して変更可否をチェック</span>
+   lot_state_ := <span class="fn">Invent_Part_Quantity_Util_API.Get_Lot_Batch_Track_Status</span>(part_no_);
+
+   <span class="kw">IF</span> (lot_tracking_code_db_ = Part_Lot_Tracking_API.DB_ORDER_BASED) <span class="kw">AND</span>
+      (lot_state_            = Part_Lot_Tracking_API.DB_LOT_TRACKING) <span class="kw">THEN</span>
+      <span class="kw">NULL</span>;  <span class="cmt">-- ORDER_BASED → LOT_TRACKING への変更は許容</span>
+   <span class="kw">ELSE</span>
+      Error_SYS.Record_General('InventPartLotManager',
+        <span class="str">'NOLOTTRACKING: The part exists in inventory with :P1'</span>,
+        Part_Lot_Tracking_API.Decode(lot_state_));
+   <span class="kw">END IF</span>;
+
+   <span class="cmt">-- 全サイトでの整合性チェック（Negative On Hand / Value Method も確認）</span>
+   <span class="kw">FOR</span> part_rec <span class="kw">IN</span> get_rec <span class="kw">LOOP</span>
+       <span class="fn">Inventory_Part_API.Check_Value_Method_Combination</span>(...);
+       <span class="fn">Inventory_Part_API.Check_Negative_On_Hand</span>(...);
+   <span class="kw">END LOOP</span>;
+<span class="kw">END</span> Check_Lot_Track_Change;</div>
+
+  <div class="section-label">4. 判定根拠まとめ</div>
+  <table class="doc-table">
+    <thead><tr><th>確認ポイント</th><th>確認方法</th><th>結果</th></tr></thead>
+    <tbody>
+      <tr><td>標準プロセスの存在</td><td>search_process_models</td><td>「7.9.6.2 Handle Shop Order Batch and Serial Tracking」等、ロット/シリアル追跡を扱う標準プロセスが複数存在</td></tr>
+      <tr><td>入荷時の強制バリデーション</td><td>get_message（エラーDB）</td><td>INVENT / PURCH モジュールにロット未入力時のエラーが標準実装済み。カスタム実装不要</td></tr>
+      <tr><td>追跡種別の管理ロジック</td><td>get_info_plsql_function</td><td>INVENT_PART_LOT_MANAGER_API が ORDER_BASED / LOT_TRACKING / SERIAL_TRACKING の種別管理・変更バリデーションを標準実装</td></tr>
+      <tr><td>品質追跡との連携</td><td>get_message（QUAMAN）</td><td>QUAMAN モジュールで「ロット追跡品目には検査前にロット番号が必要」と明示。品質モジュールとの連携も標準対応</td></tr>
+    </tbody>
+  </table>
+
+  <div class="verdict-box">
+    <div style="font-size:12px;font-weight:700;color:#198038;margin-bottom:8px;">✓ 判定: Fit — 開発不要</div>
+    <p style="font-size:13px;color:var(--text-01);margin:0;line-height:1.7;">IFS Cloud は <code>INVENT_PART_LOT_MANAGER_API</code> を中心とした標準的なロット/シリアル追跡基盤を持ち、品目マスタの <code>lot_tracking_code</code>（ORDER_BASED / LOT_TRACKING）と <code>serial_tracking_code</code> 設定のみで対応可能です。入荷時の強制バリデーション・払出・在庫移動・品質検査との連携もすべて標準実装されており、カスタム開発は不要と判定します。ただし<strong>最終的な導入判断は、業務フロー・カスタマイズ方針を熟知した人間のレビュアーによる確認が必要</strong>です。</p>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">No.15 詳細分析 — ロット・シリアル管理</div><div class="footer-copy">© 2026 Tokku Team</div></div>
+    <div class="footer-links"><a href="all-requirements.html">← 戻る</a></div>
+  </div>
+</footer>
+</body>
+</html>
