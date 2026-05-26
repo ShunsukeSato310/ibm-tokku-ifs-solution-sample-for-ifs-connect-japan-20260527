@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>IBM Bob × IFS Cloud — 2分間プレゼン</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'IBM Plex Sans','Helvetica Neue',sans-serif;background:#000;color:#fff;overflow:hidden;width:100vw;height:100vh;}
+#stage{position:relative;width:100vw;height:100vh;}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity 0.8s;pointer-events:none;padding:40px;}
+.scene.active{opacity:1;pointer-events:auto;}
+
+/* 共通 */
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:16px;}
+.headline{font-size:clamp(28px,4vw,52px);font-weight:700;line-height:1.2;text-align:center;margin-bottom:20px;}
+.sub{font-size:clamp(14px,1.6vw,20px);color:rgba(255,255,255,.75);text-align:center;line-height:1.7;max-width:760px;}
+
+/* 字幕 */
+#caption{position:fixed;bottom:36px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.72);color:#fff;font-size:18px;line-height:1.6;padding:10px 28px;border-radius:4px;max-width:820px;text-align:center;opacity:0;transition:opacity .4s;pointer-events:none;z-index:100;}
+#caption.show{opacity:1;}
+
+/* 進捗バー */
+#prog{position:fixed;top:0;left:0;height:3px;background:#0f62fe;width:0%;transition:width .3s linear;z-index:200;}
+
+/* コントロール */
+#ctrl{position:fixed;bottom:10px;right:20px;font-size:11px;color:rgba(255,255,255,.4);z-index:200;cursor:pointer;}
+#ctrl:hover{color:rgba(255,255,255,.8);}
+
+/* scene1 - タイトル */
+#s1{background:linear-gradient(135deg,#001141 0%,#001d6c 50%,#0f62fe 100%);}
+.bob-badge{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,#001d6c,#0f62fe);color:#fff;font-size:40px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:24px;box-shadow:0 0 40px rgba(15,98,254,.6);}
+
+/* scene2 - Bob4役割 */
+#s2{background:linear-gradient(135deg,#0a0a1e,#001141);}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:800px;width:100%;margin-top:24px;}
+.role-card{padding:20px 24px;border-radius:4px;border-left:4px solid;opacity:0;transform:translateY(20px);transition:all .5s;}
+.role-card.show{opacity:1;transform:translateY(0);}
+.rc-blue{background:rgba(15,98,254,.12);border-color:#0f62fe;}
+.rc-purple{background:rgba(138,63,252,.12);border-color:#8a3ffc;}
+.rc-green{background:rgba(36,161,72,.12);border-color:#24a148;}
+.rc-orange{background:rgba(255,131,43,.12);border-color:#ff832b;}
+.role-card h4{font-size:14px;font-weight:700;margin-bottom:6px;}
+.role-card p{font-size:12px;color:rgba(255,255,255,.7);line-height:1.6;}
+
+/* scene3 - KPI */
+#s3{background:linear-gradient(135deg,#0a1a0a,#0a2a1a);}
+.kpi-row{display:flex;gap:32px;margin:28px 0;flex-wrap:wrap;justify-content:center;}
+.kpi{text-align:center;}
+.kpi-val{font-size:clamp(32px,5vw,56px);font-weight:700;color:#24a148;}
+.kpi-lbl{font-size:12px;color:rgba(255,255,255,.6);margin-top:4px;}
+.tag-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px;}
+.tag{background:rgba(36,161,72,.2);border:1px solid #24a148;color:#defbe6;font-size:12px;padding:4px 12px;border-radius:20px;}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<div id="stage">
+
+<!-- scene1: タイトル (0-15s) -->
+<div class="scene" id="s1">
+  <div class="bob-badge">B</div>
+  <div class="eyebrow">IBM AI for IFS Cloud</div>
+  <div class="headline">IBM Bob が<br>IFS Cloud 導入のすべてを支援する</div>
+  <div class="sub">仕様駆動開発・IFS Cloud 専門 AI エージェント</div>
+</div>
+
+<!-- scene2: Bob 4役割 (15-45s) -->
+<div class="scene" id="s2">
+  <div class="eyebrow">AI エージェント「IBM Bob」の役割</div>
+  <div class="headline" style="font-size:clamp(22px,3vw,38px);">プロジェクト全フェーズをカバー</div>
+  <div class="role-grid" id="roleGrid">
+    <div class="role-card rc-blue" id="rc0">
+      <h4>🎯 業務設計</h4>
+      <p>業務要件をヒアリングし、Fit to Standard を目指した新業務の構築に寄り添います。</p>
+    </div>
+    <div class="role-card rc-purple" id="rc1">
+      <h4>🏗️ システム設計</h4>
+      <p>IFS Cloud の専門家としてデータモデル・API・プロジェクション設計を支援します。</p>
+    </div>
+    <div class="role-card rc-green" id="rc2">
+      <h4>⚙️ 仕様書駆動開発</h4>
+      <p>仕様書から自動開発を行い、リスクを分析して改善策を提案します。</p>
+    </div>
+    <div class="role-card rc-orange" id="rc3">
+      <h4>📄 作業記録・マニュアル</h4>
+      <p>あなたの作業を記録し、業務マニュアルを自動で作成します。</p>
+    </div>
+  </div>
+</div>
+
+<!-- scene3: IFSナレッジ資産 (45-75s) -->
+<div class="scene" id="s3">
+  <div class="eyebrow">IFS Cloud ドメイン特化型アセット</div>
+  <div class="headline" style="font-size:clamp(22px,3vw,38px);">圧倒的なナレッジベースが支える</div>
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-val">1,200+</div><div class="kpi-lbl">標準プロセス</div></div>
+    <div class="kpi"><div class="kpi-val">12,000+</div><div class="kpi-lbl">画面構造</div></div>
+    <div class="kpi"><div class="kpi-val">8,000+</div><div class="kpi-lbl">データモデル</div></div>
+    <div class="kpi"><div class="kpi-val">6,200K+</div><div class="kpi-lbl">標準PGステップ</div></div>
+  </div>
+  <div class="tag-row">
+    <span class="tag">Fit to Standard 分析</span>
+    <span class="tag">データモデル設計</span>
+    <span class="tag">移行ジョブ自動生成</span>
+    <span class="tag">エラー分析</span>
+    <span class="tag">研修マニュアル自動生成</span>
+  </div>
+</div>
+
+<!-- scene4: 仕様駆動開発 (75-105s) -->
+<div class="scene" id="s4" style="background:linear-gradient(135deg,#1a0a00,#2a1200);">
+  <div class="eyebrow">仕様駆動開発 × ALSEA</div>
+  <div class="headline" style="font-size:clamp(22px,3vw,38px);">仕様書がそのままコードになる</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:800px;width:100%;margin-top:20px;">
+    <div style="background:rgba(15,98,254,.12);border:1px solid rgba(15,98,254,.4);padding:18px;border-radius:4px;">
+      <div style="font-size:12px;font-weight:700;color:#78a9ff;margin-bottom:10px;">📋 仕様書駆動サイクル</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.8);line-height:2;">① 人間が仕様書を定義<br>② AI がコードを自動生成<br>③ AI がテストを生成・実行<br>④ AI がドキュメントを自動更新</div>
+    </div>
+    <div style="background:rgba(255,131,43,.12);border:1px solid rgba(255,131,43,.4);padding:18px;border-radius:4px;">
+      <div style="font-size:12px;font-weight:700;color:#ff832b;margin-bottom:10px;">⚠️ 部分適用では効果は限定的</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.8);line-height:2;">✗ 単独ツールの導入だけでは不十分<br>✓ プロセス全体の再設計が必要<br>✓ 人・プロセス・ツールを一体変革<br>✓ お客様と IBM が一丸で取り組む</div>
+    </div>
+  </div>
+  <div style="margin-top:20px;font-size:13px;color:rgba(255,255,255,.6);">
+    共通アセット基盤：<span style="color:#78a9ff;font-weight:700;">ALSEA (AI Lifecycle Shared Engineering Artifacts)</span>
+  </div>
+</div>
+
+<!-- scene5: エンディング (105-120s) -->
+<div class="scene" id="s5" style="background:linear-gradient(135deg,#001141,#001d6c);">
+  <div class="bob-badge" style="width:80px;height:80px;font-size:32px;">B</div>
+  <div class="headline">お客様と IBM が一丸となって<br>AI 前提のプロジェクトへ</div>
+  <div class="sub" style="margin-top:16px;">まずは「AI 前提のプロジェクト準備」から一緒に始めましょう</div>
+  <div style="margin-top:32px;display:flex;gap:24px;flex-wrap:wrap;justify-content:center;">
+    <a href="https://www.ibm.com/jp-ja/products/ai-coding-agent" target="_blank"
+       style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;padding:10px 24px;border-radius:2px;font-size:13px;font-weight:700;text-decoration:none;">
+      IBM Bob について →
+    </a>
+    <a href="https://jp.newsroom.ibm.com/2026-04-14-AI-Lifecycle-Shared-Engineering-Artifacts-ALSEA" target="_blank"
+       style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;padding:10px 24px;border-radius:2px;font-size:13px;font-weight:700;text-decoration:none;">
+      ALSEA について →
+    </a>
+    <a href="../index.html"
+       style="background:#0f62fe;color:#fff;padding:10px 24px;border-radius:2px;font-size:13px;font-weight:700;text-decoration:none;">
+      ソリューション一覧 →
+    </a>
+  </div>
+</div>
+
+</div><!-- /stage -->
+
+<div id="caption"></div>
+<div id="ctrl" onclick="togglePause()">⏸ 一時停止</div>
+
+<script>
+const TOTAL = 120; // 2分
+const scenes = [
+  {id:'s1', start:0,  end:15},
+  {id:'s2', start:15, end:45},
+  {id:'s3', start:45, end:75},
+  {id:'s4', start:75, end:105},
+  {id:'s5', start:105,end:120},
+];
+const captions = [
+  {t:0,  d:6,  text:'IBM Bob は IFS Cloud 専門の AI 開発支援パートナーです。'},
+  {t:6,  d:9,  text:'要件定義から開発・テスト・マニュアル作成まで、プロジェクト全体をワンストップで支援します。'},
+  {t:15, d:8,  text:'IBM Bob は4つの役割でプロジェクトを支えます。'},
+  {t:23, d:10, text:'業務要件のヒアリングから Fit to Standard を目指した設計、そして IFS Cloud 専門家としてのシステム設計支援。'},
+  {t:33, d:12, text:'仕様書から自動開発を行い、あなたの作業を記録して業務マニュアルも自動で生成します。'},
+  {t:45, d:10, text:'IBM Bob の背後には IFS Cloud に特化した膨大なナレッジベースがあります。'},
+  {t:55, d:12, text:'1,200以上の標準プロセス、12,000以上の画面構造、8,000以上のデータモデルを参照して、高精度な支援を実現します。'},
+  {t:67, d:8,  text:'Fit to Standard 分析・移行ジョブ自動生成・エラー分析など、多彩なソリューションで導入を加速します。'},
+  {t:75, d:10, text:'そして今、開発の常識が変わります。「仕様書駆動開発」の時代が到来しました。'},
+  {t:85, d:12, text:'人間が仕様書を書き、AI がコード・テスト・ドキュメントを自動生成する。この変革を ALSEA が支えます。'},
+  {t:97, d:8,  text:'ただし、ツールを入れるだけでは全体効率化は実現しません。'},
+  {t:105,d:7,  text:'プロセス・体制・文化、すべてを変革する覚悟が必要です。'},
+  {t:112,d:8,  text:'IBM はお客様と一丸となって、AI 前提のプロジェクト体制づくりから一緒に取り組みます。'},
+];
+
+let elapsed = 0;
+let paused = false;
+let interval = null;
+let capTimeout = null;
+
+function showCaption(text) {
+  const el = document.getElementById('caption');
+  el.textContent = text;
+  el.classList.add('show');
+  if(capTimeout) clearTimeout(capTimeout);
+}
+function hideCaption() {
+  document.getElementById('caption').classList.remove('show');
+}
+
+function tick() {
+  if(paused) return;
+  elapsed += 0.1;
+  if(elapsed > TOTAL) { elapsed = TOTAL; clearInterval(interval); }
+
+  // progress bar
+  document.getElementById('prog').style.width = (elapsed/TOTAL*100) + '%';
+
+  // scenes
+  scenes.forEach(s => {
+    const el = document.getElementById(s.id);
+    if(!el) return;
+    if(elapsed >= s.start && elapsed < s.end) {
+      el.classList.add('active');
+    } else {
+      el.classList.remove('active');
+    }
+  });
+
+  // role cards stagger in s2
+  if(elapsed >= 15 && elapsed < 45) {
+    const delays = [0,3,7,11];
+    delays.forEach((d,i) => {
+      const rc = document.getElementById('rc'+i);
+      if(rc && elapsed >= 15+d) rc.classList.add('show');
+    });
+  }
+
+  // captions
+  let shown = false;
+  captions.forEach(c => {
+    if(elapsed >= c.t && elapsed < c.t + c.d) {
+      showCaption(c.text);
+      shown = true;
+    }
+  });
+  if(!shown) hideCaption();
+}
+
+function togglePause() {
+  paused = !paused;
+  document.getElementById('ctrl').textContent = paused ? '▶ 再生' : '⏸ 一時停止';
+}
+
+// s4/s5は後続スクリプトで追加
+window.addEventListener('load', () => {
+  interval = setInterval(tick, 100);
+});
+</script>
+</body>
+</html>
