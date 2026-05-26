@@ -1,0 +1,21 @@
+<Counter>
+  <Author>IBM Tokku Team</Author>
+  <Keywords>調達,発注残</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified>
+  <Locked>false</Locked>
+  <Component>PURCH</Component>
+  <Row>0</Row><Column>0</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
+  <Title>発注残（Released）</Title>
+  <Name>JP PO Remaining Count</Name>
+  <ID>el-jp-kpi-remaining-001</ID>
+  <WebUrl>page/PurchaseOrder/List</WebUrl>
+  <PassDataToForm>true</PassDataToForm>
+  <ColorStyle>Warning</ColorStyle>
+  <DataSourceId>ds-jp-po-remaining-001</DataSourceId>
+  <ColumnMapping>
+    <MappedColumns>
+      <MappedColumn><Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn>
+    </MappedColumns>
+  </ColumnMapping>
+  <UnifiedElement/><ElementConfig/>
+</Counter>

@@ -1,0 +1,15 @@
+<SQLDataSource>
+  <Author>IBM Tokku Team</Author>
+  <Component>PURCH</Component>
+  <Keywords>調達,遅延,delayed</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified>
+  <Locked>false</Locked>
+  <Name>JP PO Delayed Count</Name>
+  <ID>ds-jp-po-delayed-002</ID>
+  <Select>
+    <DataColumn><Column>ORDER_NO</Column><Name>発注番号</Name><DataType>Text</DataType></DataColumn>
+    <DataColumn><Column>LINE_NO</Column><Name>明細番号</Name><DataType>Text</DataType></DataColumn>
+  </Select>
+  <Where>OBJSTATE = &apos;Released&apos; AND PLANNED_RECEIPT_DATE &lt; SYSDATE</Where>
+  <View>PURCHASE_ORDER_LINE</View>
+</SQLDataSource>

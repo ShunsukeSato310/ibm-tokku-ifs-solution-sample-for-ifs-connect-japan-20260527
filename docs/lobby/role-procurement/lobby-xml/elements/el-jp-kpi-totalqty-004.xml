@@ -1,0 +1,18 @@
+<Counter>
+  <Author>IBM Tokku Team</Author>
+  <Keywords>調達,発注数量</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified>
+  <Locked>false</Locked>
+  <Component>PURCH</Component>
+  <Row>0</Row><Column>3</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
+  <Title>合計発注数量</Title>
+  <Name>JP PO Total Qty Sum</Name>
+  <ID>el-jp-kpi-totalqty-004</ID>
+  <DataSourceId>ds-jp-po-totalqty-004</DataSourceId>
+  <ColumnMapping>
+    <MappedColumns>
+      <MappedColumn><Column>BUY_QTY_DUE</Column><Aggregate>SUM</Aggregate><ConditionalFormats/></MappedColumn>
+    </MappedColumns>
+  </ColumnMapping>
+  <UnifiedElement/><ElementConfig/>
+</Counter>

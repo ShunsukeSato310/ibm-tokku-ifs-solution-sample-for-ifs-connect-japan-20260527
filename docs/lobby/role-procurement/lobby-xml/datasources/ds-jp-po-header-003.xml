@@ -1,0 +1,14 @@
+<SQLDataSource>
+  <Author>IBM Tokku Team</Author>
+  <Component>PURCH</Component>
+  <Keywords>調達,発注オーダ数</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified>
+  <Locked>false</Locked>
+  <Name>JP PO Header Count</Name>
+  <ID>ds-jp-po-header-003</ID>
+  <Select>
+    <DataColumn><Column>ORDER_NO</Column><Name>発注番号</Name><DataType>Text</DataType></DataColumn>
+  </Select>
+  <Where>ORDER_NO IN (SELECT DISTINCT ORDER_NO FROM PURCHASE_ORDER_LINE WHERE OBJSTATE = &apos;Released&apos;)</Where>
+  <View>PURCHASE_ORDER</View>
+</SQLDataSource>

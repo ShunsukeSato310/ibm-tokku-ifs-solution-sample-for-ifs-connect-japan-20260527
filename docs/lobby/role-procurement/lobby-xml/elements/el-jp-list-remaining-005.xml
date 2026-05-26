@@ -1,0 +1,22 @@
+<List>
+  <Author>IBM Tokku Team</Author>
+  <Keywords>調達,発注残一覧</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified>
+  <Locked>false</Locked>
+  <Component>PURCH</Component>
+  <Row>1</Row><Column>0</Column><RowSpan>2</RowSpan><ColumnSpan>3</ColumnSpan>
+  <Title>発注残一覧（Released）</Title>
+  <Name>JP PO Remaining List</Name>
+  <ID>el-jp-list-remaining-005</ID>
+  <WebUrl>page/PurchaseOrder/List</WebUrl>
+  <DataSourceId>ds-jp-po-remaining-001</DataSourceId>
+  <ColumnMapping>
+    <MappedColumns>
+      <MappedColumn><Column>ORDER_NO</Column><Name>購買オーダ番号</Name><Aggregate>NA</Aggregate><ConditionalFormats/></MappedColumn>
+      <MappedColumn><Column>DESCRIPTION</Column><Name>品目名称</Name><Aggregate>NA</Aggregate><ConditionalFormats/></MappedColumn>
+      <MappedColumn><Column>BUY_QTY_DUE</Column><Name>発注数量</Name><Aggregate>NA</Aggregate><ConditionalFormats/></MappedColumn>
+      <MappedColumn><Column>PLANNED_RECEIPT_DATE</Column><Name>入庫予定日</Name><Aggregate>NA</Aggregate><ConditionalFormats/></MappedColumn>
+    </MappedColumns>
+  </ColumnMapping>
+  <UnifiedElement/><ElementConfig/>
+</List>

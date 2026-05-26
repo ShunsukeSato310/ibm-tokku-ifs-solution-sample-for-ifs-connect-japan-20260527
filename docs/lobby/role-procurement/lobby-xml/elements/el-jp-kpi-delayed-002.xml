@@ -1,0 +1,34 @@
+<Counter>
+  <Author>IBM Tokku Team</Author>
+  <Keywords>調達,遅延</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified>
+  <Locked>false</Locked>
+  <Component>PURCH</Component>
+  <Row>0</Row><Column>1</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
+  <Title>遅延アラート</Title>
+  <Name>JP PO Delayed Alert</Name>
+  <ID>el-jp-kpi-delayed-002</ID>
+  <WebUrl>page/PurchaseOrder/List</WebUrl>
+  <PassDataToForm>true</PassDataToForm>
+  <DataSourceId>ds-jp-po-delayed-002</DataSourceId>
+  <ColumnMapping>
+    <MappedColumns>
+      <MappedColumn>
+        <Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate>
+        <ConditionalFormats>
+          <ConditionalFormatting>
+            <ColumnName>COUNT(ORDER_NO)</ColumnName><Value>0</Value>
+            <Foreground>OK</Foreground><Comparer>EQUAL</Comparer>
+            <Icon>Icon01</Icon><IconColor>OK</IconColor>
+          </ConditionalFormatting>
+          <ConditionalFormatting>
+            <ColumnName>COUNT(ORDER_NO)</ColumnName><Value>0</Value>
+            <Foreground>Critical</Foreground><Comparer>GREATER</Comparer>
+            <Icon>Icon09</Icon><IconColor>Critical</IconColor>
+          </ConditionalFormatting>
+        </ConditionalFormats>
+      </MappedColumn>
+    </MappedColumns>
+  </ColumnMapping>
+  <UnifiedElement/><ElementConfig/>
+</Counter>

@@ -1,0 +1,19 @@
+<Counter>
+  <Author>IBM Tokku Team</Author>
+  <Keywords>調達,発注オーダ</Keywords>
+  <LastModified>2026-05-26-00.00.00</LastModified>
+  <Locked>false</Locked>
+  <Component>PURCH</Component>
+  <Row>0</Row><Column>2</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
+  <Title>発注オーダ数</Title>
+  <Name>JP PO Order Count</Name>
+  <ID>el-jp-kpi-orders-003</ID>
+  <WebUrl>page/PurchaseOrder/List</WebUrl>
+  <DataSourceId>ds-jp-po-header-003</DataSourceId>
+  <ColumnMapping>
+    <MappedColumns>
+      <MappedColumn><Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn>
+    </MappedColumns>
+  </ColumnMapping>
+  <UnifiedElement/><ElementConfig/>
+</Counter>
