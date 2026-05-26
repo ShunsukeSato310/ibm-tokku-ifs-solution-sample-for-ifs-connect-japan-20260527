@@ -58,11 +58,16 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',sans-serif;background:#000;col
 <div id="stage">
 
 <!-- scene1: タイトル (0-15s) -->
-<div class="scene" id="s1">
-  <div class="bob-badge">B</div>
-  <div class="eyebrow">IBM AI for IFS Cloud</div>
-  <div class="headline">IBM Bob が<br>IFS Cloud 導入のすべてを支援する</div>
-  <div class="sub">全プロジェクト対応 AI エージェント × IFS Cloud 特化ナレッジ</div>
+<div class="scene" id="s1" style="flex-direction:row;gap:48px;padding:48px;">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:20px;flex-shrink:0;">
+    <div class="bob-badge">B</div>
+    <div class="eyebrow">IBM AI for IFS Cloud</div>
+    <div class="headline" style="text-align:left;font-size:clamp(22px,3vw,42px);">IBM Bob が<br>IFS Cloud 導入の<br>すべてを支援する</div>
+    <div class="sub" style="text-align:left;font-size:clamp(12px,1.3vw,16px);">全プロジェクト対応 AI エージェント<br>× IFS Cloud 特化ナレッジ</div>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;max-width:520px;">
+    <img src="../images/asset_summary.png" alt="IBM Bob ソリューション概要" style="width:100%;height:auto;object-fit:contain;max-height:80vh;filter:drop-shadow(0 0 32px rgba(15,98,254,.4));">
+  </div>
 </div>
 
 <!-- scene2: Bob 4役割 (15-45s) -->
@@ -90,21 +95,25 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',sans-serif;background:#000;col
 </div>
 
 <!-- scene3: IFSナレッジ資産 (45-75s) -->
-<div class="scene" id="s3">
-  <div class="eyebrow">IFS Cloud ドメイン特化型アセット</div>
-  <div class="headline" style="font-size:clamp(22px,3vw,38px);">圧倒的なナレッジベースが支える</div>
-  <div class="kpi-row">
-    <div class="kpi"><div class="kpi-val">1,200+</div><div class="kpi-lbl">標準プロセス</div></div>
-    <div class="kpi"><div class="kpi-val">12,000+</div><div class="kpi-lbl">画面構造</div></div>
-    <div class="kpi"><div class="kpi-val">8,000+</div><div class="kpi-lbl">データモデル</div></div>
-    <div class="kpi"><div class="kpi-val">6,200K+</div><div class="kpi-lbl">標準PGステップ</div></div>
+<div class="scene" id="s3" style="flex-direction:row;gap:40px;padding:40px;">
+  <div style="display:flex;flex-direction:column;justify-content:center;gap:16px;flex:1;max-width:480px;">
+    <div class="eyebrow">IFS Cloud ドメイン特化型アセット</div>
+    <div class="headline" style="font-size:clamp(20px,2.5vw,36px);text-align:left;">圧倒的なナレッジベースが支える</div>
+    <div class="kpi-row" style="justify-content:flex-start;gap:20px;">
+      <div class="kpi"><div class="kpi-val" style="font-size:clamp(24px,3vw,40px);">1,200+</div><div class="kpi-lbl">標準プロセス</div></div>
+      <div class="kpi"><div class="kpi-val" style="font-size:clamp(24px,3vw,40px);">12,000+</div><div class="kpi-lbl">画面構造</div></div>
+      <div class="kpi"><div class="kpi-val" style="font-size:clamp(24px,3vw,40px);">8,000+</div><div class="kpi-lbl">データモデル</div></div>
+    </div>
+    <div class="tag-row" style="justify-content:flex-start;">
+      <span class="tag">Fit to Standard 分析</span>
+      <span class="tag">データモデル設計</span>
+      <span class="tag">移行ジョブ自動生成</span>
+      <span class="tag">エラー分析</span>
+      <span class="tag">研修マニュアル自動生成</span>
+    </div>
   </div>
-  <div class="tag-row">
-    <span class="tag">Fit to Standard 分析</span>
-    <span class="tag">データモデル設計</span>
-    <span class="tag">移行ジョブ自動生成</span>
-    <span class="tag">エラー分析</span>
-    <span class="tag">研修マニュアル自動生成</span>
+  <div style="flex-shrink:0;display:flex;align-items:center;max-width:500px;">
+    <img src="../images/asset_description.png" alt="IBM AI基盤の詳細" style="width:100%;height:auto;object-fit:contain;max-height:75vh;filter:drop-shadow(0 4px 24px rgba(0,0,0,.5));">
   </div>
 </div>
 
