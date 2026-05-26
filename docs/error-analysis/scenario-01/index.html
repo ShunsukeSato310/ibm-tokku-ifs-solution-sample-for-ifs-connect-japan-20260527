@@ -42,7 +42,7 @@
     <div class="hero-text">
       <div class="hero-eyebrow">エラー分析 — PURCH / PurchaseOrderApproval.WRONGAUTHORSUB</div>
       <h1>購買発注 承認エラー<br>AIが PL/SQL ソースまで遡って分析</h1>
-      <p>実機画面のスクリーンショットを入力。AIが IFS Cloud 内部 API のソースコード・エラーメッセージDBを参照し、根本原因を特定します。</p>
+      <p>実機画面のスクリーンショットを入力。AIが IFS Cloud のソースコードを解析し、根本原因を特定します。</p>
       <div class="hero-badges">
         <span class="hero-badge">実機スクリーンショット入力</span>
         <span class="hero-badge">PL/SQL ソース解析</span>
@@ -66,12 +66,9 @@
   </div>
   <p class="ss-caption">▲ IFS Cloud 25R2 実機スクリーンショット（pwojaqu-dev1）。購買オーダのステータス変更操作（リリース・確認・中断・取消）画面。承認フロー実行時にエラーが発生する起点となる画面。</p>
 
-  <div class="section-label">STEP 2 — AI によるエラーメッセージDB検索</div>
-  <div class="api-label">MCP ツール呼び出し: erp-access.get_message</div>
+  <div class="section-label">STEP 2 — エラー内容の特定</div>
   <div class="api-box">
-    <span class="hi-kw">INPUT</span>:  like_message = <span class="hi-str">"%承認者 :P1 は承認グループ :P2%"</span>
-    <br><br>
-    <span class="hi-kw">RESULT</span>: <span class="hi-fn">PurchaseOrderApproval.WRONGAUTHORSUB</span>
+    <span class="hi-fn">PurchaseOrderApproval.WRONGAUTHORSUB</span>
     <br>
     <span class="hi-str">"Authorizer :P1 does not belong to Authorization Group :P2</span>
     <span class="hi-str"> and he/she is not a superior or substitute of any of the authorizers in the Authorization Group :P2."</span>
@@ -120,17 +117,6 @@
     </ul>
   </div>
 
-  <div class="section-label">補足: 実機データ確認画面</div>
-  <div style="border:1px solid var(--gray-20);border-radius:4px;overflow:hidden;max-width:900px;margin-bottom:6px;">
-    <div class="mock-bar">
-      <span class="dot" style="background:#ff5f57;"></span>
-      <span class="dot" style="background:#febc2e;"></span>
-      <span class="dot" style="background:#28c840;"></span>
-      <span style="font-size:12px;color:rgba(255,255,255,.7);margin-left:8px;">IFS Cloud 25R2 — クイックレポート: 発注残確認 (pwojaqu-dev1)</span>
-    </div>
-    <img src="screenshots/qr-result.png" alt="IFS Cloud 実機 — 発注残確認レポート" style="width:100%;display:block;">
-  </div>
-  <p class="ss-caption">▲ エラー対応後に発注残クイックレポートで承認待ち発注を一覧確認した実画面。</p>
 
 </main>
 <footer class="site-footer">
