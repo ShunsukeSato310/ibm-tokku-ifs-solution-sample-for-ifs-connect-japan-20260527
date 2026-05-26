@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>要件定義書 — 調達担当者ロビー</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,0.7);">ロール一覧</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <span>要件定義書</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← ロビー詳細</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#6929c4 0%,#8a3ffc 60%,#491d8b 100%);padding:40px 40px 32px;">
+  <div class="hero-inner" style="display:block;">
+    <div class="hero-eyebrow">調達担当者ロビー — 要件定義書</div>
+    <h1 style="font-size:28px;">調達担当者ロビー 要件定義書</h1>
+    <p style="margin-bottom:0;">バージョン 1.0　／　作成日: 2026-05-26　／　IFS Cloud 25R2</p>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="section-label">1. 概要</div>
+  <div class="lb-context-grid" style="display:block;">
+    <table class="lb-inner-table" style="border:1px solid var(--gray-20);">
+      <tbody>
+        <tr><td style="width:180px;background:var(--gray-10);font-weight:600;color:var(--text-02);">ドキュメント種別</td><td>ロビー 要件定義書</td></tr>
+        <tr><td style="background:var(--gray-10);font-weight:600;color:var(--text-02);">対象ロール</td><td>調達担当者・調達マネージャー</td></tr>
+        <tr><td style="background:var(--gray-10);font-weight:600;color:var(--text-02);">対象システム</td><td>IFS Cloud 25R2</td></tr>
+        <tr><td style="background:var(--gray-10);font-weight:600;color:var(--text-02);">作成者</td><td>AI エージェント（IFS AI 基盤）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-label" style="margin-top:32px;">2. 業務背景・課題</div>
+  <div class="lb-context-grid">
+    <div class="lb-context-before">
+      <div class="lb-ctx-label">現状の課題</div>
+      <ul class="lb-ctx-list">
+        <li>ログイン後に発注残・遅延状況を把握するのに複数画面を確認する必要がある</li>
+        <li>遅延発注・承認待ちへの対応が遅れがち</li>
+        <li>月別発注トレンドの把握に別途レポートが必要</li>
+      </ul>
+    </div>
+    <div class="lb-context-after">
+      <div class="lb-ctx-label">ロビーによる解決</div>
+      <ul class="lb-ctx-list">
+        <li>ログイン直後に全情報を一画面で把握できる</li>
+        <li>KPI・グラフ・リストで例外を色分け表示</li>
+        <li>クイックリンクで頻用画面へワンクリック遷移</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:32px;">3. ウィジェット要件</div>
+  <table class="lb-inner-table" style="border:1px solid var(--gray-20);margin-bottom:8px;">
+    <thead><tr><th>No.</th><th>ウィジェット種別</th><th>タイトル</th><th>データソース</th><th>優先度</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>KPI カード</td><td>発注残（Released）</td><td>PURCHASE_ORDER_LINE / OBJSTATE='Released'</td><td>高</td></tr>
+      <tr><td>2</td><td>KPI カード</td><td>遅延アラート</td><td>クイックレポート 2000001 / 遅延フラグ='遅延'</td><td>高</td></tr>
+      <tr><td>3</td><td>KPI カード</td><td>発注オーダ数</td><td>PURCHASE_ORDER / Released ヘッダー数</td><td>中</td></tr>
+      <tr><td>4</td><td>KPI カード</td><td>合計発注数量</td><td>PURCHASE_ORDER_LINE / BUY_QTY_DUE 合計</td><td>中</td></tr>
+      <tr><td>5</td><td>棒グラフ</td><td>仕入先別発注数量</td><td>PURCHASE_ORDER_LINE / 仕入先別集計</td><td>高</td></tr>
+      <tr><td>6</td><td>円グラフ</td><td>遅延ステータス構成</td><td>クイックレポート 2000001 / 遅延フラグ分布</td><td>高</td></tr>
+      <tr><td>7</td><td>リスト</td><td>発注残一覧（Released）</td><td>クイックレポート 2000001</td><td>高</td></tr>
+      <tr><td>8</td><td>タスクリスト</td><td>本日のタスク</td><td>手動登録 or タスク管理 API</td><td>中</td></tr>
+      <tr><td>9</td><td>クイックリンク</td><td>頻用画面 6件</td><td>静的リンク設定</td><td>高</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label" style="margin-top:32px;">4. レイアウト要件</div>
+  <table class="lb-inner-table" style="border:1px solid var(--gray-20);">
+    <thead><tr><th>エリア</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>行 1（上段）</td><td>KPI カード 4枚横並び</td></tr>
+      <tr><td>行 2（グラフ）</td><td>棒グラフ（左 2/3）・円グラフ（右 1/3）</td></tr>
+      <tr><td>行 3（メイン）</td><td>発注残リスト（左）・タスク＋クイックリンク（右）</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:32px;text-align:right;">
+    <a href="design.html" style="display:inline-block;background:#8a3ffc;color:#fff;font-size:13px;font-weight:700;padding:10px 24px;text-decoration:none;">次へ: 詳細設計書 →</a>
+  </div>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">調達担当者ロビー — 要件定義書 v1.0</div><div class="footer-copy">© 2026 Tokku Team.</div></div>
+    <div class="footer-links"><a href="../index.html">← ロビー詳細</a></div>
+  </div>
+</footer>
+</body>
+</html>

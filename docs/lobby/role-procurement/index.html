@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>調達担当者ロビー — ロビー活用</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
@@ -29,11 +29,11 @@
     <div class="hero-text">
       <div class="hero-eyebrow">ロビー — ロール 1 / 調達担当者</div>
       <h1>調達担当者ロビー</h1>
-      <p>発注残・承認待ち・遅延アラートをログイン直後に把握。クイックリンクで頻用業務へワンクリックアクセスできる調達担当向けホーム画面の実現イメージです。</p>
+      <p>発注残・遅延アラート・月別トレンドをログイン直後に把握。クイックリンクで頻用業務へワンクリックアクセスできる調達担当向けホーム画面の実現イメージです。</p>
       <div class="hero-badges">
         <span class="hero-badge">KPI カード 4種</span>
-        <span class="hero-badge">タスクリスト</span>
-        <span class="hero-badge">クイックリンク</span>
+        <span class="hero-badge">グラフ 2種</span>
+        <span class="hero-badge">タスク・クイックリンク</span>
       </div>
     </div>
   </div>
@@ -41,145 +41,155 @@
 
 <main class="container">
 
-  <div class="section-label">このロビーの設計方針</div>
-  <div class="lb-policy-grid">
-    <div class="lb-policy-card">
-      <div class="lb-policy-icon">🎯</div>
-      <div class="lb-policy-title">例外・アラートを最優先表示</div>
-      <div class="lb-policy-desc">遅延・承認待ちなど「今日対応が必要なもの」を画面上部に集約。通常業務の中に埋もれることなく即認識できる。</div>
+  <!-- 背景 -->
+  <div class="section-label">このロビーの背景</div>
+  <div class="lb-context-grid">
+    <div class="lb-context-before">
+      <div class="lb-ctx-label">現状の課題</div>
+      <ul class="lb-ctx-list">
+        <li>ログイン後に目的の画面を探すのに時間がかかる</li>
+        <li>遅延発注・承認待ちに気づくのが遅れる</li>
+        <li>月別トレンドを把握するには別途レポートを開く必要がある</li>
+      </ul>
     </div>
-    <div class="lb-policy-card">
-      <div class="lb-policy-icon">⚡</div>
-      <div class="lb-policy-title">頻用業務へワンクリック</div>
-      <div class="lb-policy-desc">購買発注・入荷処理・発注残レポートなど毎日使う画面へ直接遷移。ナビゲーターを経由する手間をゼロに。</div>
-    </div>
-    <div class="lb-policy-card">
-      <div class="lb-policy-icon">📊</div>
-      <div class="lb-policy-title">KPI は調達視点に絞る</div>
-      <div class="lb-policy-desc">全社指標ではなく「発注残件数」「承認待ち」「遅延数」など調達担当が毎日チェックする指標のみ掲載。</div>
+    <div class="lb-context-after">
+      <div class="lb-ctx-label">ロビーで解決</div>
+      <ul class="lb-ctx-list">
+        <li>ログイン直後にKPI・グラフ・発注残が一目で把握できる</li>
+        <li>遅延・承認待ちを色・数値で即認識</li>
+        <li>クイックリンクで頻用画面へワンクリック遷移</li>
+      </ul>
     </div>
   </div>
 
+  <!-- KPI -->
+  <div class="section-label" style="margin-top:32px;">KPI サマリー</div>
+  <div class="lb-kpi-row">
+    <div class="lb-kpi-card lb-kpi-warn">
+      <div class="lb-kpi-value">9</div>
+      <div class="lb-kpi-label">発注残（Released）</div>
+      <div class="lb-kpi-sub">IFS Cloud 実データ</div>
+    </div>
+    <div class="lb-kpi-card lb-kpi-alert">
+      <div class="lb-kpi-value">9</div>
+      <div class="lb-kpi-label">遅延アラート</div>
+      <div class="lb-kpi-sub">全件が入庫予定日超過</div>
+    </div>
+    <div class="lb-kpi-card lb-kpi-blue">
+      <div class="lb-kpi-value">6</div>
+      <div class="lb-kpi-label">発注オーダ数</div>
+      <div class="lb-kpi-sub">Released ヘッダー</div>
+    </div>
+    <div class="lb-kpi-card lb-kpi-green">
+      <div class="lb-kpi-value">55</div>
+      <div class="lb-kpi-label">合計発注数量</div>
+      <div class="lb-kpi-sub">Released 明細合計</div>
+    </div>
+  </div>
+
+  <!-- グラフ -->
+  <div class="section-label">発注状況グラフ</div>
+  <div class="lb-chart-grid">
+    <div class="lb-chart-card">
+      <div class="lb-chart-title">📊 仕入先別発注数量（棒グラフ）</div>
+      <div class="lb-chart-wrap" style="height:220px;">
+        <canvas id="chartBar"></canvas>
+      </div>
+    </div>
+    <div class="lb-chart-card">
+      <div class="lb-chart-title">🥧 遅延ステータス構成（円グラフ）</div>
+      <div class="lb-chart-wrap" style="height:220px;">
+        <canvas id="chartDoughnut"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- メイン2カラム -->
   <div class="section-label">ロビー画面イメージ</div>
-  <div class="lb-mock">
-    <div class="lb-mock-header">
-      <span class="lb-mock-brand">IFS Cloud</span>
-      <span class="lb-mock-user">山田 太郎　/ 調達担当</span>
+  <div class="lb-main-grid">
+    <div class="lb-col-main">
+      <!-- 発注残リスト -->
+      <div class="lb-widget">
+        <div class="lb-widget-header">
+          <span class="lb-widget-title">📋 発注残一覧（Released）</span>
+          <a href="#" class="lb-widget-link">すべて見る →</a>
+        </div>
+        <table class="lb-inner-table">
+          <thead><tr><th>発注番号</th><th>品目名称</th><th>仕入先</th><th>発注数</th><th>入庫予定日</th><th>遅延</th></tr></thead>
+          <tbody>
+            <tr class="lb-row-warn"><td>JP-PO-005</td><td>Sample Purchase Part</td><td>MF–External Supplier 1</td><td>10</td><td><span class="lb-date-warn">2026-04-28</span></td><td><span class="lb-badge-delay">遅延</span></td></tr>
+            <tr class="lb-row-warn"><td>JP-PO-006</td><td>Sample Purchase Part</td><td>MF–External Supplier 1</td><td>10</td><td><span class="lb-date-warn">2026-04-28</span></td><td><span class="lb-badge-delay">遅延</span></td></tr>
+            <tr class="lb-row-warn"><td>JP-PO-007</td><td>Sample Purchase Part</td><td>MF–External Supplier 1</td><td>10</td><td><span class="lb-date-warn">2026-04-28</span></td><td><span class="lb-badge-delay">遅延</span></td></tr>
+            <tr class="lb-row-warn"><td>MPSIM-ORD3</td><td>MF-MRP Planned Component</td><td>MF–External Supplier 1</td><td>5</td><td><span class="lb-date-warn">2026-05-18</span></td><td><span class="lb-badge-delay">遅延</span></td></tr>
+            <tr class="lb-row-warn"><td>MPSIM-ORD3</td><td>MF-MS Planned Component</td><td>MF–External Supplier 1</td><td>5</td><td><span class="lb-date-warn">2026-05-18</span></td><td><span class="lb-badge-delay">遅延</span></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="lb-mock-body">
 
-      <div class="lb-col-main">
-        <div class="lb-welcome">
-          <div class="lb-welcome-text">おはようございます、山田さん</div>
-          <div class="lb-welcome-date">2026年5月26日（火）</div>
-        </div>
-
-        <div class="lb-kpi-row">
-          <div class="lb-kpi-card lb-kpi-warn">
-            <div class="lb-kpi-value">7</div>
-            <div class="lb-kpi-label">発注残（今週納期）</div>
-          </div>
-          <div class="lb-kpi-card">
-            <div class="lb-kpi-value">3</div>
-            <div class="lb-kpi-label">承認待ち発注依頼</div>
-          </div>
-          <div class="lb-kpi-card lb-kpi-alert">
-            <div class="lb-kpi-value">2</div>
-            <div class="lb-kpi-label">遅延アラート</div>
-          </div>
-          <div class="lb-kpi-card">
-            <div class="lb-kpi-value">128</div>
-            <div class="lb-kpi-label">今月の発注件数</div>
-          </div>
-        </div>
-
-        <div class="lb-widget">
-          <div class="lb-widget-header">
-            <span class="lb-widget-title">📋 発注残一覧（今週納期）</span>
-            <a href="#" class="lb-widget-link">すべて見る →</a>
-          </div>
-          <table class="lb-inner-table">
-            <thead><tr><th>発注番号</th><th>品目</th><th>仕入先</th><th>残数</th><th>納期</th></tr></thead>
-            <tbody>
-              <tr class="lb-row-warn"><td>PO-2026-0421</td><td>ボルト M10×30</td><td>山田製作所</td><td>300</td><td><span class="lb-date-warn">05/27</span></td></tr>
-              <tr><td>PO-2026-0438</td><td>プレート 200×300</td><td>鈴木金属</td><td>120</td><td>05/29</td></tr>
-              <tr><td>PO-2026-0445</td><td>シール材 A-Type</td><td>東洋工業</td><td>600</td><td>05/30</td></tr>
-            </tbody>
-          </table>
+    <div class="lb-col-side">
+      <!-- タスク -->
+      <div class="lb-widget">
+        <div class="lb-widget-header"><span class="lb-widget-title">✅ 本日のタスク</span></div>
+        <ul class="lb-task-list">
+          <li class="lb-task-item">
+            <span class="lb-task-dot" style="background:var(--red);"></span>
+            <div><div class="lb-task-name lb-task-urgent">JP-PO-005〜009 入荷確認</div><div class="lb-task-meta">期限: 本日 | 優先度: 高</div></div>
+          </li>
+          <li class="lb-task-item">
+            <span class="lb-task-dot" style="background:var(--yellow);"></span>
+            <div><div class="lb-task-name">MPSIM-ORD3 フォローアップ</div><div class="lb-task-meta">期限: 明日 | 優先度: 中</div></div>
+          </li>
+          <li class="lb-task-item">
+            <span class="lb-task-dot" style="background:var(--blue);"></span>
+            <div><div class="lb-task-name">月次発注レポート提出</div><div class="lb-task-meta">期限: 05/31 | 優先度: 通常</div></div>
+          </li>
+        </ul>
+      </div>
+      <!-- クイックリンク -->
+      <div class="lb-widget">
+        <div class="lb-widget-header"><span class="lb-widget-title">🔗 クイックリンク</span></div>
+        <div class="lb-quicklinks">
+          <a href="#" class="lb-ql-item">📦 購買発注</a>
+          <a href="#" class="lb-ql-item">📥 入荷処理</a>
+          <a href="#" class="lb-ql-item">📊 発注残レポート</a>
+          <a href="#" class="lb-ql-item">👥 仕入先マスタ</a>
+          <a href="#" class="lb-ql-item">📄 請求書照合</a>
+          <a href="#" class="lb-ql-item">⚙️ 設定</a>
         </div>
       </div>
-
-      <div class="lb-col-side">
-        <div class="lb-widget">
-          <div class="lb-widget-header"><span class="lb-widget-title">✅ 本日のタスク</span></div>
-          <ul class="lb-task-list">
-            <li class="lb-task-item">
-              <span class="lb-task-dot" style="background:var(--red);"></span>
-              <div><div class="lb-task-name lb-task-urgent">PO-0421 の入荷確認</div><div class="lb-task-meta">期限: 本日 | 優先度: 高</div></div>
-            </li>
-            <li class="lb-task-item">
-              <span class="lb-task-dot" style="background:var(--yellow);"></span>
-              <div><div class="lb-task-name">発注依頼 3件 の承認</div><div class="lb-task-meta">期限: 明日 | 優先度: 中</div></div>
-            </li>
-            <li class="lb-task-item">
-              <span class="lb-task-dot" style="background:var(--blue);"></span>
-              <div><div class="lb-task-name">月次発注レポート提出</div><div class="lb-task-meta">期限: 05/31 | 優先度: 通常</div></div>
-            </li>
-          </ul>
-        </div>
-
-        <div class="lb-widget" style="margin-top:16px;">
-          <div class="lb-widget-header"><span class="lb-widget-title">🔗 クイックリンク</span></div>
-          <div class="lb-quicklinks">
-            <a href="#" class="lb-ql-item">📦 購買発注</a>
-            <a href="#" class="lb-ql-item">📥 入荷処理</a>
-            <a href="#" class="lb-ql-item">📊 発注残レポート</a>
-            <a href="#" class="lb-ql-item">👥 仕入先マスタ</a>
-            <a href="#" class="lb-ql-item">📄 請求書照合</a>
-            <a href="#" class="lb-ql-item">⚙️ 設定</a>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
-  <p style="font-size:11px;color:var(--text-03);margin-top:8px;">※ IFS Cloud ロビー機能を模したモックアップです。実運用データは含みません。</p>
+  <p style="font-size:11px;color:var(--text-03);margin-top:8px;">KPI・グラフは IFS Cloud 25R2 実機データに基づく。</p>
 
-  <div class="section-label">ウィジェット構成の解説</div>
-  <div class="lp-grid">
+  <!-- 成果物 -->
+  <div class="section-label" style="margin-top:40px;">成果物ドキュメント</div>
+  <div class="lp-grid" style="margin-bottom:8px;">
     <div class="lp-card available">
-      <div class="lp-phase">KPI カード</div>
-      <div class="lp-title">発注残・承認待ち・遅延・今月発注数</div>
-      <div class="lp-acts">数値で即把握。遅延・警告系は色分け表示</div>
-      <span class="lp-status-badge available">採用</span>
+      <a href="docs/requirements.html">
+        <div class="lp-phase">要件定義</div>
+        <div class="lp-title">要件定義書</div>
+        <div class="lp-acts">業務課題・ウィジェット要件・レイアウト定義</div>
+        <span class="lp-status-badge available">開く →</span>
+      </a>
     </div>
     <div class="lp-card available">
-      <div class="lp-phase">リストウィジェット</div>
-      <div class="lp-title">発注残一覧（今週納期）</div>
-      <div class="lp-acts">クイックレポートと連動。直近の発注残を最大5件表示</div>
-      <span class="lp-status-badge available">採用</span>
+      <a href="docs/design.html">
+        <div class="lp-phase">詳細設計</div>
+        <div class="lp-title">詳細設計書</div>
+        <div class="lp-acts">ウィジェット構成・XML設計・データソース</div>
+        <span class="lp-status-badge available">開く →</span>
+      </a>
     </div>
     <div class="lp-card available">
-      <div class="lp-phase">タスクリスト</div>
-      <div class="lp-title">本日のタスク</div>
-      <div class="lp-acts">優先度・期限付きで色分け。高優先は赤で強調</div>
-      <span class="lp-status-badge available">採用</span>
-    </div>
-    <div class="lp-card available">
-      <div class="lp-phase">クイックリンク</div>
-      <div class="lp-title">頻用6画面へのショートカット</div>
-      <div class="lp-acts">購買発注・入荷・レポート・マスタ・請求書照合・設定</div>
-      <span class="lp-status-badge available">採用</span>
+      <a href="docs/test-report.html">
+        <div class="lp-phase">テスト</div>
+        <div class="lp-title">テスト結果報告書</div>
+        <div class="lp-acts">実機データ検証・画面エビデンス</div>
+        <span class="lp-status-badge available">開く →</span>
+      </a>
     </div>
   </div>
-
-  <div class="section-label">期待効果</div>
-  <ul class="feature-list" style="max-width:720px;">
-    <li>ログイン後に必要な画面を探す時間を削減（推定 5〜10分/日）</li>
-    <li>KPI カードで例外・アラートを即把握し、対応漏れを防止</li>
-    <li>クイックリンクで頻用業務へワンクリックアクセス</li>
-    <li>不慣れな担当者でも操作に迷わない画面構成で定着率向上</li>
-  </ul>
 
 </main>
 
@@ -189,10 +199,52 @@
       <div class="footer-brand">ロビー — 調達担当者ロール</div>
       <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
     </div>
-    <div class="footer-links">
-      <a href="../index.html">← ロール一覧</a>
-    </div>
+    <div class="footer-links"><a href="../index.html">← ロール一覧</a></div>
   </div>
 </footer>
+
+<script>
+const PURPLE='#8a3ffc', BLUE='#0f62fe', RED='#da1e28', YELLOW='#f1c21b', GREEN='#24a148';
+const gray='#e0e0e0';
+
+// 棒グラフ：仕入先別発注数量（実データ）
+new Chart(document.getElementById('chartBar'), {
+  type: 'bar',
+  data: {
+    labels: ['JP-PO-005', 'JP-PO-006', 'JP-PO-007', 'JP-PO-008', 'JP-PO-009', 'MPSIM-ORD3'],
+    datasets: [{
+      label: '発注数量',
+      data: [10, 10, 10, 10, 10, 20],
+      backgroundColor: [BLUE, BLUE, BLUE, BLUE, BLUE, PURPLE],
+      borderRadius: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, grid: { color: gray }, ticks: { font: { size: 11 } } },
+      x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+// 円グラフ：遅延ステータス（実データ：全9件遅延）
+new Chart(document.getElementById('chartDoughnut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['遅延', '正常'],
+    datasets: [{ data: [9, 0], backgroundColor: [RED, GREEN], borderWidth: 2 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}件` } }
+    },
+    cutout: '65%'
+  }
+});
+</script>
 </body>
 </html>

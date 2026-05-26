@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ロビー（業務ダッシュボード）— IFS Cloud ソリューションサンプル</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -26,7 +26,7 @@
     <div class="hero-text">
       <div class="hero-eyebrow">IFS Cloud — Lobby / 業務ポータル</div>
       <h1>ロビー（業務ダッシュボード）</h1>
-      <p>役割ごとにカスタマイズされた業務ポータル画面。KPI・タスク・クイックリンクをひとつの画面に集約し、担当者が迷わず業務を開始できる環境を実現します。</p>
+      <p>役割ごとにカスタマイズされた業務ポータル画面。KPI・グラフ・タスク・クイックリンクを一画面に集約し、担当者が迷わず業務を開始できる環境を実現します。</p>
       <div class="hero-badges">
         <span class="hero-badge">IFS 25R2</span>
         <span class="hero-badge">3 ロール</span>
@@ -38,9 +38,39 @@
 
 <main class="container">
 
-  <!-- 全体像フロー -->
-  <div class="section-label">ロビー構成の全体像</div>
-  <div class="proc-flow" style="align-items: flex-start; gap: 0;">
+  <div class="section-label">AI 駆動型ロビー開発</div>
+  <div class="proc-flow" style="align-items:flex-start; margin-bottom:16px;">
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0;">
+      <div class="pf-node">
+        <div class="pf-circle" style="background:#525252; font-size:10px;">要件<br>整理</div>
+        <div class="pf-label">役割・KPI・<br>リンクを整理</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node">
+        <div class="pf-circle highlight">自動<br>設計</div>
+        <div class="pf-label">ウィジェット<br>構成を生成</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node">
+        <div class="pf-circle highlight">自動<br>開発</div>
+        <div class="pf-label">IFS Cloud に<br>実機登録</div>
+      </div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-node">
+        <div class="pf-circle highlight">自動<br>テスト</div>
+        <div class="pf-label">画面確認・<br>エビデンス取得</div>
+      </div>
+    </div>
+  </div>
+  <ul class="feature-list" style="max-width:860px; margin-bottom:32px;">
+    <li>IFS Cloud のデータモデルを熟知したAIが、役割・業務ニーズに応じたウィジェット構成を自動設計</li>
+    <li>KPI・グラフ・リスト・クイックリンクの組み合わせをAIが最適化。不要な情報を排除しシンプルに保つ</li>
+    <li>要件整理 → XML 設計 → IFS Cloud 実機登録 → 画面エビデンス取得まで自律実行</li>
+    <li>担当者は「誰向けに・何を見せたいか」を伝えるだけで、ロビー設定ファイル＋設計書が揃う</li>
+  </ul>
+
+  <div class="section-label">ロール全体フロー</div>
+  <div class="proc-flow" style="align-items: flex-start;">
     <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0;">
       <div class="pf-node">
         <div class="pf-circle" style="background:#525252; font-size:10px;">ロール<br>設計</div>
@@ -54,7 +84,7 @@
       <div class="pf-arrow">→</div>
       <div class="pf-node">
         <div class="pf-circle">ウィジェット<br>配置</div>
-        <div class="pf-label">KPI・リスト<br>・リンク設定</div>
+        <div class="pf-label">KPI・グラフ<br>・リンク設定</div>
       </div>
       <div class="pf-arrow">→</div>
       <div class="pf-node">
@@ -64,49 +94,42 @@
       <div class="pf-arrow">→</div>
       <div class="pf-node">
         <div class="pf-circle">運用<br>改善</div>
-        <div class="pf-label">現場フィード<br>バックで改善</div>
+        <div class="pf-label">現場FB<br>で改善</div>
       </div>
     </div>
   </div>
 
-  <!-- ロール別サンプル一覧 -->
   <div class="section-label">ロール別サンプル — 全 3 ロール</div>
-
   <div class="lp-grid">
-
     <div class="lp-card available" style="border-color:#8a3ffc;">
       <a href="role-procurement/index.html">
         <div class="lp-phase">調達・購買</div>
         <div class="lp-number">ロール 1</div>
         <div class="lp-title">調達担当者ロビー</div>
-        <div class="lp-acts">発注残・承認待ち・遅延アラートを一元表示</div>
+        <div class="lp-acts">発注残KPI・月別グラフ・遅延アラート・クイックリンク</div>
         <span class="lp-status-badge available">★ 公開中 →</span>
       </a>
     </div>
-
     <div class="lp-card">
       <div class="lp-phase">在庫管理</div>
       <div class="lp-number">ロール 2</div>
       <div class="lp-title">在庫管理者ロビー</div>
-      <div class="lp-acts">在庫アラート・入荷予定・棚卸タスクを表示</div>
+      <div class="lp-acts">在庫アラート・入荷予定グラフ・棚卸タスク</div>
       <span class="lp-status-badge soon">準備中</span>
     </div>
-
     <div class="lp-card">
       <div class="lp-phase">経営管理</div>
       <div class="lp-number">ロール 3</div>
       <div class="lp-title">マネージャーロビー</div>
-      <div class="lp-acts">KPI サマリー・遅延案件・承認キューを表示</div>
+      <div class="lp-acts">KPIサマリー・遅延案件・承認キュー</div>
       <span class="lp-status-badge soon">準備中</span>
     </div>
-
   </div>
 
-  <!-- サンプルへの誘導 -->
   <div style="background:#f6f0ff; border:1px solid #8a3ffc; border-left:4px solid #8a3ffc; padding:20px; margin-top:24px;">
     <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:#6929c4; margin-bottom:8px;">サンプル公開中</div>
     <div style="font-size:15px; font-weight:700; margin-bottom:6px;">ロール 1 — 調達担当者ロビー</div>
-    <div style="font-size:13px; color:#525252; margin-bottom:12px;">KPI カード・発注残リスト・本日のタスク・クイックリンクを組み合わせた調達担当向けホーム画面の実現イメージです。</div>
+    <div style="font-size:13px; color:#525252; margin-bottom:12px;">KPIカード・発注状況グラフ・発注残リスト・タスク・クイックリンクを組み合わせた実現イメージです。</div>
     <a href="role-procurement/index.html" style="display:inline-block; background:#8a3ffc; color:#fff; font-size:13px; font-weight:700; padding:10px 20px; text-decoration:none;">このロールを見る →</a>
   </div>
 
@@ -118,11 +141,8 @@
       <div class="footer-brand">IFS Cloud Solution Samples — ロビー（業務ダッシュボード）</div>
       <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
     </div>
-    <div class="footer-links">
-      <a href="../index.html">← ソリューション一覧</a>
-    </div>
+    <div class="footer-links"><a href="../index.html">← ソリューション一覧</a></div>
   </div>
 </footer>
-
 </body>
 </html>

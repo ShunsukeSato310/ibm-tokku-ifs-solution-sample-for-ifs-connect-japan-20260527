@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>詳細設計書 — 調達担当者ロビー</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .xml-block { background:#1e1e2e; color:#cdd6f4; font-family:'IBM Plex Mono',monospace; font-size:11px; line-height:1.7; padding:18px 20px; border-radius:4px; overflow-x:auto; margin-bottom:8px; }
+    .xml-tag { color:#89b4fa; } .xml-attr { color:#f9e2af; } .xml-val { color:#a6e3a1; } .xml-cmt { color:#6c7086; font-style:italic; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,0.7);">ロール一覧</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <span>詳細設計書</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← ロビー詳細</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#6929c4 0%,#8a3ffc 60%,#491d8b 100%);padding:40px 40px 32px;">
+  <div class="hero-inner" style="display:block;">
+    <div class="hero-eyebrow">調達担当者ロビー — 詳細設計書</div>
+    <h1 style="font-size:28px;">調達担当者ロビー 詳細設計書</h1>
+    <p style="margin-bottom:0;">バージョン 1.0　／　作成日: 2026-05-26　／　IFS Cloud 25R2</p>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="section-label">1. ウィジェット構成とデータソース</div>
+  <table class="lb-inner-table" style="border:1px solid var(--gray-20);margin-bottom:24px;">
+    <thead><tr><th>ウィジェット</th><th>種別</th><th>データソース</th><th>実データ値</th></tr></thead>
+    <tbody>
+      <tr><td>発注残（Released）</td><td>KPI</td><td>PURCHASE_ORDER_LINE.OBJSTATE='Released'</td><td>9件</td></tr>
+      <tr><td>遅延アラート</td><td>KPI</td><td>QR 2000001 / 遅延フラグ='遅延'</td><td>9件</td></tr>
+      <tr><td>発注オーダ数</td><td>KPI</td><td>PURCHASE_ORDER ヘッダー</td><td>6件</td></tr>
+      <tr><td>合計発注数量</td><td>KPI</td><td>SUM(BUY_QTY_DUE)</td><td>55</td></tr>
+      <tr><td>仕入先別発注数量</td><td>棒グラフ</td><td>PURCHASE_ORDER_LINE GROUP BY ORDER_NO</td><td>6オーダ</td></tr>
+      <tr><td>遅延ステータス構成</td><td>円グラフ</td><td>QR 2000001 遅延フラグ分布</td><td>遅延9 / 正常0</td></tr>
+      <tr><td>発注残一覧</td><td>リスト</td><td>QR 2000001</td><td>9件</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">2. ロビー設定 XML（IFS Cloud インポート用）</div>
+  <p style="font-size:13px;color:var(--text-02);margin-bottom:12px;">以下の XML を IFS Cloud のロビー設定インポート機能でアップロードすることで登録できます。</p>
+
+  <div class="xml-block"><span class="xml-cmt">&lt;!-- 調達担当者ロビー v1.0 --&gt;</span>
+<span class="xml-tag">&lt;page</span> <span class="xml-attr">xmlns</span>=<span class="xml-val">"urn:ifsworld-com:schemas:page_design"</span><span class="xml-tag">&gt;</span>
+  <span class="xml-tag">&lt;page-title&gt;</span>調達担当者ロビー<span class="xml-tag">&lt;/page-title&gt;</span>
+  <span class="xml-tag">&lt;layout</span> <span class="xml-attr">type</span>=<span class="xml-val">"grid"</span> <span class="xml-attr">columns</span>=<span class="xml-val">"12"</span><span class="xml-tag">&gt;</span>
+
+    <span class="xml-cmt">&lt;!-- KPI カード行 --&gt;</span>
+    <span class="xml-tag">&lt;widget</span> <span class="xml-attr">id</span>=<span class="xml-val">"kpi_remaining"</span> <span class="xml-attr">type</span>=<span class="xml-val">"kpi-card"</span>
+      <span class="xml-attr">col</span>=<span class="xml-val">"1"</span> <span class="xml-attr">colspan</span>=<span class="xml-val">"3"</span> <span class="xml-attr">row</span>=<span class="xml-val">"1"</span><span class="xml-tag">&gt;</span>
+      <span class="xml-tag">&lt;title&gt;</span>発注残（Released）<span class="xml-tag">&lt;/title&gt;</span>
+      <span class="xml-tag">&lt;datasource&gt;</span>
+        <span class="xml-tag">&lt;quick-report</span> <span class="xml-attr">id</span>=<span class="xml-val">"2000001"</span>
+          <span class="xml-attr">aggregate</span>=<span class="xml-val">"count"</span><span class="xml-tag">/&gt;</span>
+      <span class="xml-tag">&lt;/datasource&gt;</span>
+      <span class="xml-tag">&lt;color&gt;</span>warning<span class="xml-tag">&lt;/color&gt;</span>
+    <span class="xml-tag">&lt;/widget&gt;</span>
+
+    <span class="xml-tag">&lt;widget</span> <span class="xml-attr">id</span>=<span class="xml-val">"kpi_delayed"</span> <span class="xml-attr">type</span>=<span class="xml-val">"kpi-card"</span>
+      <span class="xml-attr">col</span>=<span class="xml-val">"4"</span> <span class="xml-attr">colspan</span>=<span class="xml-val">"3"</span> <span class="xml-attr">row</span>=<span class="xml-val">"1"</span><span class="xml-tag">&gt;</span>
+      <span class="xml-tag">&lt;title&gt;</span>遅延アラート<span class="xml-tag">&lt;/title&gt;</span>
+      <span class="xml-tag">&lt;datasource&gt;</span>
+        <span class="xml-tag">&lt;quick-report</span> <span class="xml-attr">id</span>=<span class="xml-val">"2000001"</span>
+          <span class="xml-attr">filter</span>=<span class="xml-val">"遅延フラグ eq '遅延'"</span>
+          <span class="xml-attr">aggregate</span>=<span class="xml-val">"count"</span><span class="xml-tag">/&gt;</span>
+      <span class="xml-tag">&lt;/datasource&gt;</span>
+      <span class="xml-tag">&lt;color&gt;</span>danger<span class="xml-tag">&lt;/color&gt;</span>
+    <span class="xml-tag">&lt;/widget&gt;</span>
+
+    <span class="xml-cmt">&lt;!-- 発注残リスト --&gt;</span>
+    <span class="xml-tag">&lt;widget</span> <span class="xml-attr">id</span>=<span class="xml-val">"po_list"</span> <span class="xml-attr">type</span>=<span class="xml-val">"list"</span>
+      <span class="xml-attr">col</span>=<span class="xml-val">"1"</span> <span class="xml-attr">colspan</span>=<span class="xml-val">"8"</span> <span class="xml-attr">row</span>=<span class="xml-val">"2"</span><span class="xml-tag">&gt;</span>
+      <span class="xml-tag">&lt;title&gt;</span>発注残一覧<span class="xml-tag">&lt;/title&gt;</span>
+      <span class="xml-tag">&lt;datasource&gt;</span>
+        <span class="xml-tag">&lt;quick-report</span> <span class="xml-attr">id</span>=<span class="xml-val">"2000001"</span><span class="xml-tag">/&gt;</span>
+      <span class="xml-tag">&lt;/datasource&gt;</span>
+    <span class="xml-tag">&lt;/widget&gt;</span>
+
+    <span class="xml-cmt">&lt;!-- クイックリンク --&gt;</span>
+    <span class="xml-tag">&lt;widget</span> <span class="xml-attr">id</span>=<span class="xml-val">"quick_links"</span> <span class="xml-attr">type</span>=<span class="xml-val">"quick-link"</span>
+      <span class="xml-attr">col</span>=<span class="xml-val">"9"</span> <span class="xml-attr">colspan</span>=<span class="xml-val">"4"</span> <span class="xml-attr">row</span>=<span class="xml-val">"2"</span><span class="xml-tag">&gt;</span>
+      <span class="xml-tag">&lt;title&gt;</span>クイックリンク<span class="xml-tag">&lt;/title&gt;</span>
+      <span class="xml-tag">&lt;links&gt;</span>
+        <span class="xml-tag">&lt;link</span> <span class="xml-attr">label</span>=<span class="xml-val">"購買発注"</span> <span class="xml-attr">page</span>=<span class="xml-val">"page/PurchaseOrder/List"</span><span class="xml-tag">/&gt;</span>
+        <span class="xml-tag">&lt;link</span> <span class="xml-attr">label</span>=<span class="xml-val">"入荷処理"</span> <span class="xml-attr">page</span>=<span class="xml-val">"page/PurchaseReceipt/List"</span><span class="xml-tag">/&gt;</span>
+        <span class="xml-tag">&lt;link</span> <span class="xml-attr">label</span>=<span class="xml-val">"発注残レポート"</span> <span class="xml-attr">quick-report-id</span>=<span class="xml-val">"2000001"</span><span class="xml-tag">/&gt;</span>
+        <span class="xml-tag">&lt;link</span> <span class="xml-attr">label</span>=<span class="xml-val">"仕入先マスタ"</span> <span class="xml-attr">page</span>=<span class="xml-val">"page/SupplierInfo/List"</span><span class="xml-tag">/&gt;</span>
+        <span class="xml-tag">&lt;link</span> <span class="xml-attr">label</span>=<span class="xml-val">"請求書照合"</span> <span class="xml-attr">page</span>=<span class="xml-val">"page/SupplierInvoice/List"</span><span class="xml-tag">/&gt;</span>
+      <span class="xml-tag">&lt;/links&gt;</span>
+    <span class="xml-tag">&lt;/widget&gt;</span>
+
+  <span class="xml-tag">&lt;/layout&gt;</span>
+<span class="xml-tag">&lt;/page&gt;</span></div>
+
+  <div style="display:flex;gap:16px;margin-top:32px;">
+    <a href="requirements.html" style="display:inline-block;background:var(--gray-10);color:var(--text-01);border:1px solid var(--gray-20);font-size:13px;font-weight:700;padding:10px 24px;text-decoration:none;">← 要件定義書</a>
+    <a href="test-report.html" style="display:inline-block;background:#8a3ffc;color:#fff;font-size:13px;font-weight:700;padding:10px 24px;text-decoration:none;">次へ: テスト結果報告書 →</a>
+  </div>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">調達担当者ロビー — 詳細設計書 v1.0</div><div class="footer-copy">© 2026 Tokku Team.</div></div>
+    <div class="footer-links"><a href="../index.html">← ロビー詳細</a></div>
+  </div>
+</footer>
+</body>
+</html>
