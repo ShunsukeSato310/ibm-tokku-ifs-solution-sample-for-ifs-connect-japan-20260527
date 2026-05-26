@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>データモデル設計 — 調達拡張モデル詳細</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .sc-context-block{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+    .sc-context-card{padding:20px;border:1px solid var(--gray-20);}
+    .sc-context-before{background:#fff8f0;border-left:4px solid var(--orange);}
+    .sc-context-after{background:#e6f9ee;border-left:4px solid #24a148;}
+    .sc-ctx-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-03);margin-bottom:10px;}
+    .sc-ctx-list{list-style:none;padding:0;}
+    .sc-ctx-list li{font-size:13px;color:var(--text-02);padding:5px 0;border-bottom:1px solid var(--gray-20);line-height:1.6;}
+    .sc-ctx-list li:last-child{border-bottom:none;}
+    .erd{background:#fff;border:1px solid var(--gray-20);padding:24px;margin-bottom:24px;overflow-x:auto;}
+    .erd-boxes{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;}
+    .erd-box{border:2px solid var(--gray-20);min-width:190px;}
+    .erd-box-head{background:var(--gray-10);padding:6px 12px;font-size:12px;font-weight:700;border-bottom:1px solid var(--gray-20);}
+    .erd-box-head.ext{background:#e8f4fd;border-color:#0f62fe;color:#0043ce;}
+    .erd-field{font-size:11px;padding:4px 12px;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
+    .erd-field:last-child{border-bottom:none;}
+    .erd-field.pk{color:#6929c4;font-weight:700;}
+    .erd-field.fk{color:#0f62fe;}
+    .erd-field.custom{color:#24a148;font-style:italic;}
+    .fld-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:24px;}
+    .fld-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
+    .fld-table td{font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);}
+    .fld-table tr:last-child td{border-bottom:none;}
+    @media(max-width:768px){.sc-context-block{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,.7);">データモデル設計</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <span>調達拡張モデル</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← 一覧</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#1a4d1a 0%,#198038 60%,#24a148 100%);padding-bottom:32px;">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">データモデル設計 — 調達・購買 拡張モデル</div>
+      <h1>調達拡張モデル設計<br><span style="font-size:.65em;opacity:.85;">標準エンティティへの拡張フィールド設計サンプル</span></h1>
+      <p>IFS Cloud 標準の調達エンティティに対して、KCM標準拡張パターンを逆設計したサンプルです。</p>
+      <div class="hero-badges">
+        <span class="hero-badge">標準 + 拡張 ER図</span>
+        <span class="hero-badge">フィールド定義書</span>
+        <span class="hero-badge">移行設計への連携</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+  <div class="section-label">背景</div>
+  <div class="sc-context-block">
+    <div class="sc-context-card sc-context-before">
+      <div class="sc-ctx-label">従来の課題</div>
+      <ul class="sc-ctx-list">
+        <li>拡張フィールドがどこに定義されているか把握に時間がかかる</li>
+        <li>バージョンアップ時に拡張との衝突が発生しやすい</li>
+        <li>設計書がなく口頭ノウハウに依存していた</li>
+      </ul>
+    </div>
+    <div class="sc-context-card sc-context-after">
+      <div class="sc-ctx-label">AI逆設計で解決</div>
+      <ul class="sc-ctx-list">
+        <li>プログラムから拡張フィールドを自動抽出・ドキュメント化</li>
+        <li>標準との差分を明確化しバージョンアップ影響を早期特定</li>
+        <li>ER図・フィールド定義書を自動生成</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">ER 図（詳細）</div>
+  <div class="erd">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-03);margin-bottom:16px;">調達領域 拡張エンティティ関連図</div>
+    <div class="erd-boxes">
+      <div class="erd-box">
+        <div class="erd-box-head">SUPPLIER_INFO_TAB (標準)</div>
+        <div class="erd-field pk">PK: SUPPLIER_NO (VARCHAR)</div>
+        <div class="erd-field">NAME (VARCHAR 100)</div>
+        <div class="erd-field">CATEGORY (VARCHAR 20)</div>
+        <div class="erd-field">DEFAULT_LANGUAGE (VARCHAR 5)</div>
+        <div class="erd-field custom">+ PREFERRED_CARRIER (VARCHAR 30) ★拡張</div>
+        <div class="erd-field custom">+ SLA_DAYS (NUMBER) ★拡張</div>
+        <div class="erd-field custom">+ PAYMENT_TERMS_CUSTOM (VARCHAR 20) ★拡張</div>
+      </div>
+      <div class="erd-box">
+        <div class="erd-box-head">PURCHASE_ORDER_TAB (標準)</div>
+        <div class="erd-field pk">PK: ORDER_NO (VARCHAR 12)</div>
+        <div class="erd-field fk">FK: SUPPLIER_NO</div>
+        <div class="erd-field">WANTED_DELIVERY_DATE (DATE)</div>
+        <div class="erd-field">AUTHORIZE_CODE (VARCHAR 20)</div>
+        <div class="erd-field">OBJSTATE (VARCHAR 20)</div>
+        <div class="erd-field custom">+ PROJECT_CODE (VARCHAR 20) ★拡張</div>
+        <div class="erd-field custom">+ APPROVAL_LEVEL (NUMBER) ★拡張</div>
+      </div>
+      <div class="erd-box">
+        <div class="erd-box-head ext">PO_APPROVAL_LOG_TAB (拡張)</div>
+        <div class="erd-field pk">PK: LOG_ID (VARCHAR UUID)</div>
+        <div class="erd-field fk">FK: ORDER_NO</div>
+        <div class="erd-field">APPROVER_ID (VARCHAR 20)</div>
+        <div class="erd-field">APPROVED_AT (TIMESTAMP)</div>
+        <div class="erd-field">APPROVAL_LEVEL (NUMBER)</div>
+        <div class="erd-field">COMMENT_TEXT (VARCHAR 200)</div>
+      </div>
+      <div class="erd-box">
+        <div class="erd-box-head">PURCHASE_ORDER_LINE_TAB (標準)</div>
+        <div class="erd-field pk">PK: ORDER_NO + LINE_NO</div>
+        <div class="erd-field fk">FK: ORDER_NO</div>
+        <div class="erd-field">PART_NO (VARCHAR 25)</div>
+        <div class="erd-field">BUY_QTY_DUE (NUMBER)</div>
+        <div class="erd-field custom">+ COST_CENTER (VARCHAR 20) ★拡張</div>
+        <div class="erd-field custom">+ INTERNAL_ORDER_NO (VARCHAR 20) ★拡張</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">拡張フィールド定義一覧</div>
+  <table class="fld-table">
+    <thead><tr><th>テーブル</th><th>フィールド名</th><th>型 / 桁</th><th>必須</th><th>業務意味</th><th>デフォルト</th></tr></thead>
+    <tbody>
+      <tr><td>SUPPLIER_INFO_TAB</td><td>PREFERRED_CARRIER</td><td>VARCHAR(30)</td><td>—</td><td>優先配送業者コード</td><td>NULL</td></tr>
+      <tr><td>SUPPLIER_INFO_TAB</td><td>SLA_DAYS</td><td>NUMBER(3)</td><td>—</td><td>標準納期SLA（日）</td><td>NULL</td></tr>
+      <tr><td>SUPPLIER_INFO_TAB</td><td>PAYMENT_TERMS_CUSTOM</td><td>VARCHAR(20)</td><td>—</td><td>カスタム支払条件コード</td><td>NULL</td></tr>
+      <tr><td>PURCHASE_ORDER_TAB</td><td>PROJECT_CODE</td><td>VARCHAR(20)</td><td>—</td><td>原価管理プロジェクトコード</td><td>NULL</td></tr>
+      <tr><td>PURCHASE_ORDER_TAB</td><td>APPROVAL_LEVEL</td><td>NUMBER(1)</td><td>○</td><td>必要承認レベル（1=部長/2=役員）</td><td>1</td></tr>
+      <tr><td>PO_APPROVAL_LOG_TAB</td><td>全フィールド</td><td>—</td><td>○</td><td>承認履歴（カスタムエンティティ）</td><td>—</td></tr>
+      <tr><td>PURCHASE_ORDER_LINE_TAB</td><td>COST_CENTER</td><td>VARCHAR(20)</td><td>—</td><td>費用配賦先コストセンター</td><td>NULL</td></tr>
+      <tr><td>PURCHASE_ORDER_LINE_TAB</td><td>INTERNAL_ORDER_NO</td><td>VARCHAR(20)</td><td>—</td><td>社内発注番号（稟議番号等）</td><td>NULL</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">成果物ドキュメント</div>
+  <div class="lp-grid" style="margin-bottom:8px;">
+    <div class="lp-card available">
+      <a href="docs/design.html">
+        <div class="lp-phase">設計書</div>
+        <div class="lp-title">拡張フィールド設計書</div>
+        <div class="lp-acts">全拡張フィールド定義・DDL・移行ジョブ連携</div>
+        <span class="lp-status-badge available">開く →</span>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">データモデル設計 — 調達拡張モデル</div>
+      <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
+    </div>
+    <div class="footer-links"><a href="../index.html">← 一覧に戻る</a></div>
+  </div>
+</footer>
+</body>
+</html>

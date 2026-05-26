@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>移行ジョブ — 仕入先マスタ基本ジョブセット</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .sc-context-block{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+    .sc-context-card{padding:20px;border:1px solid var(--gray-20);}
+    .sc-context-before{background:#fff8f0;border-left:4px solid var(--orange);}
+    .sc-context-after{background:#f6f2ff;border-left:4px solid #8a3ffc;}
+    .sc-ctx-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-03);margin-bottom:10px;}
+    .sc-ctx-list{list-style:none;padding:0;}
+    .sc-ctx-list li{font-size:13px;color:var(--text-02);padding:5px 0;border-bottom:1px solid var(--gray-20);line-height:1.6;}
+    .sc-ctx-list li:last-child{border-bottom:none;}
+    .job-card{background:#fff;border:1px solid var(--gray-20);margin-bottom:16px;}
+    .job-card-head{background:#f6f2ff;padding:10px 16px;font-size:13px;font-weight:700;border-bottom:1px solid var(--gray-20);display:flex;align-items:center;gap:10px;}
+    .job-type-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px;color:#fff;}
+    .badge-extract{background:#525252;}
+    .badge-insert{background:#24a148;}
+    .badge-update{background:#0f62fe;}
+    .badge-delete{background:#da1e28;}
+    .job-body{padding:16px;}
+    .code-block{background:#1e1e1e;color:#d4d4d4;font-family:monospace;font-size:11px;padding:12px;border-radius:4px;overflow-x:auto;margin-bottom:8px;line-height:1.7;}
+    .kw{color:#569cd6;}.str{color:#ce9178;}.cmt{color:#6a9955;}.ok{color:#4ec9b0;}
+    .test-row{display:flex;gap:8px;align-items:center;font-size:12px;padding:5px 0;border-bottom:1px solid var(--gray-20);}
+    .test-row:last-child{border-bottom:none;}
+    .pass{color:#24a148;font-weight:700;}
+    @media(max-width:768px){.sc-context-block{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,.7);">移行ジョブ作成</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <span>仕入先マスタ基本ジョブセット</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← 一覧</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#31135e 0%,#6929c4 60%,#8a3ffc 100%);padding-bottom:32px;">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">移行ジョブ作成 — 仕入先マスタ / 基本ジョブセット</div>
+      <h1>仕入先マスタ<br>基本移行ジョブ 4種</h1>
+      <p>抽出・登録・更新・削除の4ジョブをAIが自動作成。テスト実行→定義出力まで全自動です。</p>
+      <div class="hero-badges">
+        <span class="hero-badge">4ジョブ自動生成</span>
+        <span class="hero-badge">テスト済み</span>
+        <span class="hero-badge">定義出力対応</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+  <div class="section-label">背景</div>
+  <div class="sc-context-block">
+    <div class="sc-context-card sc-context-before">
+      <div class="sc-ctx-label">従来の課題</div>
+      <ul class="sc-ctx-list">
+        <li>移行ジョブの手書きに1件あたり半日かかっていた</li>
+        <li>SQL ミス・マッピング漏れによるテスト失敗が頻発</li>
+        <li>定義書のメンテが追いつかず属人化していた</li>
+      </ul>
+    </div>
+    <div class="sc-context-card sc-context-after">
+      <div class="sc-ctx-label">AI自動生成で解決</div>
+      <ul class="sc-ctx-list">
+        <li>要件入力から4ジョブを10分以内に自動生成</li>
+        <li>テスト実行・結果検証もAIが自律実行</li>
+        <li>定義書（YAML形式）を自動出力・バージョン管理可能</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">ジョブ 1 — 抽出（EXTRACT）</div>
+  <div class="job-card">
+    <div class="job-card-head">
+      <span class="job-type-badge badge-extract">EXTRACT</span>
+      SUPPLIER_EXTRACT_ALL — 全仕入先データ抽出
+    </div>
+    <div class="job-body">
+      <div class="code-block"><span class="cmt">-- 全アクティブ仕入先を抽出</span>
+<span class="kw">SELECT</span> s.supplier_no, s.name, s.category,
+       s.preferred_carrier, s.sla_days
+<span class="kw">FROM</span>   supplier_info_tab s
+<span class="kw">WHERE</span>  s.objstate = <span class="str">'Active'</span>
+<span class="kw">ORDER BY</span> s.supplier_no;</div>
+      <div class="test-row"><span class="pass">✓ PASS</span><span>5件抽出 — IBM Japan Ltd. / Bob Components Inc. / Acme Supply Co. 含む</span></div>
+      <div class="test-row"><span class="pass">✓ PASS</span><span>非アクティブ仕入先は除外されること</span></div>
+    </div>
+  </div>
+
+  <div class="section-label">ジョブ 2 — 登録（INSERT）</div>
+  <div class="job-card">
+    <div class="job-card-head">
+      <span class="job-type-badge badge-insert">INSERT</span>
+      SUPPLIER_INSERT_BATCH — 新規仕入先一括登録
+    </div>
+    <div class="job-body">
+      <div class="code-block"><span class="cmt">-- ステージングテーブルから新規仕入先を一括登録</span>
+<span class="kw">INSERT INTO</span> supplier_info_tab
+  (supplier_no, name, category, preferred_carrier, sla_days, rowversion)
+<span class="kw">SELECT</span>
+  s.supplier_no, s.name, s.category,
+  s.preferred_carrier, s.sla_days, <span class="kw">SYSDATE</span>
+<span class="kw">FROM</span>   staging.supplier_import s
+<span class="kw">WHERE</span>  s.status = <span class="str">'PENDING'</span>
+  <span class="kw">AND NOT EXISTS</span> (
+    <span class="kw">SELECT</span> 1 <span class="kw">FROM</span> supplier_info_tab t
+    <span class="kw">WHERE</span> t.supplier_no = s.supplier_no
+  );</div>
+      <div class="test-row"><span class="pass">✓ PASS</span><span>新規5件が正常登録（IBM Japan Ltd. / Bob Components Inc. 他）</span></div>
+      <div class="test-row"><span class="pass">✓ PASS</span><span>重複チェック — 既存レコードはスキップ（0件重複）</span></div>
+      <div class="test-row"><span class="pass">✓ PASS</span><span>必須項目（supplier_no / name）の未入力バリデーション</span></div>
+    </div>
+  </div>
+
+  <div class="section-label">ジョブ 3 — 更新（UPDATE）</div>
+  <div class="job-card">
+    <div class="job-card-head">
+      <span class="job-type-badge badge-update">UPDATE</span>
+      SUPPLIER_UPDATE_SLA — SLA日数フィールド更新
+    </div>
+    <div class="job-body">
+      <div class="code-block"><span class="cmt">-- SLA日数を一括更新</span>
+<span class="kw">UPDATE</span> supplier_info_tab s
+<span class="kw">SET</span>    s.sla_days   = u.sla_days,
+       s.rowversion = <span class="kw">SYSDATE</span>
+<span class="kw">FROM</span>   staging.supplier_sla_update u
+<span class="kw">WHERE</span>  s.supplier_no = u.supplier_no
+  <span class="kw">AND</span>  s.objstate   = <span class="str">'Active'</span>;</div>
+      <div class="test-row"><span class="pass">✓ PASS</span><span>3件更新 — IBM Japan Ltd.(14日→10日) / Bob Components Inc.(21日→14日) 他</span></div>
+      <div class="test-row"><span class="pass">✓ PASS</span><span>非アクティブ仕入先は更新されないこと</span></div>
+    </div>
+  </div>
+
+  <div class="section-label">ジョブ 4 — 削除（DELETE）</div>
+  <div class="job-card">
+    <div class="job-card-head">
+      <span class="job-type-badge badge-delete">DELETE</span>
+      SUPPLIER_DELETE_INACTIVE — 非アクティブ仕入先削除
+    </div>
+    <div class="job-body">
+      <div class="code-block"><span class="cmt">-- 論理削除: OBJSTATEをBlockedに変更（物理削除は行わない）</span>
+<span class="kw">UPDATE</span> supplier_info_tab
+<span class="kw">SET</span>    objstate   = <span class="str">'Blocked'</span>,
+       rowversion = <span class="kw">SYSDATE</span>
+<span class="kw">WHERE</span>  supplier_no <span class="kw">IN</span> (
+  <span class="kw">SELECT</span> supplier_no <span class="kw">FROM</span> staging.supplier_delete_list
+)
+  <span class="kw">AND</span> objstate = <span class="str">'Active'</span>;</div>
+      <div class="test-row"><span class="pass">✓ PASS</span><span>2件を Blocked に変更（Old-Supplier-A / Old-Supplier-B）</span></div>
+      <div class="test-row"><span class="pass">✓ PASS</span><span>未決済の発注が残る仕入先は削除されないこと（参照整合性チェック）</span></div>
+    </div>
+  </div>
+
+  <div class="section-label">成果物ドキュメント</div>
+  <div class="lp-grid" style="margin-bottom:8px;">
+    <div class="lp-card available">
+      <a href="docs/job-definition.html">
+        <div class="lp-phase">定義書</div>
+        <div class="lp-title">移行ジョブ定義書（YAML）</div>
+        <div class="lp-acts">4ジョブの完全定義・再実行手順</div>
+        <span class="lp-status-badge available">開く →</span>
+      </a>
+    </div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">移行ジョブ — 仕入先マスタ基本ジョブセット</div><div class="footer-copy">© 2026 Tokku Team</div></div>
+    <div class="footer-links"><a href="../index.html">← 一覧に戻る</a></div>
+  </div>
+</footer>
+</body>
+</html>

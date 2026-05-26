@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拡張フィールド設計書 — データモデル設計</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .doc-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:24px;}
+    .doc-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
+    .doc-table td{font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);vertical-align:top;}
+    .doc-table tr:last-child td{border-bottom:none;}
+    .code-block{background:#1e1e1e;color:#d4d4d4;font-family:monospace;font-size:12px;padding:16px;border-radius:4px;overflow-x:auto;margin-bottom:16px;line-height:1.7;}
+    .kw{color:#569cd6;} .str{color:#ce9178;} .cmt{color:#6a9955;}
+    h3{font-size:14px;font-weight:700;margin:24px 0 10px;}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../../index.html" style="color:rgba(255,255,255,.7);">データモデル設計</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,.7);">調達拡張モデル</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <span>設計書</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← 戻る</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#1a4d1a 0%,#198038 100%);padding:40px 40px 32px;">
+  <div class="hero-inner" style="display:block;">
+    <div class="hero-eyebrow">データモデル設計 — 拡張フィールド設計書</div>
+    <h1 style="font-size:28px;">調達領域 拡張フィールド設計書</h1>
+    <p style="margin-bottom:0;">バージョン 1.0　／　2026-05-26　／　IFS Cloud 25R2</p>
+  </div>
+</section>
+
+<main class="container">
+  <div class="section-label">1. 設計方針</div>
+  <table class="doc-table">
+    <tbody>
+      <tr><td style="width:180px;background:var(--gray-10);font-weight:600;">設計アプローチ</td><td>IFS Cloud 標準テーブルへのフィールド追加（IEF拡張）+ カスタムエンティティ</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">命名規則</td><td>拡張フィールドはすべて大文字スネークケース。標準フィールドと衝突しない名称</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">NULL許容方針</td><td>業務上必須の項目のみ NOT NULL。移行時の後付けを考慮し基本は NULL 許容</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">バージョンアップ方針</td><td>標準フィールドとの衝突チェックをリリース前に実施。AI が自動検出</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">2. 拡張 DDL（抜粋）</div>
+  <h3>SUPPLIER_INFO_TAB への拡張</h3>
+  <div class="code-block"><span class="cmt">-- 優先配送業者・SLA・支払条件 拡張フィールド追加</span>
+<span class="kw">ALTER TABLE</span> supplier_info_tab
+  <span class="kw">ADD</span> preferred_carrier    <span class="kw">VARCHAR2</span>(30),
+  <span class="kw">ADD</span> sla_days             <span class="kw">NUMBER</span>(3),
+  <span class="kw">ADD</span> payment_terms_custom <span class="kw">VARCHAR2</span>(20);
+
+<span class="kw">COMMENT ON COLUMN</span> supplier_info_tab.preferred_carrier    <span class="kw">IS</span> <span class="str">'優先配送業者コード'</span>;
+<span class="kw">COMMENT ON COLUMN</span> supplier_info_tab.sla_days             <span class="kw">IS</span> <span class="str">'標準納期SLA（日数）'</span>;
+<span class="kw">COMMENT ON COLUMN</span> supplier_info_tab.payment_terms_custom <span class="kw">IS</span> <span class="str">'カスタム支払条件コード'</span>;</div>
+
+  <h3>PO_APPROVAL_LOG_TAB カスタムエンティティ</h3>
+  <div class="code-block"><span class="kw">CREATE TABLE</span> po_approval_log_tab (
+  log_id         <span class="kw">VARCHAR2</span>(36)   <span class="kw">NOT NULL</span>,  <span class="cmt">-- UUID</span>
+  order_no       <span class="kw">VARCHAR2</span>(12)   <span class="kw">NOT NULL</span>,  <span class="cmt">-- FK: purchase_order_tab</span>
+  approver_id    <span class="kw">VARCHAR2</span>(20)   <span class="kw">NOT NULL</span>,
+  approved_at    <span class="kw">TIMESTAMP</span>      <span class="kw">NOT NULL</span>,
+  approval_level <span class="kw">NUMBER</span>(1)      <span class="kw">NOT NULL</span>,
+  comment_text   <span class="kw">VARCHAR2</span>(200),
+  rowversion     <span class="kw">DATE</span>           <span class="kw">NOT NULL</span>,
+  <span class="kw">CONSTRAINT</span> po_approval_log_pk <span class="kw">PRIMARY KEY</span> (log_id),
+  <span class="kw">CONSTRAINT</span> po_approval_log_fk <span class="kw">FOREIGN KEY</span> (order_no)
+    <span class="kw">REFERENCES</span> purchase_order_tab(order_no)
+);</div>
+
+  <div class="section-label">3. 移行ジョブとの連携</div>
+  <table class="doc-table">
+    <thead><tr><th>拡張フィールド</th><th>移行ジョブ名</th><th>移行元</th><th>変換ロジック</th></tr></thead>
+    <tbody>
+      <tr><td>PREFERRED_CARRIER</td><td>SUPPLIER_UPDATE_CARRIER</td><td>旧システム 配送マスタ</td><td>配送業者コード変換テーブルで変換</td></tr>
+      <tr><td>SLA_DAYS</td><td>SUPPLIER_UPDATE_SLA</td><td>旧システム 取引先マスタ</td><td>リードタイム日数をそのまま移行</td></tr>
+      <tr><td>PROJECT_CODE</td><td>PO_UPDATE_PROJECT</td><td>旧システム 発注ヘッダ</td><td>プロジェクトコード変換テーブルで変換</td></tr>
+      <tr><td>PO_APPROVAL_LOG</td><td>PO_APPROVAL_INSERT</td><td>旧システム 承認履歴</td><td>承認者ID・日時・レベルをマッピング</td></tr>
+    </tbody>
+  </table>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">拡張フィールド設計書</div><div class="footer-copy">© 2026 Tokku Team</div></div>
+    <div class="footer-links"><a href="../index.html">← 戻る</a></div>
+  </div>
+</footer>
+</body>
+</html>

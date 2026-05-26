@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>エラー分析デモ — 承認フローエラー</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .step-block{display:flex;gap:0;flex-direction:column;margin-bottom:32px;}
+    .step-row{display:flex;gap:16px;align-items:flex-start;margin-bottom:0;}
+    .step-num{width:32px;height:32px;border-radius:50%;background:#da1e28;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:4px;}
+    .step-body{flex:1;padding-bottom:20px;border-left:2px solid var(--gray-20);padding-left:16px;margin-left:16px;}
+    .step-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-03);margin-bottom:6px;}
+    .step-title{font-size:14px;font-weight:700;margin-bottom:8px;}
+    .mock-window{border:1px solid var(--gray-20);border-radius:4px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-bottom:8px;}
+    .mock-bar{background:#3d3d3d;padding:8px 12px;display:flex;align-items:center;gap:6px;}
+    .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+    .error-popup{background:#fff;border:2px solid var(--red);padding:20px;margin:16px;}
+    .error-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:#da1e28;margin-bottom:10px;}
+    .error-icon{width:24px;height:24px;background:#da1e28;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;}
+    .error-code{font-size:11px;color:var(--text-03);background:var(--gray-10);padding:8px 12px;margin-bottom:10px;font-family:monospace;}
+    .analysis-out{background:#fff5f5;border:1px solid #ffb3b8;padding:20px;margin-bottom:8px;}
+    .analysis-out h4{font-size:13px;font-weight:700;color:#da1e28;margin-bottom:12px;}
+    .arow{display:grid;grid-template-columns:130px 1fr;gap:8px;margin-bottom:8px;font-size:13px;}
+    .arow dt{font-weight:700;color:var(--text-02);}
+    .resolve-list{list-style:none;padding:0;margin-top:12px;}
+    .resolve-list li{font-size:13px;padding:6px 0;border-bottom:1px solid #ffb3b8;line-height:1.6;}
+    .resolve-list li:last-child{border-bottom:none;}
+    .resolve-list li::before{content:"→ ";color:#da1e28;font-weight:700;}
+    .result-box{background:#e6f9ee;border:1px solid #24a148;border-left:4px solid #24a148;padding:16px;margin-bottom:16px;}
+    .result-box h4{font-size:13px;font-weight:700;color:#198038;margin-bottom:8px;}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,.7);">エラー分析</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <span>承認フローエラー デモ</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← 一覧</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#750e13 0%,#da1e28 60%,#ff8389 100%);padding-bottom:32px;">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">エラー分析 — 承認フローエラー / IFS-PUR-7421</div>
+      <h1>スクリーンショットから<br>エラーを即時分析する</h1>
+      <p>入力はスクリーンショット1枚だけ。AIが原因・影響範囲・対処手順を自動生成するデモです。</p>
+      <div class="hero-badges">
+        <span class="hero-badge">入力: スクリーンショット</span>
+        <span class="hero-badge">分析時間: 約10秒</span>
+        <span class="hero-badge">対処手順自動生成</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="section-label">STEP 1 — 入力（エラー画面スクリーンショット）</div>
+  <p style="font-size:13px;color:var(--text-02);margin-bottom:12px;">以下のような画面エラーをそのままスクリーンショットで入力します。文字の読み取りはAIが自動実行します。</p>
+  <div class="mock-window">
+    <div class="mock-bar">
+      <span class="dot" style="background:#ff5f57;"></span>
+      <span class="dot" style="background:#febc2e;"></span>
+      <span class="dot" style="background:#28c840;"></span>
+      <span style="font-size:12px;color:rgba(255,255,255,.7);margin-left:8px;">IFS Cloud 25R2 — 購買発注 / 承認処理</span>
+    </div>
+    <div style="background:#e0e0e0;padding:6px 16px;font-size:11px;color:var(--text-02);">購買発注 › PO-IBM-2026-042 › 承認</div>
+    <div class="error-popup">
+      <div class="error-title">
+        <div class="error-icon">!</div>エラーが発生しました
+      </div>
+      <div class="error-code">ERROR_CODE: IFS-PUR-7421 | MODULE: PURCHASING | TIMESTAMP: 2026-05-26 14:32:07</div>
+      <div style="font-size:13px;margin-bottom:8px;">購買発注 <strong>PO-IBM-2026-042</strong> を承認できません。<br>承認者 <strong>IBM-BOB</strong> は現在の承認グループ <strong>PROC-APPROVAL-L2</strong> に属していません。</div>
+      <div style="font-size:12px;color:var(--text-03);">Authorization group mismatch. User IBM-BOB not found in group PROC-APPROVAL-L2 for site IBM-TOKYO.</div>
+    </div>
+  </div>
+
+  <div class="section-label">STEP 2 — AI 分析結果（OUTPUT）</div>
+  <p style="font-size:12px;color:var(--text-03);margin-bottom:12px;">※ 分析エンジンの仕組みは秘匿情報のため非公開。入力と出力のみを示します。</p>
+  <div class="analysis-out">
+    <h4>AI 分析結果 — IFS-PUR-7421 / 承認グループ未登録エラー</h4>
+    <div class="arow"><dt>エラー分類</dt><dd>権限設定ミス（承認グループ未登録）</dd></div>
+    <div class="arow"><dt>影響範囲</dt><dd>IBM-TOKYO サイトで L2 承認が必要な購買発注すべて（推定 12件 滞留中）</dd></div>
+    <div class="arow"><dt>緊急度</dt><dd style="color:#da1e28;font-weight:700;">高 — 承認フロー停止中</dd></div>
+    <div class="arow"><dt>根本原因</dt><dd>ユーザー IBM-BOB が承認グループ PROC-APPROVAL-L2 に登録されていない。人事異動または初期設定漏れが原因と推定。</dd></div>
+    <ul class="resolve-list">
+      <li><strong>即時対応:</strong> IFS Cloud 管理画面 → ユーザー設定 → IBM-BOB → 承認グループに PROC-APPROVAL-L2 を追加</li>
+      <li><strong>影響確認:</strong> 同グループに属すべき他ユーザーが未登録でないか一括確認（同一バッチで発生している可能性）</li>
+      <li><strong>滞留発注の処理:</strong> 設定修正後、滞留中の12件を順次再承認フローで処理</li>
+      <li><strong>再発防止:</strong> ユーザー登録・異動時の承認グループ設定チェックリストを運用ルールに追加</li>
+    </ul>
+  </div>
+
+  <div class="section-label">STEP 3 — 解決後の確認</div>
+  <div class="result-box">
+    <h4>対処完了後の確認ポイント</h4>
+    <ul style="list-style:none;padding:0;">
+      <li style="font-size:13px;padding:4px 0;border-bottom:1px solid #b7e8c5;">✓ IBM-BOB が PROC-APPROVAL-L2 に表示されること</li>
+      <li style="font-size:13px;padding:4px 0;border-bottom:1px solid #b7e8c5;">✓ PO-IBM-2026-042 の承認処理が正常に完了すること</li>
+      <li style="font-size:13px;padding:4px 0;border-bottom:1px solid #b7e8c5;">✓ 滞留中の 12件すべてが承認可能な状態になること</li>
+      <li style="font-size:13px;padding:4px 0;">✓ 同じエラーコード IFS-PUR-7421 が再発しないこと</li>
+    </ul>
+  </div>
+
+  <div class="section-label">類似エラーパターン</div>
+  <table style="width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);">
+    <thead><tr>
+      <th style="background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);">エラーコード</th>
+      <th style="background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);">内容</th>
+      <th style="background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);">典型的な原因</th>
+    </tr></thead>
+    <tbody>
+      <tr><td style="font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);">IFS-PUR-7421</td><td style="font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);">承認グループ未登録</td><td style="font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);">人事異動後の設定更新漏れ</td></tr>
+      <tr><td style="font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);">IFS-PUR-7422</td><td style="font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);">承認金額上限超過</td><td style="font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);">承認グループの金額上限設定が古い</td></tr>
+      <tr><td style="font-size:12px;padding:7px 12px;">IFS-PUR-7430</td><td style="font-size:12px;padding:7px 12px;">承認フロー未定義</td><td style="font-size:12px;padding:7px 12px;">新サイト追加時の承認ルール設定漏れ</td></tr>
+    </tbody>
+  </table>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">エラー分析 — 承認フローエラー デモ</div><div class="footer-copy">© 2026 Tokku Team</div></div>
+    <div class="footer-links"><a href="../index.html">← 一覧に戻る</a></div>
+  </div>
+</footer>
+</body>
+</html>

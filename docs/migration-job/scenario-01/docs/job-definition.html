@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>移行ジョブ定義書 — 仕入先マスタ</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .doc-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:24px;}
+    .doc-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
+    .doc-table td{font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);vertical-align:top;}
+    .doc-table tr:last-child td{border-bottom:none;}
+    .code-block{background:#1e1e1e;color:#d4d4d4;font-family:monospace;font-size:12px;padding:16px;border-radius:4px;overflow-x:auto;margin-bottom:24px;line-height:1.7;}
+    .kw{color:#569cd6;}.str{color:#ce9178;}.cmt{color:#6a9955;}.ok{color:#4ec9b0;}
+    h3{font-size:14px;font-weight:700;margin:24px 0 10px;}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../../index.html" style="color:rgba(255,255,255,.7);">移行ジョブ作成</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,.7);">仕入先マスタ</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <span>ジョブ定義書</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← 戻る</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#31135e 0%,#6929c4 100%);padding:40px 40px 32px;">
+  <div class="hero-inner" style="display:block;">
+    <div class="hero-eyebrow">移行ジョブ定義書</div>
+    <h1 style="font-size:28px;">仕入先マスタ 移行ジョブ定義書</h1>
+    <p style="margin-bottom:0;">バージョン 1.0　／　2026-05-26　／　IFS Cloud 25R2</p>
+  </div>
+</section>
+
+<main class="container">
+  <div class="section-label">1. ジョブセット概要</div>
+  <table class="doc-table">
+    <tbody>
+      <tr><td style="width:180px;background:var(--gray-10);font-weight:600;">対象エンティティ</td><td>SUPPLIER_INFO_TAB（IFS Cloud 標準 + 拡張フィールド）</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">ジョブ数</td><td>4種（抽出 / 登録 / 更新 / 削除）</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">実行順序</td><td>EXTRACT → INSERT → UPDATE → DELETE</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">テスト件数</td><td>抽出:5件 / 登録:5件 / 更新:3件 / 削除:2件</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">生成方法</td><td>AI自動生成（IFS AI 基盤 / migration-job-builder スキル）</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">2. YAML 定義（自動出力）</div>
+  <div class="code-block"><span class="cmt"># 仕入先マスタ 移行ジョブセット定義 — AI自動生成 2026-05-26</span>
+<span class="kw">migration_job_set</span>:
+  <span class="kw">name</span>: <span class="str">SUPPLIER_MASTER_JOBS</span>
+  <span class="kw">target_entity</span>: <span class="str">SupplierHandling</span>
+  <span class="kw">ifs_version</span>: <span class="str">25R2</span>
+  <span class="kw">jobs</span>:
+    - <span class="kw">id</span>: <span class="str">SUPPLIER_EXTRACT_ALL</span>
+      <span class="kw">operation</span>: <span class="str">EXTRACT</span>
+      <span class="kw">filter</span>: <span class="str">"objstate = 'Active'"</span>
+      <span class="kw">columns</span>: [supplier_no, name, category, preferred_carrier, sla_days]
+      <span class="kw">test_result</span>: <span class="ok">PASS</span> <span class="cmt"># 5件抽出</span>
+
+    - <span class="kw">id</span>: <span class="str">SUPPLIER_INSERT_BATCH</span>
+      <span class="kw">operation</span>: <span class="str">INSERT</span>
+      <span class="kw">source</span>: <span class="str">staging.supplier_import</span>
+      <span class="kw">duplicate_check</span>: <span class="kw">true</span>
+      <span class="kw">test_result</span>: <span class="ok">PASS</span> <span class="cmt"># 5件登録 / 重複0件</span>
+
+    - <span class="kw">id</span>: <span class="str">SUPPLIER_UPDATE_SLA</span>
+      <span class="kw">operation</span>: <span class="str">UPDATE</span>
+      <span class="kw">source</span>: <span class="str">staging.supplier_sla_update</span>
+      <span class="kw">columns</span>: [sla_days]
+      <span class="kw">filter</span>: <span class="str">"objstate = 'Active'"</span>
+      <span class="kw">test_result</span>: <span class="ok">PASS</span> <span class="cmt"># 3件更新</span>
+
+    - <span class="kw">id</span>: <span class="str">SUPPLIER_DELETE_INACTIVE</span>
+      <span class="kw">operation</span>: <span class="str">LOGICAL_DELETE</span>
+      <span class="kw">source</span>: <span class="str">staging.supplier_delete_list</span>
+      <span class="kw">set_state</span>: <span class="str">Blocked</span>
+      <span class="kw">ref_check</span>: <span class="kw">true</span>
+      <span class="kw">test_result</span>: <span class="ok">PASS</span> <span class="cmt"># 2件ブロック / 参照整合性OK</span></div>
+
+  <div class="section-label">3. 再実行手順</div>
+  <table class="doc-table">
+    <thead><tr><th>手順</th><th>操作</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>ステージングテーブル（staging.*）に移行元データをロード</td></tr>
+      <tr><td>2</td><td>IFS AI 基盤で本定義YAML を migration-job-builder にインポート</td></tr>
+      <tr><td>3</td><td>テストモード（dry-run: true）で動作確認</td></tr>
+      <tr><td>4</td><td>確認後、dry-run: false で本番実行</td></tr>
+      <tr><td>5</td><td>EXTRACT ジョブで件数・内容を事後検証</td></tr>
+    </tbody>
+  </table>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">移行ジョブ定義書 — 仕入先マスタ</div><div class="footer-copy">© 2026 Tokku Team</div></div>
+    <div class="footer-links"><a href="../index.html">← 戻る</a></div>
+  </div>
+</footer>
+</body>
+</html>

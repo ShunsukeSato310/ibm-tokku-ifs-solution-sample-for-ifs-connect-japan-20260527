@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fit to Standard 分析レポート — 調達20要件</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .doc-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:24px;}
+    .doc-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
+    .doc-table td{font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);vertical-align:top;}
+    .doc-table tr:last-child td{border-bottom:none;}
+    .verdict-fit{color:#24a148;font-weight:700;}
+    .verdict-config{color:#0f62fe;font-weight:700;}
+    .verdict-dev{color:#da1e28;font-weight:700;}
+    .priority-h{color:#da1e28;font-weight:700;}
+    .priority-m{color:#ff832b;font-weight:700;}
+    .priority-l{color:var(--text-03);}
+    h3{font-size:14px;font-weight:700;margin:24px 0 10px;}
+    .action-box{background:#fff3e0;border:1px solid #ff832b;border-left:4px solid #ff832b;padding:16px;margin-bottom:16px;}
+    .action-box h4{font-size:13px;font-weight:700;color:#ff832b;margin-bottom:8px;}
+    .action-box ul{list-style:none;padding:0;}
+    .action-box li{font-size:13px;padding:4px 0;color:var(--text-02);}
+    .action-box li::before{content:"→ ";color:#ff832b;font-weight:700;}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../../index.html" style="color:rgba(255,255,255,.7);">Fit to Standard</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,.7);">調達 20要件</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <span>分析レポート</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← 戻る</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#b45309 0%,#ff832b 100%);padding:40px 40px 32px;">
+  <div class="hero-inner" style="display:block;">
+    <div class="hero-eyebrow">Fit to Standard 分析レポート</div>
+    <h1 style="font-size:28px;">調達領域 Fit to Standard 分析レポート</h1>
+    <p style="margin-bottom:0;">バージョン 1.0　／　2026-05-26　／　IFS Cloud 25R2 ／ 対象: 調達・購買 20要件</p>
+  </div>
+</section>
+
+<main class="container">
+  <div class="section-label">1. エグゼクティブサマリー</div>
+  <table class="doc-table">
+    <tbody>
+      <tr><td style="width:180px;background:var(--gray-10);font-weight:600;">総要件数</td><td>20件</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">Fit（標準対応）</td><td>11件（55%）— 開発不要。標準機能をそのまま活用</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">Config（設定対応）</td><td>5件（25%）— 設定作業のみで対応可能。拡張フィールド追加を含む</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">Dev（開発必要）</td><td>4件（20%）— カスタム実装が必要。優先度付けを推奨</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">推定開発削減効果</td><td>標準活用により開発工数を約80%削減可能と推定</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">2. Dev 要件 — 優先度と推奨アクション</div>
+  <table class="doc-table">
+    <thead><tr><th>No.</th><th>要件</th><th>優先度</th><th>推奨アクション</th><th>推定工数</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>8</td><td>仕入先ごとのSLAアラート</td>
+        <td><span class="priority-h">高</span></td>
+        <td>仕入先拡張フィールド(SLA_DAYS)追加 + IFS Event でアラート実装</td>
+        <td>3〜5日</td>
+      </tr>
+      <tr>
+        <td>13</td><td>承認履歴の監査証跡</td>
+        <td><span class="priority-h">高</span></td>
+        <td>カスタムエンティティ PO_APPROVAL_LOG 作成 + 承認イベントにフック</td>
+        <td>5〜7日</td>
+      </tr>
+      <tr>
+        <td>17</td><td>優先配送業者の仕入先別設定</td>
+        <td><span class="priority-m">中</span></td>
+        <td>仕入先拡張フィールド(PREFERRED_CARRIER)追加 + 入力画面カスタマイズ</td>
+        <td>2〜3日</td>
+      </tr>
+      <tr>
+        <td>19</td><td>カスタム支払条件コードの管理</td>
+        <td><span class="priority-l">低</span></td>
+        <td>拡張コードテーブル作成。標準支払条件との併用方式を検討</td>
+        <td>3〜5日</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">3. 推奨アクション（次のステップ）</div>
+  <div class="action-box">
+    <h4>フェーズ 1（即時対応）— Fit 要件の標準設定</h4>
+    <ul>
+      <li>11件のFit要件を標準設定で有効化（担当: コンサルタント、期間: 2週間）</li>
+      <li>Purchase Order / RFQ / Supplier Performance の初期設定を実施</li>
+    </ul>
+  </div>
+  <div class="action-box">
+    <h4>フェーズ 2（1ヶ月以内）— Config 要件の設定作業</h4>
+    <ul>
+      <li>承認グループ設定（2段階承認フロー）を構築</li>
+      <li>コストセンター・プロジェクトコード拡張フィールドを追加</li>
+      <li>発注金額上限設定を承認グループに反映</li>
+    </ul>
+  </div>
+  <div class="action-box" style="background:#fff5f5;border-color:#da1e28;">
+    <h4 style="color:#da1e28;">フェーズ 3（優先度順に開発）— Dev 要件</h4>
+    <ul>
+      <li>SLAアラート（優先度高）→ 承認履歴監査証跡（優先度高）の順で開発着手</li>
+      <li>優先配送業者・カスタム支払条件は予算・スケジュールと照らして判断</li>
+    </ul>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">Fit to Standard 分析レポート</div><div class="footer-copy">© 2026 Tokku Team</div></div>
+    <div class="footer-links"><a href="../index.html">← 戻る</a></div>
+  </div>
+</footer>
+</body>
+</html>

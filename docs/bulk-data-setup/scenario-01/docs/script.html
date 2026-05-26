@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投入スクリプト仕様書 — 大量データセットアップ</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .doc-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:24px;}
+    .doc-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
+    .doc-table td{font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);vertical-align:top;}
+    .doc-table tr:last-child td{border-bottom:none;}
+    .code-block{background:#1e1e1e;color:#d4d4d4;font-family:monospace;font-size:11px;padding:14px;border-radius:4px;overflow-x:auto;margin-bottom:16px;line-height:1.7;}
+    .kw{color:#569cd6;}.str{color:#ce9178;}.cmt{color:#6a9955;}.fn{color:#dcdcaa;}
+    h3{font-size:14px;font-weight:700;margin:24px 0 10px;}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../../index.html" style="color:rgba(255,255,255,.7);">大量データセットアップ</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,.7);">調達・購買</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <span>スクリプト仕様書</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← 戻る</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#491d8b 0%,#6929c4 100%);padding:40px 40px 32px;">
+  <div class="hero-inner" style="display:block;">
+    <div class="hero-eyebrow">大量データセットアップ — スクリプト仕様書</div>
+    <h1 style="font-size:28px;">調達・購買 データ投入<br>スクリプト仕様書</h1>
+    <p style="margin-bottom:0;">バージョン 1.0　／　2026-05-26　／　IFS Cloud 25R2 / Script-A-Rest</p>
+  </div>
+</section>
+
+<main class="container">
+  <div class="section-label">1. 概要</div>
+  <table class="doc-table">
+    <tbody>
+      <tr><td style="width:180px;background:var(--gray-10);font-weight:600;">実行ツール</td><td>Script-A-Rest（IFS Cloud 標準バッチ実行エンジン）</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">投入総件数</td><td>185件（仕入先5 / 品目20 / 発注50 / 明細100 / 入荷30）</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">実行時間目安</td><td>約20〜30分（環境性能による）</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">前提条件</td><td>IFS Cloud 25R2 環境に接続可能なこと / サイト設定が完了していること</td></tr>
+      <tr><td style="background:var(--gray-10);font-weight:600;">冪等性</td><td>再実行時は既存データをスキップ（重複投入なし）</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">2. 実行順序と依存関係</div>
+  <table class="doc-table">
+    <thead><tr><th>順序</th><th>ステップ</th><th>件数</th><th>依存</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>仕入先マスタ登録</td><td>5件</td><td>なし（起点）</td></tr>
+      <tr><td>2</td><td>品目マスタ登録</td><td>20件</td><td>なし（起点）</td></tr>
+      <tr><td>3</td><td>購買発注ヘッダー登録</td><td>50件</td><td>仕入先マスタ</td></tr>
+      <tr><td>4</td><td>発注明細登録</td><td>100件</td><td>購買発注ヘッダー + 品目マスタ</td></tr>
+      <tr><td>5</td><td>入荷処理（一部）</td><td>30件</td><td>発注明細</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Step 1 — 仕入先マスタ登録（抜粋）</h3>
+  <div class="code-block"><span class="cmt">// Script-A-Rest: SupplierHandling — 5仕入先を一括登録</span>
+<span class="kw">ForEach</span> supplier <span class="kw">in</span> suppliers_data {
+  <span class="fn">CreateSupplier</span>({
+    <span class="str">"SupplierNo"</span>: supplier.no,        <span class="cmt">// 例: "IBM-001"</span>
+    <span class="str">"Name"</span>:       supplier.name,      <span class="cmt">// 例: "IBM Japan Ltd."</span>
+    <span class="str">"Category"</span>:   <span class="str">"SUPPLIER"</span>,
+    <span class="str">"DefaultLanguage"</span>: <span class="str">"ja"</span>
+  })
+  <span class="fn">WaitForCommit</span>()
+}
+<span class="cmt">// suppliers_data = [
+//   { no:"IBM-001", name:"IBM Japan Ltd." },
+//   { no:"BOB-001", name:"Bob Components Inc." },
+//   { no:"ACM-001", name:"Acme Supply Co." },
+//   { no:"GLB-001", name:"Global Parts Ltd." },
+//   { no:"TKY-001", name:"Tokyo Tech Supplies" }
+// ]</span></div>
+
+  <h3>Step 3 — 購買発注ヘッダー登録（抜粋）</h3>
+  <div class="code-block"><span class="cmt">// 50件の発注ヘッダーを連番で生成</span>
+<span class="kw">For</span> i = 1 <span class="kw">to</span> 50 {
+  <span class="fn">CreatePurchaseOrder</span>({
+    <span class="str">"OrderNo"</span>:             <span class="fn">Format</span>(<span class="str">"PO-IBM-2026-{0:D3}"</span>, i),
+    <span class="str">"SupplierNo"</span>:          suppliers_data[i % 5].no,
+    <span class="str">"AuthorizeCode"</span>:       <span class="str">"IBM-BOB"</span>,
+    <span class="str">"WantedDeliveryDate"</span>:  <span class="fn">AddDays</span>(<span class="fn">Today</span>(), 30 + i),
+    <span class="str">"ProjectCode"</span>:         <span class="str">"PROJ-2026-A"</span>
+  })
+}</div>
+
+  <div class="section-label">3. エラーハンドリング</div>
+  <table class="doc-table">
+    <thead><tr><th>エラー種別</th><th>対応方針</th></tr></thead>
+    <tbody>
+      <tr><td>重複キーエラー</td><td>スキップして次レコードへ（ログに記録）</td></tr>
+      <tr><td>FK参照エラー</td><td>依存先が未登録の場合は一時スキップ → 依存先登録後に再試行</td></tr>
+      <tr><td>API タイムアウト</td><td>3回リトライ後にエラーログ出力・処理継続</td></tr>
+      <tr><td>バリデーションエラー</td><td>対象レコードをスキップ・エラーCSV出力</td></tr>
+    </tbody>
+  </table>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">大量データセットアップ — スクリプト仕様書</div><div class="footer-copy">© 2026 Tokku Team</div></div>
+    <div class="footer-links"><a href="../index.html">← 戻る</a></div>
+  </div>
+</footer>
+</body>
+</html>
