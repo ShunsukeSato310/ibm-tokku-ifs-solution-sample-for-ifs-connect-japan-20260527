@@ -3,11 +3,11 @@
   <Author>IBM Tokku Team</Author>
   <Keywords>調達,購買,発注残,procurement</Keywords>
   <DescriptiveText>調達担当者向けロビー。発注残KPI・遅延アラート・発注残一覧・クイックリンクを集約。</DescriptiveText>
-  <LastModified>2026-05-26-00.00.00</LastModified>
+  <LastModified>2026-05-26-12.00.00</LastModified>
   <Locked>false</Locked>
   <Component>PURCH</Component>
   <AurenaLobby>true</AurenaLobby>
-  <PageId>1530291f-65f9-4d4f-bb4b-b8d573b41316</PageId>
+  <PageId>429e4e29-db24-4022-bdf7-c13e8f240009</PageId>
   <PageTitle>調達担当者ロビー</PageTitle>
   <Layout><Groups><Group><Elements>
     <!-- el-jp-bar-qty-006.xml -->
@@ -22,8 +22,8 @@
       <Background>#FFFFFFFF</Background>
       <Foreground>#FF000000</Foreground>
       <Name>JP PO Qty Bar Chart</Name>
-      <ID>el-jp-bar-qty-006</ID>
-      <DataSourceId>ds-jp-po-by-order-006</DataSourceId>
+      <ID>ab8328c5-89d3-5ab9-b844-6579efee935a</ID>
+      <DataSourceId>24199b37-61a3-5b68-ab05-db5a35fc0b90</DataSourceId>
       <ColumnMapping>
         <MappedColumns>
           <MappedColumn><Column>ORDER_NO</Column><Name>発注番号</Name><DisplayName>発注番号</DisplayName><ConditionalFormats/></MappedColumn>
@@ -44,8 +44,8 @@
       <Row>4</Row><Column>0</Column><RowSpan>2</RowSpan><ColumnSpan>4</ColumnSpan>
       <Title>仕入先別発注件数（棒グラフ）</Title>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
-      <Name>JP PO Vendor Bar</Name><ID>el-jp-bar-vendor-009</ID>
-      <DataSourceId>ds-jp-po-vendor-010</DataSourceId>
+      <Name>JP PO Vendor Bar</Name><ID>edcbf0aa-7402-5229-8a99-d27ee09ead7e</ID>
+      <DataSourceId>24e0f92b-24d1-5803-9679-2368bf156229</DataSourceId>
       <ColumnMapping>
         <MappedColumns>
           <MappedColumn><Column>VENDOR_NO</Column><Name>VENDOR_NO</Name><DisplayName>仕入先</DisplayName><ConditionalFormats/></MappedColumn>
@@ -65,9 +65,9 @@
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
       <Row>0</Row><Column>4</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
-      <Name>JP KPI 008</Name><ID>el-jp-kpi-008</ID>
+      <Name>JP KPI 008</Name><ID>88bf9376-9114-5805-86ea-3c5ed43f3562</ID>
       <WebUrl>page/PurchaseOrder/List</WebUrl>
-      <Title>7日超過遅延</Title><DataSourceId>ds-jp-po-overdue-007</DataSourceId>
+      <Title>7日超過遅延</Title><DataSourceId>ced82575-3f51-592c-90ca-eed3c4e39412</DataSourceId>
       <ColumnMapping><MappedColumns><MappedColumn><Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn></MappedColumns></ColumnMapping>
       <UnifiedElement/><ElementConfig/>
     </Counter>
@@ -77,9 +77,9 @@
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
       <Row>0</Row><Column>5</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
-      <Name>JP KPI 009</Name><ID>el-jp-kpi-009</ID>
+      <Name>JP KPI 009</Name><ID>d2f3d03c-6d19-5805-a7d5-15341f6e2099</ID>
       <WebUrl>page/PurchaseOrder/List</WebUrl>
-      <Title>正常予定</Title><DataSourceId>ds-jp-po-normal-008</DataSourceId>
+      <Title>正常予定</Title><DataSourceId>6909a4b9-a6d1-54f6-9466-711f32808c7d</DataSourceId>
       <ColumnMapping><MappedColumns><MappedColumn><Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn></MappedColumns></ColumnMapping>
       <UnifiedElement/><ElementConfig/>
     </Counter>
@@ -89,9 +89,9 @@
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
       <Row>0</Row><Column>6</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
-      <Name>JP KPI 010</Name><ID>el-jp-kpi-010</ID>
+      <Name>JP KPI 010</Name><ID>e7cdf4ea-ba3a-5ef5-a990-82da5a7a14ff</ID>
       <WebUrl>page/PurchaseOrder/List</WebUrl>
-      <Title>今週納期</Title><DataSourceId>ds-jp-po-week-009</DataSourceId>
+      <Title>今週納期</Title><DataSourceId>2ff9dc47-6e4d-5abd-87f6-04096dabdec4</DataSourceId>
       <ColumnMapping><MappedColumns><MappedColumn><Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn></MappedColumns></ColumnMapping>
       <UnifiedElement/><ElementConfig/>
     </Counter>
@@ -101,9 +101,9 @@
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
       <Row>0</Row><Column>7</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
-      <Name>JP KPI 011</Name><ID>el-jp-kpi-011</ID>
+      <Name>JP KPI 011</Name><ID>997902e1-c28f-5443-9a8f-c4ca070916d2</ID>
       <WebUrl>page/PurchaseOrder/List</WebUrl>
-      <Title>仕入先数</Title><DataSourceId>ds-jp-po-vendor-010</DataSourceId>
+      <Title>仕入先数</Title><DataSourceId>24e0f92b-24d1-5803-9679-2368bf156229</DataSourceId>
       <ColumnMapping><MappedColumns><MappedColumn><Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn></MappedColumns></ColumnMapping>
       <UnifiedElement/><ElementConfig/>
     </Counter>
@@ -113,9 +113,9 @@
       <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
       <Row>0</Row><Column>8</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
-      <Name>JP KPI 012</Name><ID>el-jp-kpi-012</ID>
+      <Name>JP KPI 012</Name><ID>c99ba8c3-3b37-5336-98bb-79560a9e8128</ID>
       <WebUrl>page/PurchaseOrder/List</WebUrl>
-      <Title>合計明細数</Title><DataSourceId>ds-jp-po-remaining-001</DataSourceId>
+      <Title>合計明細数</Title><DataSourceId>c8f866a0-296e-5697-8319-c8a5111a4aae</DataSourceId>
       <ColumnMapping><MappedColumns><MappedColumn><Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn></MappedColumns></ColumnMapping>
       <UnifiedElement/><ElementConfig/>
     </Counter>
@@ -129,10 +129,10 @@
       <Row>0</Row><Column>1</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Title>遅延アラート</Title>
       <Name>JP PO Delayed Alert</Name>
-      <ID>el-jp-kpi-delayed-002</ID>
+      <ID>182fe667-da9c-597b-95f7-23313315d033</ID>
       <WebUrl>page/PurchaseOrder/List</WebUrl>
       <PassDataToForm>true</PassDataToForm>
-      <DataSourceId>ds-jp-po-delayed-002</DataSourceId>
+      <DataSourceId>d13f04e8-ae37-5eea-a89d-daf2d05ba50e</DataSourceId>
       <ColumnMapping>
         <MappedColumns>
           <MappedColumn>
@@ -164,9 +164,9 @@
       <Row>0</Row><Column>2</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Title>発注オーダ数</Title>
       <Name>JP PO Order Count</Name>
-      <ID>el-jp-kpi-orders-003</ID>
+      <ID>d6dba631-c47f-5349-88ae-1acdbbcfab6c</ID>
       <WebUrl>page/PurchaseOrder/List</WebUrl>
-      <DataSourceId>ds-jp-po-header-003</DataSourceId>
+      <DataSourceId>d061145d-70f7-5d35-9187-16ac882fab08</DataSourceId>
       <ColumnMapping>
         <MappedColumns>
           <MappedColumn><Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn>
@@ -184,11 +184,11 @@
       <Row>0</Row><Column>0</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Title>発注残（Released）</Title>
       <Name>JP PO Remaining Count</Name>
-      <ID>el-jp-kpi-remaining-001</ID>
+      <ID>1dd77640-366e-5e05-8457-5b076bf64e4c</ID>
       <WebUrl>page/PurchaseOrder/List</WebUrl>
       <PassDataToForm>true</PassDataToForm>
       <ColorStyle>Warning</ColorStyle>
-      <DataSourceId>ds-jp-po-remaining-001</DataSourceId>
+      <DataSourceId>c8f866a0-296e-5697-8319-c8a5111a4aae</DataSourceId>
       <ColumnMapping>
         <MappedColumns>
           <MappedColumn><Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn>
@@ -206,8 +206,8 @@
       <Row>0</Row><Column>3</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Title>合計発注数量</Title>
       <Name>JP PO Total Qty Sum</Name>
-      <ID>el-jp-kpi-totalqty-004</ID>
-      <DataSourceId>ds-jp-po-totalqty-004</DataSourceId>
+      <ID>863e2048-b4e5-5c59-b941-bc874fe1e5e1</ID>
+      <DataSourceId>a8d2090c-0644-5955-bc83-4da32455af14</DataSourceId>
       <ColumnMapping>
         <MappedColumns>
           <MappedColumn><Column>BUY_QTY_DUE</Column><Aggregate>SUM</Aggregate><ConditionalFormats/></MappedColumn>
@@ -222,8 +222,8 @@
       <Row>4</Row><Column>4</Column><RowSpan>2</RowSpan><ColumnSpan>4</ColumnSpan>
       <Title>納期別発注件数トレンド（折れ線）</Title>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
-      <Name>JP PO Trend Line</Name><ID>el-jp-line-trend-012</ID>
-      <DataSourceId>ds-jp-po-trend-011</DataSourceId>
+      <Name>JP PO Trend Line</Name><ID>19d76354-7783-5000-83cf-9f30417699d3</ID>
+      <DataSourceId>f0ad0c3b-61e6-564d-8bfc-fcb16e9bbe15</DataSourceId>
       <ColumnMapping>
         <MappedColumns>
           <MappedColumn><Column>DATE_KEY</Column><Name>DATE_KEY</Name><DisplayName>日付</DisplayName><ConditionalFormats/></MappedColumn>
@@ -249,15 +249,15 @@
       <Background>#FF6929C4</Background>
       <Foreground>#FFFFFFFF</Foreground>
       <Name>JP PO Quick Links</Name>
-      <ID>el-jp-links-006</ID>
+      <ID>2fe85294-13a5-571d-8437-0b5785981de1</ID>
       <ColorStyle>Accent</ColorStyle>
       <ColumnMapping><MappedColumns/></ColumnMapping>
       <Links>
-        <Link><ID>lnk-001</ID><WebUrl>page/PurchaseOrder/List</WebUrl><LinkTitle>購買発注</LinkTitle><TargetType>Single</TargetType></Link>
-        <Link><ID>lnk-002</ID><WebUrl>page/PurchaseReceipt/List</WebUrl><LinkTitle>入荷処理</LinkTitle><TargetType>Single</TargetType></Link>
-        <Link><ID>lnk-003</ID><WebUrl>quickreport/2000001</WebUrl><LinkTitle>発注残レポート</LinkTitle><TargetType>Single</TargetType></Link>
-        <Link><ID>lnk-004</ID><WebUrl>page/SupplierInfo/List</WebUrl><LinkTitle>仕入先マスタ</LinkTitle><TargetType>Single</TargetType></Link>
-        <Link><ID>lnk-005</ID><WebUrl>page/SupplierInvoice/List</WebUrl><LinkTitle>請求書照合</LinkTitle><TargetType>Single</TargetType></Link>
+        <Link><ID>27ebb8e7-55bc-5516-9098-e289974a8edb</ID><WebUrl>page/PurchaseOrder/List</WebUrl><LinkTitle>購買発注</LinkTitle><TargetType>Single</TargetType></Link>
+        <Link><ID>edf9e64d-633a-56de-8ad2-e14a761f0529</ID><WebUrl>page/PurchaseReceipt/List</WebUrl><LinkTitle>入荷処理</LinkTitle><TargetType>Single</TargetType></Link>
+        <Link><ID>ae980d2e-3ca3-5d0e-b19c-52b7070cc3e8</ID><WebUrl>quickreport/2000001</WebUrl><LinkTitle>発注残レポート</LinkTitle><TargetType>Single</TargetType></Link>
+        <Link><ID>3853be74-e37c-57ad-b557-02b046347fc6</ID><WebUrl>page/SupplierInfo/List</WebUrl><LinkTitle>仕入先マスタ</LinkTitle><TargetType>Single</TargetType></Link>
+        <Link><ID>764c6c32-4130-59ac-ad2c-c3f6dffba63e</ID><WebUrl>page/SupplierInvoice/List</WebUrl><LinkTitle>請求書照合</LinkTitle><TargetType>Single</TargetType></Link>
       </Links>
       <UnifiedElement/><ElementConfig/>
     </LinksList>
@@ -268,9 +268,9 @@
       <Row>6</Row><Column>0</Column><RowSpan>2</RowSpan><ColumnSpan>3</ColumnSpan>
       <Title>7日超過遅延一覧</Title>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
-      <Name>JP PO Overdue List</Name><ID>el-jp-list-overdue-010</ID>
+      <Name>JP PO Overdue List</Name><ID>cba4a987-c556-5b25-92e5-5c827648e7a9</ID>
       <WebUrl>page/PurchaseOrder/List</WebUrl>
-      <DataSourceId>ds-jp-po-overdue-007</DataSourceId>
+      <DataSourceId>ced82575-3f51-592c-90ca-eed3c4e39412</DataSourceId>
       <ColumnMapping>
         <MappedColumns>
           <MappedColumn><Column>ORDER_NO</Column><Name>ORDER_NO</Name><DisplayName>発注番号</DisplayName><Aggregate>NA</Aggregate><ConditionalFormats/></MappedColumn>
@@ -290,9 +290,9 @@
       <Background>#FFFFFFFF</Background>
       <Foreground>#FF000000</Foreground>
       <Name>JP PO Remaining List</Name>
-      <ID>el-jp-list-remaining-007</ID>
+      <ID>c66f8412-8bee-5213-82bc-7bb0b8f10ba5</ID>
       <WebUrl>page/PurchaseOrder/List</WebUrl>
-      <DataSourceId>ds-jp-po-remaining-001</DataSourceId>
+      <DataSourceId>c8f866a0-296e-5697-8319-c8a5111a4aae</DataSourceId>
       <ColumnMapping>
         <MappedColumns>
           <MappedColumn><Column>ORDER_NO</Column><Name>購買オーダ番号</Name><DisplayName>購買オーダ番号</DisplayName><Aggregate>NA</Aggregate><ConditionalFormats/></MappedColumn>
@@ -315,8 +315,8 @@
       <Background>#FFFFFFFF</Background>
       <Foreground>#FF000000</Foreground>
       <Name>JP PO Delay Pie</Name>
-      <ID>el-jp-pie-delay-005</ID>
-      <DataSourceId>ds-jp-delay-status-005</DataSourceId>
+      <ID>d5ba6856-b146-56ad-9eb1-37816c03eba1</ID>
+      <DataSourceId>6a2e5808-6db6-5ba7-9732-88f7858f41b6</DataSourceId>
       <ColumnMapping>
         <MappedColumns>
           <MappedColumn><Column>ORDER_NO</Column><Name>COUNT ORDER_NO</Name><DisplayName>COUNT ORDER_NO</DisplayName><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn>
@@ -338,9 +338,9 @@
       <Row>0</Row><Column>9</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
       <Title>超過遅延（7日+）</Title>
       <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
-      <Name>JP KPI Overdue 7d</Name><ID>el-jp-status-gauge-013</ID>
+      <Name>JP KPI Overdue 7d</Name><ID>8eadfa41-f2f6-57d1-9792-224bb3d0483c</ID>
       <WebUrl>page/PurchaseOrder/List</WebUrl>
-      <DataSourceId>ds-jp-po-overdue-007</DataSourceId>
+      <DataSourceId>ced82575-3f51-592c-90ca-eed3c4e39412</DataSourceId>
       <ColumnMapping>
         <MappedColumns>
           <MappedColumn>
@@ -372,7 +372,7 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Name>JP PO Delay Status Distribution</Name>
-      <ID>ds-jp-delay-status-005</ID>
+      <ID>6a2e5808-6db6-5ba7-9732-88f7858f41b6</ID>
       <Select>
         <DataColumn><Column>DELAY_STATUS</Column><Name>DELAY_STATUS</Name><DataType>Text</DataType></DataColumn>
         <DataColumn><Column>ORDER_NO</Column><Name>ORDER_NO</Name><DataType>Text</DataType></DataColumn>
@@ -388,7 +388,7 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Name>JP PO Qty By Order</Name>
-      <ID>ds-jp-po-by-order-006</ID>
+      <ID>24199b37-61a3-5b68-ab05-db5a35fc0b90</ID>
       <Select>
         <DataColumn><Column>ORDER_NO</Column><Name>発注番号</Name><DataType>Text</DataType></DataColumn>
         <DataColumn><Column>BUY_QTY_DUE</Column><Name>発注数量</Name><DataType>Number</DataType></DataColumn>
@@ -405,7 +405,7 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Name>JP PO Delayed Count</Name>
-      <ID>ds-jp-po-delayed-002</ID>
+      <ID>d13f04e8-ae37-5eea-a89d-daf2d05ba50e</ID>
       <Select>
         <DataColumn><Column>ORDER_NO</Column><Name>発注番号</Name><DataType>Text</DataType></DataColumn>
         <DataColumn><Column>LINE_NO</Column><Name>明細番号</Name><DataType>Text</DataType></DataColumn>
@@ -421,7 +421,7 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Name>JP PO Header Count</Name>
-      <ID>ds-jp-po-header-003</ID>
+      <ID>d061145d-70f7-5d35-9187-16ac882fab08</ID>
       <Select>
         <DataColumn><Column>ORDER_NO</Column><Name>発注番号</Name><DataType>Text</DataType></DataColumn>
       </Select>
@@ -432,7 +432,7 @@
     <SQLDataSource>
       <Author>IBM Tokku Team</Author><Component>PURCH</Component>
       <Keywords>調達,正常</Keywords><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
-      <Name>JP PO Normal Count</Name><ID>ds-jp-po-normal-008</ID>
+      <Name>JP PO Normal Count</Name><ID>6909a4b9-a6d1-54f6-9466-711f32808c7d</ID>
       <Select><DataColumn><Column>ORDER_NO</Column><Name>ORDER_NO</Name><DataType>Text</DataType></DataColumn></Select>
       <Where>OBJSTATE = &apos;Released&apos; AND PLANNED_RECEIPT_DATE &gt;= SYSDATE</Where>
       <View>PURCHASE_ORDER_LINE</View>
@@ -441,7 +441,7 @@
     <SQLDataSource>
       <Author>IBM Tokku Team</Author><Component>PURCH</Component>
       <Keywords>調達,超過</Keywords><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
-      <Name>JP PO Overdue Count</Name><ID>ds-jp-po-overdue-007</ID>
+      <Name>JP PO Overdue Count</Name><ID>ced82575-3f51-592c-90ca-eed3c4e39412</ID>
       <Select><DataColumn><Column>ORDER_NO</Column><Name>ORDER_NO</Name><DataType>Text</DataType></DataColumn></Select>
       <Where>OBJSTATE = &apos;Released&apos; AND PLANNED_RECEIPT_DATE &lt; SYSDATE - 7</Where>
       <View>PURCHASE_ORDER_LINE</View>
@@ -454,7 +454,7 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Name>JP PO Remaining Released</Name>
-      <ID>ds-jp-po-remaining-001</ID>
+      <ID>c8f866a0-296e-5697-8319-c8a5111a4aae</ID>
       <Select>
         <DataColumn><Column>ORDER_NO</Column><Name>購買オーダ番号</Name><DataType>Text</DataType></DataColumn>
         <DataColumn><Column>LINE_NO</Column><Name>明細番号</Name><DataType>Text</DataType></DataColumn>
@@ -475,7 +475,7 @@
       <LastModified>2026-05-26-00.00.00</LastModified>
       <Locked>false</Locked>
       <Name>JP PO Total Qty</Name>
-      <ID>ds-jp-po-totalqty-004</ID>
+      <ID>a8d2090c-0644-5955-bc83-4da32455af14</ID>
       <Select>
         <DataColumn><Column>ORDER_NO</Column><Name>発注番号</Name><DataType>Text</DataType></DataColumn>
         <DataColumn><Column>BUY_QTY_DUE</Column><Name>発注数量</Name><DataType>Number</DataType></DataColumn>
@@ -487,7 +487,7 @@
     <SQLDataSource>
       <Author>IBM Tokku Team</Author><Component>PURCH</Component>
       <Keywords>調達,トレンド</Keywords><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
-      <Name>JP PO Trend By Date</Name><ID>ds-jp-po-trend-011</ID>
+      <Name>JP PO Trend By Date</Name><ID>f0ad0c3b-61e6-564d-8bfc-fcb16e9bbe15</ID>
       <Select>
         <DataColumn><Column>NVL(TO_CHAR(PLANNED_RECEIPT_DATE,&apos;MM-DD&apos;),&apos;Unknown&apos;)</Column><Name>DATE_KEY</Name><DataType>Text</DataType></DataColumn>
         <DataColumn><Column>ORDER_NO</Column><Name>ORDER_NO</Name><DataType>Text</DataType></DataColumn>
@@ -500,7 +500,7 @@
     <SQLDataSource>
       <Author>IBM Tokku Team</Author><Component>PURCH</Component>
       <Keywords>調達,仕入先</Keywords><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
-      <Name>JP PO By Vendor</Name><ID>ds-jp-po-vendor-010</ID>
+      <Name>JP PO By Vendor</Name><ID>24e0f92b-24d1-5803-9679-2368bf156229</ID>
       <Select>
         <DataColumn><Column>VENDOR_NO</Column><Name>VENDOR_NO</Name><DataType>Text</DataType></DataColumn>
         <DataColumn><Column>ORDER_NO</Column><Name>ORDER_NO</Name><DataType>Text</DataType></DataColumn>
@@ -512,7 +512,7 @@
     <SQLDataSource>
       <Author>IBM Tokku Team</Author><Component>PURCH</Component>
       <Keywords>調達,今週</Keywords><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
-      <Name>JP PO This Week Count</Name><ID>ds-jp-po-week-009</ID>
+      <Name>JP PO This Week Count</Name><ID>2ff9dc47-6e4d-5abd-87f6-04096dabdec4</ID>
       <Select><DataColumn><Column>ORDER_NO</Column><Name>ORDER_NO</Name><DataType>Text</DataType></DataColumn></Select>
       <Where>OBJSTATE = &apos;Released&apos; AND PLANNED_RECEIPT_DATE BETWEEN TRUNC(SYSDATE) AND TRUNC(SYSDATE) + 7</Where>
       <View>PURCHASE_ORDER_LINE</View>
