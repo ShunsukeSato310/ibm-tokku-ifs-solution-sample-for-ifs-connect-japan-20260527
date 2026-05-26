@@ -1,6 +1,5 @@
 <SQLDataSource>
-  <Author>IBM Tokku Team</Author><Component>PURCH</Component>
-  <Keywords>調達,トレンド</Keywords><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
+  <Author>IBM Tokku Team</Author><Component>PURCH</Component><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
   <Name>JP PO Trend By Date</Name><ID>ds-jp-po-trend-011</ID>
   <Select>
     <DataColumn><Column>NVL(TO_CHAR(PLANNED_RECEIPT_DATE,&apos;MM-DD&apos;),&apos;Unknown&apos;)</Column><Name>DATE_KEY</Name><DataType>Text</DataType></DataColumn>

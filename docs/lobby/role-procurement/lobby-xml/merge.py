@@ -59,36 +59,38 @@ page_id = str(uuid.uuid4())
 ds_items = [(f, replace_ids(t)) for f, t in datasources]
 el_items = [(f, replace_ids(t)) for f, t in elements]
 
-lines = []
-lines.append('<?xml version="1.0" encoding="UTF-8" standalone=\'yes\'?>')
-lines.append('<Page>')
-lines.append('  <Author>IBM Tokku Team</Author>')
-lines.append('  <Keywords>調達,購買,発注残,procurement</Keywords>')
-lines.append('  <DescriptiveText>調達担当者向けロビー。発注残KPI・遅延アラート・発注残一覧・クイックリンクを集約。</DescriptiveText>')
-lines.append('  <LastModified>2026-05-26-12.00.00</LastModified>')
-lines.append('  <Locked>false</Locked>')
-lines.append('  <Component>PURCH</Component>')
-lines.append('  <AurenaLobby>true</AurenaLobby>')
-lines.append(f'  <PageId>{page_id}</PageId>')
-lines.append('  <PageTitle>調達担当者ロビー</PageTitle>')
-lines.append('  <Layout><Groups><Group><Elements>')
+# 標準XMLと同じコンパクト形式・タグ順序で出力
+header = (
+    f'<?xml version="1.0" encoding="UTF-8" standalone=\'yes\'?>'
+    f'<Page>'
+    f'<Author>IBM Tokku Team</Author>'
+    f'<Keywords>調達,購買,発注残</Keywords>'
+    f'<LastModified>2026-05-26-00.00.00</LastModified>'
+    f'<Locked>false</Locked>'
+    f'<ClientTypesPage>Web</ClientTypesPage>'
+    f'<Component>PURCH</Component>'
+    f'<Layout><Groups><Group><Elements>'
+)
+lines = [header]
 
 for fname, text in el_items:
-    lines.append(f'    <!-- {fname} -->')
-    for line in text.splitlines():
-        lines.append('    ' + line)
+    # 改行・インデントを除去してコンパクトに
+    compact = re.sub(r'>\s+<', '><', text.strip())
+    lines.append(compact)
 
-lines.append('  </Elements></Group></Groups></Layout>')
-lines.append('  <DataSources>')
+lines.append('</Elements></Group></Groups></Layout>')
+lines.append('<DataSources>')
 
 for fname, text in ds_items:
-    lines.append(f'    <!-- {fname} -->')
-    for line in text.splitlines():
-        lines.append('    ' + line)
+    compact = re.sub(r'>\s+<', '><', text.strip())
+    lines.append(compact)
 
-lines.append('  </DataSources>')
-lines.append('  <Parameters/>')
-lines.append('  <Translations/>')
+lines.append('</DataSources>')
+lines.append('<Parameters/>')
+lines.append(f'<PageTitle>調達担当者ロビー</PageTitle>')
+lines.append(f'<PageId>{page_id}</PageId>')
+lines.append('<AurenaLobby>true</AurenaLobby>')
+lines.append('<Translations/>')
 lines.append('</Page>')
 
 out_path = os.path.join(BASE, "lobby_procurement.xml")

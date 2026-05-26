@@ -1,8 +1,8 @@
 <Counter>
   <Author>IBM Tokku Team</Author>
-  <Keywords>調達,発注オーダ</Keywords>
   <LastModified>2026-05-26-00.00.00</LastModified>
-  <Locked>false</Locked>
+  <Locked>true</Locked>
+  <ClientTypes>Web</ClientTypes>
   <Component>PURCH</Component>
   <Row>0</Row><Column>2</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
   <Title>発注オーダ数</Title>
@@ -12,7 +12,7 @@
   <DataSourceId>ds-jp-po-header-003</DataSourceId>
   <ColumnMapping>
     <MappedColumns>
-      <MappedColumn><Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate><ConditionalFormats/></MappedColumn>
+      <MappedColumn><Column>ORDER_NO</Column><ConditionalFormats/></MappedColumn>
     </MappedColumns>
   </ColumnMapping>
   <UnifiedElement/><ElementConfig/>

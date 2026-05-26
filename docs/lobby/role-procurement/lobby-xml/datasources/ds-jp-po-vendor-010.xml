@@ -1,6 +1,5 @@
 <SQLDataSource>
-  <Author>IBM Tokku Team</Author><Component>PURCH</Component>
-  <Keywords>調達,仕入先</Keywords><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
+  <Author>IBM Tokku Team</Author><Component>PURCH</Component><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
   <Name>JP PO By Vendor</Name><ID>ds-jp-po-vendor-010</ID>
   <Select>
     <DataColumn><Column>VENDOR_NO</Column><Name>VENDOR_NO</Name><DataType>Text</DataType></DataColumn>

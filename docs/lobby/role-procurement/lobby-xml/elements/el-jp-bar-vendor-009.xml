@@ -1,6 +1,7 @@
 <BarChart>
-  <Author>IBM Tokku Team</Author><Keywords>調達,仕入先,棒グラフ</Keywords>
-  <LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked><Component>PURCH</Component>
+  <Author>IBM Tokku Team</Author>
+  <LastModified>2026-05-26-00.00.00</LastModified><Locked>true</Locked>
+  <ClientTypes>Web</ClientTypes><Component>PURCH</Component>
   <Row>4</Row><Column>0</Column><RowSpan>2</RowSpan><ColumnSpan>4</ColumnSpan>
   <Title>仕入先別発注件数（棒グラフ）</Title>
   <Background>#FFFFFFFF</Background><Foreground>#FF000000</Foreground>
@@ -15,7 +16,7 @@
   <XYDataSeries>
     <TopNOptions/>
     <XColumn><Name>VENDOR_NO</Name></XColumn>
-    <YColumn><Name>ORDER_NO</Name></YColumn>
-  </XYDataSeries>
+    <YColumn><Name>ORDER_NO</Name></YColumn><FColumn><Name>ORDER_NO</Name></FColumn>
+  </XYDataSeries><OptionalDataSeries/>
   <UnifiedElement/><ElementConfig/>
 </BarChart>

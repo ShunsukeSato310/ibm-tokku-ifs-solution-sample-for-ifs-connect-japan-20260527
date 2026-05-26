@@ -1,8 +1,8 @@
 <LinksList>
   <Author>IBM Tokku Team</Author>
-  <Keywords>調達,クイックリンク</Keywords>
   <LastModified>2026-05-26-00.00.00</LastModified>
-  <Locked>false</Locked>
+  <Locked>true</Locked>
+  <ClientTypes>Web</ClientTypes>
   <Component>PURCH</Component>
   <Row>3</Row><Column>3</Column><RowSpan>2</RowSpan><ColumnSpan>1</ColumnSpan>
   <Title>クイックリンク</Title>
@@ -10,7 +10,7 @@
   <Foreground>#FFFFFFFF</Foreground>
   <Name>JP PO Quick Links</Name>
   <ID>el-jp-links-006</ID>
-  <ColorStyle>Accent</ColorStyle>
+  
   <ColumnMapping><MappedColumns/></ColumnMapping>
   <Links>
     <Link><ID>lnk-001</ID><WebUrl>page/PurchaseOrder/List</WebUrl><LinkTitle>購買発注</LinkTitle><TargetType>Single</TargetType></Link>

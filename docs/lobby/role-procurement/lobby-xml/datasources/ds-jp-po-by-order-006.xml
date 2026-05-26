@@ -1,7 +1,6 @@
 <SQLDataSource>
   <Author>IBM Tokku Team</Author>
   <Component>PURCH</Component>
-  <Keywords>調達,発注数量,棒グラフ</Keywords>
   <LastModified>2026-05-26-00.00.00</LastModified>
   <Locked>false</Locked>
   <Name>JP PO Qty By Order</Name>

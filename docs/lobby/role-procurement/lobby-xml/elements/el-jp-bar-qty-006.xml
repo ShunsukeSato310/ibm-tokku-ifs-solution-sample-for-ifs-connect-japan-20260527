@@ -1,8 +1,8 @@
 <BarChart>
   <Author>IBM Tokku Team</Author>
-  <Keywords>調達,発注数量,棒グラフ</Keywords>
   <LastModified>2026-05-26-00.00.00</LastModified>
-  <Locked>false</Locked>
+  <Locked>true</Locked>
+  <ClientTypes>Web</ClientTypes>
   <Component>PURCH</Component>
   <Row>1</Row><Column>2</Column><RowSpan>2</RowSpan><ColumnSpan>2</ColumnSpan>
   <Title>オーダ別発注数量（棒グラフ）</Title>
@@ -20,7 +20,7 @@
   <XYDataSeries>
     <TopNOptions/>
     <XColumn><Name>発注番号</Name></XColumn>
-    <YColumn><Name>発注数量</Name></YColumn>
-  </XYDataSeries>
+    <YColumn><Name>発注数量</Name></YColumn><FColumn><Name>発注数量</Name></FColumn>
+  </XYDataSeries><OptionalDataSeries/>
   <UnifiedElement/><ElementConfig/>
 </BarChart>

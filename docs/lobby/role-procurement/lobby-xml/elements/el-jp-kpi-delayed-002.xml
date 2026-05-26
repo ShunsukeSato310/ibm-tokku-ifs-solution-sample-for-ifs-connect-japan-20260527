@@ -1,8 +1,8 @@
 <Counter>
   <Author>IBM Tokku Team</Author>
-  <Keywords>調達,遅延</Keywords>
   <LastModified>2026-05-26-00.00.00</LastModified>
-  <Locked>false</Locked>
+  <Locked>true</Locked>
+  <ClientTypes>Web</ClientTypes>
   <Component>PURCH</Component>
   <Row>0</Row><Column>1</Column><RowSpan>1</RowSpan><ColumnSpan>1</ColumnSpan>
   <Title>遅延アラート</Title>
@@ -14,7 +14,7 @@
   <ColumnMapping>
     <MappedColumns>
       <MappedColumn>
-        <Column>ORDER_NO</Column><Aggregate>COUNT</Aggregate>
+        <Column>ORDER_NO</Column>
         <ConditionalFormats>
           <ConditionalFormatting>
             <ColumnName>COUNT(ORDER_NO)</ColumnName><Value>0</Value>

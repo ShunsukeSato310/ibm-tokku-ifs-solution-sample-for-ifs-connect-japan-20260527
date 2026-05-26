@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ジョブ間機能関連図 — 移行ジョブ</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .fmap{background:#fff;border:1px solid var(--gray-20);padding:32px;margin-bottom:24px;overflow-x:auto;}
+    .fmap-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-03);margin-bottom:24px;}
+    .phase-row{display:flex;gap:0;align-items:stretch;margin-bottom:16px;}
+    .phase-label{writing-mode:vertical-rl;text-orientation:mixed;font-size:11px;font-weight:700;color:var(--text-02);background:var(--gray-10);border:1px solid var(--gray-20);padding:8px 6px;min-width:32px;display:flex;align-items:center;justify-content:center;margin-right:12px;}
+    .phase-jobs{display:flex;gap:8px;align-items:center;flex:1;flex-wrap:wrap;}
+    .jbox{border:2px solid;border-radius:2px;padding:10px 14px;min-width:130px;text-align:center;}
+    .jbox-id{font-size:11px;font-weight:700;font-family:monospace;}
+    .jbox-proc{font-size:10px;color:var(--text-03);margin-top:3px;}
+    .jbox.ext{border-color:#8a3ffc;background:#f6f2ff;}.jbox.ext .jbox-id{color:#8a3ffc;}
+    .jbox.inp{border-color:#ff832b;background:#fff3e0;}.jbox.inp .jbox-id{color:#ff832b;}
+    .jbox.ins{border-color:#24a148;background:#e6f9ee;}.jbox.ins .jbox-id{color:#24a148;}
+    .jbox.upd{border-color:#0f62fe;background:#e8f4fd;}.jbox.upd .jbox-id{color:#0f62fe;}
+    .jbox.del{border-color:#da1e28;background:#fff5f5;}.jbox.del .jbox-id{color:#da1e28;}
+    .arr{font-size:18px;color:var(--text-03);padding:0 4px;}
+    .file-box{border:1px dashed var(--gray-30);background:var(--gray-10);padding:6px 10px;font-size:11px;color:var(--text-02);border-radius:2px;text-align:center;}
+    .connector{display:flex;flex-direction:column;align-items:center;gap:2px;padding:0 8px;}
+    .conn-line{width:1px;height:20px;background:var(--gray-30);}
+    .conn-label{font-size:10px;color:var(--text-03);}
+    .doc-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:24px;}
+    .doc-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
+    .doc-table td{font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);vertical-align:top;}
+    .doc-table tr:last-child td{border-bottom:none;}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../../index.html" style="color:rgba(255,255,255,.7);">移行ジョブ作成</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,.7);">7ジョブセット</a>
+    <span style="opacity:.4;margin:0 6px;">/</span>
+    <span>機能関連図</span>
+  </div>
+  <nav class="site-header-nav"><a href="../index.html">← 戻る</a></nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#31135e 0%,#6929c4 100%);padding:40px 40px 32px;">
+  <div class="hero-inner" style="display:block;">
+    <div class="hero-eyebrow">移行ジョブ — ジョブ間機能関連図</div>
+    <h1 style="font-size:28px;">FNDMIG 7ジョブ<br>機能関連図</h1>
+    <p style="margin-bottom:0;">対象ビュー: SUPPLIER_INFO　／　グループID: SUPPLIER_INF</p>
+  </div>
+</section>
+
+<main class="container">
+  <div class="section-label">1. ジョブ間フロー図</div>
+  <div class="fmap">
+    <div class="fmap-title">FNDMIG 7ジョブ — ファイルと実行フロー</div>
+
+    <div class="phase-row">
+      <div class="phase-label">抽出</div>
+      <div class="phase-jobs">
+        <div class="jbox ext"><div class="jbox-id">SUPPLIER_INFO_EXTRACT</div><div class="jbox-proc">CREATE_OUTPUT_FILE</div></div>
+        <div class="arr">→</div>
+        <div class="file-box">📄 SUPPLIER_INFO_EXTRACT.tsv<br><span style="font-size:10px;">現データ全件</span></div>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-label">登録</div>
+      <div class="phase-jobs">
+        <div class="file-box">📄 ins_input.tsv<br><span style="font-size:10px;">登録データ</span></div>
+        <div class="arr">→</div>
+        <div class="jbox inp"><div class="jbox-id">SUPPLIER_INS_INPUT</div><div class="jbox-proc">CREATE_TABLE_FROM_FILE</div></div>
+        <div class="arr">→</div>
+        <div class="file-box">🗄 ステージングTBL<br><span style="font-size:10px;">INTFACE_TMP_INS</span></div>
+        <div class="arr">→</div>
+        <div class="jbox ins"><div class="jbox-id">SUPPLIER_INS</div><div class="jbox-proc">MIGRATE_SOURCE_DATA<br>OnInsert=TRUE</div></div>
+        <div class="arr">→</div>
+        <div class="file-box">✅ SUPPLIER_INFO_TAB<br><span style="font-size:10px;">新規レコード</span></div>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-label">更新</div>
+      <div class="phase-jobs">
+        <div class="file-box">📄 upd_input.tsv<br><span style="font-size:10px;">更新データ</span></div>
+        <div class="arr">→</div>
+        <div class="jbox inp"><div class="jbox-id">SUPPLIER_UPD_INPUT</div><div class="jbox-proc">CREATE_TABLE_FROM_FILE</div></div>
+        <div class="arr">→</div>
+        <div class="file-box">🗄 ステージングTBL<br><span style="font-size:10px;">INTFACE_TMP_UPD</span></div>
+        <div class="arr">→</div>
+        <div class="jbox upd"><div class="jbox-id">SUPPLIER_UPD</div><div class="jbox-proc">MIGRATE_SOURCE_DATA<br>OnUpdate=TRUE</div></div>
+        <div class="arr">→</div>
+        <div class="file-box">✅ SUPPLIER_INFO_TAB<br><span style="font-size:10px;">更新レコード</span></div>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-label">削除</div>
+      <div class="phase-jobs">
+        <div class="file-box">📄 del_input.tsv<br><span style="font-size:10px;">削除対象キー</span></div>
+        <div class="arr">→</div>
+        <div class="jbox inp"><div class="jbox-id">SUPPLIER_DEL_INPUT</div><div class="jbox-proc">CREATE_TABLE_FROM_FILE</div></div>
+        <div class="arr">→</div>
+        <div class="file-box">🗄 ステージングTBL<br><span style="font-size:10px;">INTFACE_TMP_DEL</span></div>
+        <div class="arr">→</div>
+        <div class="jbox del"><div class="jbox-id">SUPPLIER_DEL</div><div class="jbox-proc">MIGRATE_SOURCE_DATA<br>ViewName=なし ★</div></div>
+        <div class="arr">→</div>
+        <div class="file-box">✅ SUPPLIER_INFO_TAB<br><span style="font-size:10px;">削除/Blocked</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#fff3e0;border:1px solid #ff832b;border-left:4px solid #ff832b;padding:14px 16px;margin-bottom:24px;">
+    <strong style="color:#ff832b;font-size:12px;">★ DELジョブのViewName除外ルール</strong>
+    <p style="font-size:12px;color:var(--text-02);margin-top:6px;">DELジョブにViewNameを設定するとIFSがExecuteSeq=10（OnModify=TRUE）を自動追加し、MODIFY__バリデーションが実行時に走って必須列エラーが発生します。AIはこのルールを自動適用し、SourceName/WhereClauseはPATCHで後から設定します。</p>
+  </div>
+
+  <div class="section-label">2. ジョブ設定一覧</div>
+  <table class="doc-table">
+    <thead><tr><th>ジョブID</th><th>ProcedureName</th><th>OnInsert</th><th>OnUpdate</th><th>ViewName</th><th>備考</th></tr></thead>
+    <tbody>
+      <tr><td style="font-family:monospace;font-size:11px;">SUPPLIER_INFO_EXTRACT</td><td>CREATE_OUTPUT_FILE</td><td>—</td><td>—</td><td>SUPPLIER_INFO</td><td>抽出専用</td></tr>
+      <tr><td style="font-family:monospace;font-size:11px;">SUPPLIER_INS_INPUT</td><td>CREATE_TABLE_FROM_FILE</td><td>TRUE</td><td>—</td><td>SUPPLIER_INFO</td><td>ColumnSeparator=Tab, SKIPLINES=1</td></tr>
+      <tr><td style="font-family:monospace;font-size:11px;">SUPPLIER_INS</td><td>MIGRATE_SOURCE_DATA</td><td>TRUE</td><td>—</td><td>SUPPLIER_INFO</td><td></td></tr>
+      <tr><td style="font-family:monospace;font-size:11px;">SUPPLIER_UPD_INPUT</td><td>CREATE_TABLE_FROM_FILE</td><td>—</td><td>TRUE</td><td>SUPPLIER_INFO</td><td>ColumnSeparator=Tab, SKIPLINES=1</td></tr>
+      <tr><td style="font-family:monospace;font-size:11px;">SUPPLIER_UPD</td><td>MIGRATE_SOURCE_DATA</td><td>—</td><td>TRUE</td><td>SUPPLIER_INFO</td><td></td></tr>
+      <tr><td style="font-family:monospace;font-size:11px;">SUPPLIER_DEL_INPUT</td><td>CREATE_TABLE_FROM_FILE</td><td>—</td><td>—</td><td>SUPPLIER_INFO</td><td>ColumnSeparator=Tab, SKIPLINES=1</td></tr>
+      <tr><td style="font-family:monospace;font-size:11px;color:#da1e28;">SUPPLIER_DEL</td><td>MIGRATE_SOURCE_DATA</td><td>—</td><td>—</td><td style="color:#da1e28;font-weight:700;">指定なし ★</td><td>SourceName/WhereClauseをPATCHで設定</td></tr>
+    </tbody>
+  </table>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><div class="footer-brand">移行ジョブ — 機能関連図</div><div class="footer-copy">© 2026 Tokku Team</div></div>
+    <div class="footer-links"><a href="../index.html">← 戻る</a></div>
+  </div>
+</footer>
+</body>
+</html>

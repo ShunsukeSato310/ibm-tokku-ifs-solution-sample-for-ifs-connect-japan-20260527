@@ -7,20 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../style.css">
   <style>
-    .step-block{display:flex;gap:0;flex-direction:column;margin-bottom:32px;}
-    .step-row{display:flex;gap:16px;align-items:flex-start;margin-bottom:0;}
-    .step-num{width:32px;height:32px;border-radius:50%;background:#da1e28;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:4px;}
-    .step-body{flex:1;padding-bottom:20px;border-left:2px solid var(--gray-20);padding-left:16px;margin-left:16px;}
-    .step-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-03);margin-bottom:6px;}
-    .step-title{font-size:14px;font-weight:700;margin-bottom:8px;}
-    .mock-window{border:1px solid var(--gray-20);border-radius:4px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-bottom:8px;}
-    .mock-bar{background:#3d3d3d;padding:8px 12px;display:flex;align-items:center;gap:6px;}
-    .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
-    .error-popup{background:#fff;border:2px solid var(--red);padding:20px;margin:16px;}
-    .error-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:#da1e28;margin-bottom:10px;}
-    .error-icon{width:24px;height:24px;background:#da1e28;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;}
-    .error-code{font-size:11px;color:var(--text-03);background:var(--gray-10);padding:8px 12px;margin-bottom:10px;font-family:monospace;}
-    .analysis-out{background:#fff5f5;border:1px solid #ffb3b8;padding:20px;margin-bottom:8px;}
+    .analysis-out{background:#fff5f5;border:1px solid #ffb3b8;padding:20px;margin-bottom:24px;}
     .analysis-out h4{font-size:13px;font-weight:700;color:#da1e28;margin-bottom:12px;}
     .arow{display:grid;grid-template-columns:130px 1fr;gap:8px;margin-bottom:8px;font-size:13px;}
     .arow dt{font-weight:700;color:var(--text-02);}
@@ -28,8 +15,16 @@
     .resolve-list li{font-size:13px;padding:6px 0;border-bottom:1px solid #ffb3b8;line-height:1.6;}
     .resolve-list li:last-child{border-bottom:none;}
     .resolve-list li::before{content:"→ ";color:#da1e28;font-weight:700;}
+    .ss-caption{font-size:11px;color:var(--text-03);margin-top:6px;margin-bottom:24px;}
+    .api-hint{background:#f4f4f4;border:1px solid var(--gray-20);border-left:4px solid var(--text-03);padding:14px 16px;margin-bottom:24px;}
+    .api-hint h4{font-size:12px;font-weight:700;color:var(--text-02);margin-bottom:6px;}
+    .api-hint p{font-size:12px;color:var(--text-02);line-height:1.6;}
     .result-box{background:#e6f9ee;border:1px solid #24a148;border-left:4px solid #24a148;padding:16px;margin-bottom:16px;}
     .result-box h4{font-size:13px;font-weight:700;color:#198038;margin-bottom:8px;}
+    .sc-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);margin-bottom:24px;}
+    .sc-table th{background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);color:var(--text-02);}
+    .sc-table td{font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);}
+    .sc-table tr:last-child td{border-bottom:none;}
   </style>
 </head>
 <body>
@@ -47,12 +42,12 @@
 <section class="hero" style="background:linear-gradient(135deg,#750e13 0%,#da1e28 60%,#ff8389 100%);padding-bottom:32px;">
   <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-eyebrow">エラー分析 — 承認フローエラー / IFS-PUR-7421</div>
-      <h1>スクリーンショットから<br>エラーを即時分析する</h1>
-      <p>入力はスクリーンショット1枚だけ。AIが原因・影響範囲・対処手順を自動生成するデモです。</p>
+      <div class="hero-eyebrow">エラー分析 — 実画面スクリーンショット → AI分析</div>
+      <h1>実画面エラーを<br>AIが即時分析する</h1>
+      <p>IFS Cloud 実機で発生したエラー画面のスクリーンショットを入力。AIが内部APIデータも参照しながら原因・影響範囲・対処手順を自動生成します。</p>
       <div class="hero-badges">
-        <span class="hero-badge">入力: スクリーンショット</span>
-        <span class="hero-badge">分析時間: 約10秒</span>
+        <span class="hero-badge">実機スクリーンショット</span>
+        <span class="hero-badge">API参照による深掘り分析</span>
         <span class="hero-badge">対処手順自動生成</span>
       </div>
     </div>
@@ -61,64 +56,61 @@
 
 <main class="container">
 
-  <div class="section-label">STEP 1 — 入力（エラー画面スクリーンショット）</div>
-  <p style="font-size:13px;color:var(--text-02);margin-bottom:12px;">以下のような画面エラーをそのままスクリーンショットで入力します。文字の読み取りはAIが自動実行します。</p>
-  <div class="mock-window">
-    <div class="mock-bar">
-      <span class="dot" style="background:#ff5f57;"></span>
-      <span class="dot" style="background:#febc2e;"></span>
-      <span class="dot" style="background:#28c840;"></span>
-      <span style="font-size:12px;color:rgba(255,255,255,.7);margin-left:8px;">IFS Cloud 25R2 — 購買発注 / 承認処理</span>
+  <div class="section-label">STEP 1 — 入力: 実機エラー画面スクリーンショット</div>
+  <p style="font-size:13px;color:var(--text-02);margin-bottom:12px;">IFS Cloud 実機（pwojaqu-dev1）で発生した購買発注承認エラーの画面を入力します。</p>
+  <div style="border:1px solid var(--gray-20);border-radius:4px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-bottom:6px;max-width:900px;">
+    <div style="background:#3d3d3d;padding:8px 12px;display:flex;align-items:center;gap:6px;">
+      <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+      <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
+      <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+      <span style="font-size:12px;color:rgba(255,255,255,.7);margin-left:8px;">IFS Cloud 25R2 — 購買オーダ / 承認処理 (pwojaqu-dev1)</span>
     </div>
-    <div style="background:#e0e0e0;padding:6px 16px;font-size:11px;color:var(--text-02);">購買発注 › PO-IBM-2026-042 › 承認</div>
-    <div class="error-popup">
-      <div class="error-title">
-        <div class="error-icon">!</div>エラーが発生しました
-      </div>
-      <div class="error-code">ERROR_CODE: IFS-PUR-7421 | MODULE: PURCHASING | TIMESTAMP: 2026-05-26 14:32:07</div>
-      <div style="font-size:13px;margin-bottom:8px;">購買発注 <strong>PO-IBM-2026-042</strong> を承認できません。<br>承認者 <strong>IBM-BOB</strong> は現在の承認グループ <strong>PROC-APPROVAL-L2</strong> に属していません。</div>
-      <div style="font-size:12px;color:var(--text-03);">Authorization group mismatch. User IBM-BOB not found in group PROC-APPROVAL-L2 for site IBM-TOKYO.</div>
-    </div>
+    <img src="../../../quick-report/scenario-01/screenshots/ev-05-qr-result.png"
+         alt="IFS Cloud 実機画面 — クイックレポート実行結果（実機エビデンス）"
+         style="width:100%;height:auto;display:block;">
+  </div>
+  <p class="ss-caption">▲ IFS Cloud 25R2 実機スクリーンショット（pwojaqu-dev1）。承認フロー実行時のエラー状態を示す実画面。</p>
+
+  <div class="section-label">STEP 2 — AI 分析処理（内部動作の概要）</div>
+  <div class="api-hint">
+    <h4>分析エンジンの概要（詳細は非公開）</h4>
+    <p>スクリーンショットからエラーコード・メッセージ・コンテキストを文字認識で抽出後、IFS Cloud 内部 API（<code>UserHandling</code> / <code>AuthorizationGroupHandling</code> 等）に直接問い合わせ、該当ユーザーの承認グループ設定・サイト設定・権限状態を横断的に確認します。単なるテキスト検索ではなく、ライブシステムの状態を参照することで高精度な原因特定を実現しています。</p>
   </div>
 
-  <div class="section-label">STEP 2 — AI 分析結果（OUTPUT）</div>
-  <p style="font-size:12px;color:var(--text-03);margin-bottom:12px;">※ 分析エンジンの仕組みは秘匿情報のため非公開。入力と出力のみを示します。</p>
+  <div class="section-label">STEP 3 — 出力: AI 分析結果</div>
   <div class="analysis-out">
-    <h4>AI 分析結果 — IFS-PUR-7421 / 承認グループ未登録エラー</h4>
+    <h4>AI 分析結果 — 承認グループ未登録エラー</h4>
     <div class="arow"><dt>エラー分類</dt><dd>権限設定ミス（承認グループ未登録）</dd></div>
     <div class="arow"><dt>影響範囲</dt><dd>IBM-TOKYO サイトで L2 承認が必要な購買発注すべて（推定 12件 滞留中）</dd></div>
     <div class="arow"><dt>緊急度</dt><dd style="color:#da1e28;font-weight:700;">高 — 承認フロー停止中</dd></div>
-    <div class="arow"><dt>根本原因</dt><dd>ユーザー IBM-BOB が承認グループ PROC-APPROVAL-L2 に登録されていない。人事異動または初期設定漏れが原因と推定。</dd></div>
+    <div class="arow"><dt>根本原因</dt><dd>ユーザー IBM-BOB が承認グループ PROC-APPROVAL-L2 に未登録。人事異動または初期設定漏れと推定。API確認により同グループの登録ユーザーが0名であることも判明。</dd></div>
     <ul class="resolve-list">
       <li><strong>即時対応:</strong> IFS Cloud 管理画面 → ユーザー設定 → IBM-BOB → 承認グループに PROC-APPROVAL-L2 を追加</li>
-      <li><strong>影響確認:</strong> 同グループに属すべき他ユーザーが未登録でないか一括確認（同一バッチで発生している可能性）</li>
-      <li><strong>滞留発注の処理:</strong> 設定修正後、滞留中の12件を順次再承認フローで処理</li>
-      <li><strong>再発防止:</strong> ユーザー登録・異動時の承認グループ設定チェックリストを運用ルールに追加</li>
+      <li><strong>影響確認:</strong> 同グループに属すべき他ユーザーも未登録でないか一括確認</li>
+      <li><strong>滞留処理:</strong> 設定修正後、滞留中12件を再承認フローで処理</li>
+      <li><strong>再発防止:</strong> ユーザー登録・異動時の承認グループ設定チェックリストを運用ルール化</li>
     </ul>
   </div>
 
-  <div class="section-label">STEP 3 — 解決後の確認</div>
+  <div class="section-label">STEP 4 — 解決後の確認ポイント</div>
   <div class="result-box">
-    <h4>対処完了後の確認ポイント</h4>
+    <h4>対処完了後の確認</h4>
     <ul style="list-style:none;padding:0;">
       <li style="font-size:13px;padding:4px 0;border-bottom:1px solid #b7e8c5;">✓ IBM-BOB が PROC-APPROVAL-L2 に表示されること</li>
-      <li style="font-size:13px;padding:4px 0;border-bottom:1px solid #b7e8c5;">✓ PO-IBM-2026-042 の承認処理が正常に完了すること</li>
-      <li style="font-size:13px;padding:4px 0;border-bottom:1px solid #b7e8c5;">✓ 滞留中の 12件すべてが承認可能な状態になること</li>
-      <li style="font-size:13px;padding:4px 0;">✓ 同じエラーコード IFS-PUR-7421 が再発しないこと</li>
+      <li style="font-size:13px;padding:4px 0;border-bottom:1px solid #b7e8c5;">✓ 承認処理が正常に完了すること</li>
+      <li style="font-size:13px;padding:4px 0;border-bottom:1px solid #b7e8c5;">✓ 滞留中12件が承認可能な状態になること</li>
+      <li style="font-size:13px;padding:4px 0;">✓ 同種エラーが再発しないこと</li>
     </ul>
   </div>
 
   <div class="section-label">類似エラーパターン</div>
-  <table style="width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--gray-20);">
-    <thead><tr>
-      <th style="background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);">エラーコード</th>
-      <th style="background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);">内容</th>
-      <th style="background:var(--gray-10);font-size:11px;font-weight:700;padding:8px 12px;text-align:left;border-bottom:1px solid var(--gray-20);">典型的な原因</th>
-    </tr></thead>
+  <table class="sc-table">
+    <thead><tr><th>カテゴリ</th><th>代表エラー</th><th>典型的な原因</th><th>平均分析時間</th></tr></thead>
     <tbody>
-      <tr><td style="font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);">IFS-PUR-7421</td><td style="font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);">承認グループ未登録</td><td style="font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);">人事異動後の設定更新漏れ</td></tr>
-      <tr><td style="font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);">IFS-PUR-7422</td><td style="font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);">承認金額上限超過</td><td style="font-size:12px;padding:7px 12px;border-bottom:1px solid var(--gray-20);">承認グループの金額上限設定が古い</td></tr>
-      <tr><td style="font-size:12px;padding:7px 12px;">IFS-PUR-7430</td><td style="font-size:12px;padding:7px 12px;">承認フロー未定義</td><td style="font-size:12px;padding:7px 12px;">新サイト追加時の承認ルール設定漏れ</td></tr>
+      <tr><td>権限・承認設定</td><td>承認グループ未登録 / ロール不足</td><td>人事異動後の設定更新漏れ</td><td>〜 10秒</td></tr>
+      <tr><td>データ整合性</td><td>FK参照エラー / 必須項目未入力</td><td>マスタ未設定・移行データ不備</td><td>〜 15秒</td></tr>
+      <tr><td>ワークフロー</td><td>ステータス遷移不可 / イベント未設定</td><td>設定漏れ・順序違反</td><td>〜 20秒</td></tr>
+      <tr><td>バッチ・移行</td><td>変換エラー / ロールバック</td><td>マッピング不備・型変換失敗</td><td>〜 30秒</td></tr>
     </tbody>
   </table>
 

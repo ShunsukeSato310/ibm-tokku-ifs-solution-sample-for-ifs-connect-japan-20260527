@@ -1,6 +1,5 @@
 <SQLDataSource>
-  <Author>IBM Tokku Team</Author><Component>PURCH</Component>
-  <Keywords>調達,正常</Keywords><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
+  <Author>IBM Tokku Team</Author><Component>PURCH</Component><LastModified>2026-05-26-00.00.00</LastModified><Locked>false</Locked>
   <Name>JP PO Normal Count</Name><ID>ds-jp-po-normal-008</ID>
   <Select><DataColumn><Column>ORDER_NO</Column><Name>ORDER_NO</Name><DataType>Text</DataType></DataColumn></Select>
   <Where>OBJSTATE = &apos;Released&apos; AND PLANNED_RECEIPT_DATE &gt;= SYSDATE</Where>
