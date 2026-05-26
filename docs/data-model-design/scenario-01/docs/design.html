@@ -47,39 +47,66 @@
     <p style="font-size:13px;color:var(--text-02);">IFS Cloud の標準拡張命名規則に従い、カスタムフィールドはすべて <code>C_</code> で始める。これにより標準フィールドとの混在を防ぎ、バージョンアップ時の衝突リスクを排除する。カスタムテーブルも同様に <code>C_</code> を付与する。</p>
   </div>
 
-  <div class="section-label">2. DDL — 標準テーブルへの拡張フィールド追加</div>
-  <h3>SUPPLIER_INFO_TAB</h3>
-  <div class="code-block"><span class="cmt">-- C_ プレフィックスで標準テーブルに拡張フィールドを追加</span>
-<span class="kw">ALTER TABLE</span> supplier_info_tab
-  <span class="kw">ADD</span> c_preferred_carrier <span class="kw">VARCHAR2</span>(30),
-  <span class="kw">ADD</span> c_sla_days          <span class="kw">NUMBER</span>(3),
-  <span class="kw">ADD</span> c_payment_terms     <span class="kw">VARCHAR2</span>(20);
+  <div class="section-label">2. .entity 定義 — IFS 標準フォーマット</div>
+  <p style="font-size:12px;color:var(--text-02);margin-bottom:8px;">IFS Cloud の拡張は <code>.entity</code> ファイル（XMLベース）で定義します。以下は実際の IFS 標準 .entity フォーマットに準じた定義です。</p>
 
-<span class="kw">COMMENT ON COLUMN</span> supplier_info_tab.c_preferred_carrier <span class="kw">IS</span> <span class="str">'[Custom] 優先配送業者コード'</span>;
-<span class="kw">COMMENT ON COLUMN</span> supplier_info_tab.c_sla_days          <span class="kw">IS</span> <span class="str">'[Custom] 標準納期SLA（日数）'</span>;
-<span class="kw">COMMENT ON COLUMN</span> supplier_info_tab.c_payment_terms     <span class="kw">IS</span> <span class="str">'[Custom] カスタム支払条件コード'</span>;</div>
+  <h3>SupplierInfo.entity（拡張フィールド追加）</h3>
+  <div class="code-block"><span class="cmt">&lt;!-- checkout/purch/model/purch/SupplierInfo.entity (カスタム拡張部分) --&gt;</span>
+<span class="kw">&lt;ENTITY&gt;</span>
+   <span class="kw">&lt;NAME&gt;</span>SupplierInfo<span class="kw">&lt;/NAME&gt;</span>
+   <span class="kw">&lt;COMPONENT&gt;</span>PURCH<span class="kw">&lt;/COMPONENT&gt;</span>
+   <span class="kw">&lt;ATTRIBUTES&gt;</span>
+      <span class="cmt">&lt;!-- 標準フィールド（抜粋） --&gt;</span>
+      <span class="kw">&lt;ATTRIBUTE&gt;&lt;NAME&gt;</span>SupplierNo<span class="kw">&lt;/NAME&gt;&lt;IS_PRIMARY_KEY&gt;</span>1<span class="kw">&lt;/IS_PRIMARY_KEY&gt;</span>
+         <span class="kw">&lt;DATATYPE&gt;</span>TEXT<span class="kw">&lt;/DATATYPE&gt;&lt;LENGTH&gt;</span>20<span class="kw">&lt;/LENGTH&gt;&lt;/ATTRIBUTE&gt;</span>
+      <span class="kw">&lt;ATTRIBUTE&gt;&lt;NAME&gt;</span>Name<span class="kw">&lt;/NAME&gt;&lt;DATATYPE&gt;</span>TEXT<span class="kw">&lt;/DATATYPE&gt;</span>
+         <span class="kw">&lt;LENGTH&gt;</span>100<span class="kw">&lt;/LENGTH&gt;&lt;IS_MANDATORY&gt;</span>1<span class="kw">&lt;/IS_MANDATORY&gt;&lt;/ATTRIBUTE&gt;</span>
 
-  <h3>PURCHASE_ORDER_TAB</h3>
-  <div class="code-block"><span class="kw">ALTER TABLE</span> purchase_order_tab
-  <span class="kw">ADD</span> c_project_code   <span class="kw">VARCHAR2</span>(20),
-  <span class="kw">ADD</span> c_approval_level <span class="kw">NUMBER</span>(1) <span class="kw">DEFAULT</span> 1 <span class="kw">NOT NULL</span>;
+      <span class="cmt">&lt;!-- C_ カスタムフィールド --&gt;</span>
+      <span class="kw">&lt;ATTRIBUTE&gt;</span>
+         <span class="kw">&lt;NAME&gt;</span>C_PreferredCarrier<span class="kw">&lt;/NAME&gt;</span>
+         <span class="kw">&lt;DATATYPE&gt;</span>TEXT<span class="kw">&lt;/DATATYPE&gt;&lt;LENGTH&gt;</span>30<span class="kw">&lt;/LENGTH&gt;</span>
+         <span class="kw">&lt;IS_MANDATORY&gt;</span>0<span class="kw">&lt;/IS_MANDATORY&gt;&lt;IS_UPDATE_ALLOWED&gt;</span>1<span class="kw">&lt;/IS_UPDATE_ALLOWED&gt;</span>
+      <span class="kw">&lt;/ATTRIBUTE&gt;</span>
+      <span class="kw">&lt;ATTRIBUTE&gt;</span>
+         <span class="kw">&lt;NAME&gt;</span>C_SlaDays<span class="kw">&lt;/NAME&gt;</span>
+         <span class="kw">&lt;DATATYPE&gt;</span>NUMBER<span class="kw">&lt;/DATATYPE&gt;&lt;LENGTH&gt;</span>3<span class="kw">&lt;/LENGTH&gt;</span>
+         <span class="kw">&lt;IS_MANDATORY&gt;</span>0<span class="kw">&lt;/IS_MANDATORY&gt;&lt;IS_UPDATE_ALLOWED&gt;</span>1<span class="kw">&lt;/IS_UPDATE_ALLOWED&gt;</span>
+      <span class="kw">&lt;/ATTRIBUTE&gt;</span>
+   <span class="kw">&lt;/ATTRIBUTES&gt;</span>
+<span class="kw">&lt;/ENTITY&gt;</span></div>
 
-<span class="kw">COMMENT ON COLUMN</span> purchase_order_tab.c_project_code   <span class="kw">IS</span> <span class="str">'[Custom] 原価管理プロジェクトコード'</span>;
-<span class="kw">COMMENT ON COLUMN</span> purchase_order_tab.c_approval_level <span class="kw">IS</span> <span class="str">'[Custom] 必要承認レベル(1=部長/2=役員)'</span>;</div>
-
-  <h3>C_PO_APPROVAL_LOG_TAB（カスタムテーブル新規作成）</h3>
-  <div class="code-block"><span class="kw">CREATE TABLE</span> c_po_approval_log_tab (
-  c_log_id       <span class="kw">VARCHAR2</span>(36)   <span class="kw">NOT NULL</span>,  <span class="cmt">-- UUID</span>
-  order_no       <span class="kw">VARCHAR2</span>(12)   <span class="kw">NOT NULL</span>,
-  approver_id    <span class="kw">VARCHAR2</span>(20)   <span class="kw">NOT NULL</span>,
-  approved_at    <span class="kw">TIMESTAMP</span>      <span class="kw">NOT NULL</span>,
-  c_approval_level <span class="kw">NUMBER</span>(1)    <span class="kw">NOT NULL</span>,
-  c_comment_text <span class="kw">VARCHAR2</span>(200),
-  rowversion     <span class="kw">DATE</span>           <span class="kw">NOT NULL</span>,
-  <span class="kw">CONSTRAINT</span> c_po_approval_log_pk <span class="kw">PRIMARY KEY</span> (c_log_id),
-  <span class="kw">CONSTRAINT</span> c_po_approval_log_fk <span class="kw">FOREIGN KEY</span> (order_no)
-    <span class="kw">REFERENCES</span> purchase_order_tab(order_no)
-);</div>
+  <h3>C_PoApprovalLog.entity（カスタムエンティティ新規作成）</h3>
+  <div class="code-block"><span class="cmt">&lt;!-- checkout/purch/model/purch/C_PoApprovalLog.entity --&gt;</span>
+<span class="kw">&lt;ENTITY&gt;</span>
+   <span class="kw">&lt;NAME&gt;</span>C_PoApprovalLog<span class="kw">&lt;/NAME&gt;</span>
+   <span class="kw">&lt;COMPONENT&gt;</span>PURCH<span class="kw">&lt;/COMPONENT&gt;</span>
+   <span class="kw">&lt;ATTRIBUTES&gt;</span>
+      <span class="kw">&lt;ATTRIBUTE&gt;</span>
+         <span class="kw">&lt;NAME&gt;</span>C_LogId<span class="kw">&lt;/NAME&gt;</span>
+         <span class="kw">&lt;IS_PRIMARY_KEY&gt;</span>1<span class="kw">&lt;/IS_PRIMARY_KEY&gt;</span>
+         <span class="kw">&lt;DATATYPE&gt;</span>TEXT<span class="kw">&lt;/DATATYPE&gt;&lt;LENGTH&gt;</span>36<span class="kw">&lt;/LENGTH&gt;</span> <span class="cmt">&lt;!-- UUID --&gt;</span>
+         <span class="kw">&lt;IS_MANDATORY&gt;</span>1<span class="kw">&lt;/IS_MANDATORY&gt;&lt;IS_SERVER_GENERATED&gt;</span>1<span class="kw">&lt;/IS_SERVER_GENERATED&gt;</span>
+      <span class="kw">&lt;/ATTRIBUTE&gt;</span>
+      <span class="kw">&lt;ATTRIBUTE&gt;&lt;NAME&gt;</span>OrderNo<span class="kw">&lt;/NAME&gt;</span>
+         <span class="kw">&lt;DATATYPE&gt;</span>TEXT<span class="kw">&lt;/DATATYPE&gt;&lt;LENGTH&gt;</span>12<span class="kw">&lt;/LENGTH&gt;&lt;IS_MANDATORY&gt;</span>1<span class="kw">&lt;/IS_MANDATORY&gt;&lt;/ATTRIBUTE&gt;</span>
+      <span class="kw">&lt;ATTRIBUTE&gt;&lt;NAME&gt;</span>ApproverId<span class="kw">&lt;/NAME&gt;</span>
+         <span class="kw">&lt;DATATYPE&gt;</span>TEXT<span class="kw">&lt;/DATATYPE&gt;&lt;LENGTH&gt;</span>20<span class="kw">&lt;/LENGTH&gt;&lt;IS_MANDATORY&gt;</span>1<span class="kw">&lt;/IS_MANDATORY&gt;&lt;/ATTRIBUTE&gt;</span>
+      <span class="kw">&lt;ATTRIBUTE&gt;&lt;NAME&gt;</span>ApprovedAt<span class="kw">&lt;/NAME&gt;</span>
+         <span class="kw">&lt;DATATYPE&gt;</span>TIMESTAMP<span class="kw">&lt;/DATATYPE&gt;&lt;IS_MANDATORY&gt;</span>1<span class="kw">&lt;/IS_MANDATORY&gt;&lt;/ATTRIBUTE&gt;</span>
+      <span class="kw">&lt;ATTRIBUTE&gt;&lt;NAME&gt;</span>C_ApprovalLevel<span class="kw">&lt;/NAME&gt;</span>
+         <span class="kw">&lt;DATATYPE&gt;</span>NUMBER<span class="kw">&lt;/DATATYPE&gt;&lt;LENGTH&gt;</span>1<span class="kw">&lt;/LENGTH&gt;&lt;IS_MANDATORY&gt;</span>1<span class="kw">&lt;/IS_MANDATORY&gt;&lt;/ATTRIBUTE&gt;</span>
+      <span class="kw">&lt;ATTRIBUTE&gt;&lt;NAME&gt;</span>C_CommentText<span class="kw">&lt;/NAME&gt;</span>
+         <span class="kw">&lt;DATATYPE&gt;</span>TEXT<span class="kw">&lt;/DATATYPE&gt;&lt;LENGTH&gt;</span>200<span class="kw">&lt;/LENGTH&gt;&lt;IS_MANDATORY&gt;</span>0<span class="kw">&lt;/IS_MANDATORY&gt;&lt;/ATTRIBUTE&gt;</span>
+   <span class="kw">&lt;/ATTRIBUTES&gt;</span>
+   <span class="kw">&lt;ASSOCIATIONS&gt;</span>
+      <span class="kw">&lt;ASSOCIATION&gt;</span>
+         <span class="kw">&lt;NAME&gt;</span>OrderNoRef<span class="kw">&lt;/NAME&gt;</span>
+         <span class="kw">&lt;TO_ENTITY&gt;</span>PurchaseOrder<span class="kw">&lt;/TO_ENTITY&gt;</span>
+         <span class="kw">&lt;DELETE_BEHAVIOUR&gt;</span>CASCADE<span class="kw">&lt;/DELETE_BEHAVIOUR&gt;</span>
+      <span class="kw">&lt;/ASSOCIATION&gt;</span>
+   <span class="kw">&lt;/ASSOCIATIONS&gt;</span>
+<span class="kw">&lt;/ENTITY&gt;</span></div>
 
   <div class="section-label">3. 移行ジョブとの連携</div>
   <table class="doc-table">

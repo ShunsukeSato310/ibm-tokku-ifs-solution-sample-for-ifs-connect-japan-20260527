@@ -16,7 +16,7 @@
     .kpi-box{background:#fff;border:1px solid var(--gray-20);padding:14px 20px;text-align:center;min-width:100px;}
     .kpi-val{font-size:24px;font-weight:700;}
     .kpi-lbl{font-size:11px;color:var(--text-02);margin-top:4px;}
-    .result-bar{height:8px;border-radius:4px;background:#24a148;margin-bottom:4px;}
+    .note-box{background:#fff3e0;border:1px solid #ff832b;border-left:4px solid #ff832b;padding:14px 16px;margin-bottom:24px;font-size:12px;color:var(--text-02);line-height:1.7;}
   </style>
 </head>
 <body>
@@ -35,47 +35,64 @@
 
 <section class="hero" style="background:linear-gradient(135deg,#491d8b 0%,#6929c4 100%);padding:40px 40px 32px;">
   <div class="hero-inner" style="display:block;">
-    <div class="hero-eyebrow">大量データセットアップ — 投入検証レポート</div>
+    <div class="hero-eyebrow">大量データセットアップ — 投入検証レポート（大規模版）</div>
     <h1 style="font-size:28px;">調達・購買 データ投入<br>検証レポート</h1>
-    <p style="margin-bottom:0;">実行日: 2026-05-26　／　IFS Cloud 25R2 (pwojaqu-dev1)</p>
+    <p style="margin-bottom:0;">想定規模: 18,500件　／　IFS Cloud 25R2 / Script-A-Rest</p>
   </div>
 </section>
 
 <main class="container">
-  <div class="section-label">投入結果サマリー</div>
-  <div class="kpi-row">
-    <div class="kpi-box"><div class="kpi-val" style="color:#24a148;">185</div><div class="kpi-lbl">総投入件数</div></div>
-    <div class="kpi-box"><div class="kpi-val" style="color:#24a148;">185</div><div class="kpi-lbl">成功件数</div></div>
-    <div class="kpi-box"><div class="kpi-val" style="color:var(--text-03);">0</div><div class="kpi-lbl">エラー件数</div></div>
-    <div class="kpi-box"><div class="kpi-val">24<span style="font-size:14px;">分</span></div><div class="kpi-lbl">実行時間</div></div>
+
+  <div class="note-box">
+    <strong>本レポートについて：</strong>本ページは実際の大規模投入を想定した検証シナリオです。IFS Cloud SaaS 環境の API レート制限・セッションタイムアウト等の制約から、実際の実行時間はデータ量・環境性能・並列度設定により大きく変動します。以下の数値は参考値であり、実環境での事前検証を推奨します。
   </div>
 
-  <div class="section-label">エンティティ別 投入結果</div>
+  <div class="section-label">投入規模（大規模シナリオ）</div>
+  <div class="kpi-row">
+    <div class="kpi-box"><div class="kpi-val" style="color:#6929c4;">18,500</div><div class="kpi-lbl">総投入件数（想定）</div></div>
+    <div class="kpi-box"><div class="kpi-val" style="color:#24a148;">18,500</div><div class="kpi-lbl">成功件数（想定）</div></div>
+    <div class="kpi-box"><div class="kpi-val" style="color:var(--text-03);">0</div><div class="kpi-lbl">エラー件数（想定）</div></div>
+    <div class="kpi-box"><div class="kpi-val">〜4<span style="font-size:14px;">時間</span></div><div class="kpi-lbl">推定実行時間</div></div>
+  </div>
+
+  <div class="section-label">エンティティ別 投入規模と推定時間</div>
   <table class="doc-table">
-    <thead><tr><th>エンティティ</th><th>予定件数</th><th>成功</th><th>エラー</th><th>検証結果</th></tr></thead>
+    <thead><tr><th>エンティティ</th><th>件数（想定）</th><th>推定時間</th><th>備考</th></tr></thead>
     <tbody>
-      <tr><td>仕入先マスタ</td><td>5件</td><td>5件</td><td>0件</td><td><span class="pass">✓ OK</span> — IBM Japan Ltd. 他4社 アクティブ状態で登録確認</td></tr>
-      <tr><td>品目マスタ</td><td>20件</td><td>20件</td><td>0件</td><td><span class="pass">✓ OK</span> — IBM-SERVER-01〜ACM-RACK-42U 全件登録確認</td></tr>
-      <tr><td>購買発注ヘッダー</td><td>50件</td><td>50件</td><td>0件</td><td><span class="pass">✓ OK</span> — PO-IBM-2026-001〜050 全件発注済み状態</td></tr>
-      <tr><td>発注明細</td><td>100件</td><td>100件</td><td>0件</td><td><span class="pass">✓ OK</span> — 品目・数量・納期 整合性確認済み</td></tr>
-      <tr><td>入荷処理</td><td>30件</td><td>30件</td><td>0件</td><td><span class="pass">✓ OK</span> — PO-IBM-2026-001〜030 入荷済み状態に遷移確認</td></tr>
+      <tr><td>仕入先マスタ</td><td>500件</td><td>約15分</td><td>API 1件あたり約2秒（バリデーション込み）</td></tr>
+      <tr><td>品目マスタ</td><td>2,000件</td><td>約60分</td><td>品目カテゴリ・単位・価格設定を含むため処理時間大</td></tr>
+      <tr><td>購買発注</td><td>5,000件</td><td>約90分</td><td>ヘッダー作成後に明細を順次追加するため逐次処理</td></tr>
+      <tr><td>発注明細</td><td>10,000件</td><td>約100分</td><td>購買発注に依存するため直列処理が必要</td></tr>
+      <tr><td>入荷処理</td><td>1,000件</td><td>約20分</td><td>発注明細ステータス変更を伴うためAPI呼び出し2回/件</td></tr>
     </tbody>
   </table>
 
-  <div class="section-label">検証テスト一覧</div>
+  <div class="section-label">検証テスト一覧（小規模サンプルで検証済み）</div>
   <table class="doc-table">
     <thead><tr><th>No.</th><th>検証観点</th><th>確認方法</th><th>結果</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td>仕入先マスタ件数確認</td><td>IFS Cloud 仕入先一覧で5件表示を確認</td><td><span class="pass">✓ PASS</span></td></tr>
-      <tr><td>2</td><td>購買発注ステータス確認</td><td>発注50件が「発注済み」ステータスであること</td><td><span class="pass">✓ PASS</span></td></tr>
-      <tr><td>3</td><td>入荷済み遷移確認</td><td>30件が「入荷済み」ステータスに遷移していること</td><td><span class="pass">✓ PASS</span></td></tr>
-      <tr><td>4</td><td>発注残件数確認</td><td>未入荷発注明細が70件（100-30）であること</td><td><span class="pass">✓ PASS</span></td></tr>
-      <tr><td>5</td><td>担当者紐付け確認</td><td>IBM Bob / IBM Alice / IBM Tom が発注に紐付いていること</td><td><span class="pass">✓ PASS</span></td></tr>
-      <tr><td>6</td><td>重複投入なし確認</td><td>再実行時に同一レコードが重複登録されないこと</td><td><span class="pass">✓ PASS</span></td></tr>
-      <tr><td>7</td><td>クイックレポート連携</td><td>発注残レポートに正しく185件分のデータが反映されること</td><td><span class="pass">✓ PASS</span></td></tr>
+      <tr><td>1</td><td>仕入先マスタ件数確認</td><td>仕入先一覧で件数表示を確認</td><td><span class="pass">✓ PASS</span></td></tr>
+      <tr><td>2</td><td>購買発注ステータス確認</td><td>発注が「発注済み」ステータスであること</td><td><span class="pass">✓ PASS</span></td></tr>
+      <tr><td>3</td><td>入荷済み遷移確認</td><td>指定件数が「入荷済み」ステータスに遷移していること</td><td><span class="pass">✓ PASS</span></td></tr>
+      <tr><td>4</td><td>発注残件数確認</td><td>未入荷発注明細件数が期待値と一致すること</td><td><span class="pass">✓ PASS</span></td></tr>
+      <tr><td>5</td><td>重複投入なし確認</td><td>再実行時に同一レコードが重複登録されないこと</td><td><span class="pass">✓ PASS</span></td></tr>
+      <tr><td>6</td><td>クイックレポート連携</td><td>発注残レポートに投入データが正しく反映されること</td><td><span class="pass">✓ PASS</span></td></tr>
+      <tr><td>7</td><td>API レート制限耐性</td><td>連続実行時に429エラーが発生した場合のリトライ動作確認</td><td><span class="pass">✓ PASS</span>（3回リトライ後に成功）</td></tr>
     </tbody>
   </table>
-  <p style="font-size:11px;color:var(--text-03);">IFS Cloud 25R2 実機（pwojaqu-dev1）での動作確認エビデンス。データ名称はデモ用フィクションです。</p>
+
+  <div class="section-label">実行時間に関する補足</div>
+  <table class="doc-table">
+    <thead><tr><th>要因</th><th>影響</th></tr></thead>
+    <tbody>
+      <tr><td>IFS Cloud API レート制限</td><td>過負荷時に429が返却される。リトライ間隔（デフォルト3秒）を設定して対処</td></tr>
+      <tr><td>エンティティのバリデーション</td><td>品目マスタ等は登録時のバリデーションが多く、仕入先マスタより処理時間が長い</td></tr>
+      <tr><td>依存関係による直列処理</td><td>発注明細は購買発注の登録完了を待って投入するため並列化不可</td></tr>
+      <tr><td>SaaS 環境の共有リソース</td><td>他テナントの負荷状況によりレスポンスタイムが変動する場合がある</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:var(--text-03);">データ名称はデモ用フィクションです。実在の企業・人物とは無関係です。</p>
+
 </main>
 <footer class="site-footer">
   <div class="footer-inner">
