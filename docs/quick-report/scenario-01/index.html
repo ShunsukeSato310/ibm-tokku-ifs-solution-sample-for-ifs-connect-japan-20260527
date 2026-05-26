@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>シナリオ1 業務データ一覧 — クイックレポート活用</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-brand">
+    <a href="../../index.html" style="color:var(--white);">IFS Cloud Solution Samples</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <a href="../index.html" style="color:rgba(255,255,255,0.7);">クイックレポート</a>
+    <span style="opacity:0.4;margin:0 6px;">/</span>
+    <span>シナリオ 1</span>
+  </div>
+  <nav class="site-header-nav">
+    <a href="../index.html">← シナリオ一覧</a>
+  </nav>
+</header>
+
+<section class="hero" style="background:linear-gradient(135deg,#006161 0%,#009d9a 60%,#007d79 100%);padding-bottom:32px;">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">クイックレポート — シナリオ 1 / 業務アドオン代替</div>
+      <h1>業務で使いたいデータ一覧<br><span style="font-size:0.65em;opacity:0.85;">アドオン要件をクイックレポートで代替する</span></h1>
+      <p>「この一覧画面が欲しい」という現場ニーズに対して、アドオン開発なしでクイックレポートが代替できるかを検証するシナリオです。</p>
+      <div class="hero-badges">
+        <span class="hero-badge">発注残確認</span>
+        <span class="hero-badge">要件定義サンプル付き</span>
+        <span class="hero-badge">テスト結果付き</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="section-label">このシナリオの背景</div>
+  <div class="sc-context-block">
+    <div class="sc-context-card sc-context-before">
+      <div class="sc-ctx-label">よくある課題</div>
+      <ul class="sc-ctx-list">
+        <li>「発注残を一覧で確認したい」という要件がアドオン開発扱いになっている</li>
+        <li>開発コスト・納期・保守コストがかかり、後回しになりがち</li>
+        <li>担当者が毎朝 Excel でデータを手集計している</li>
+      </ul>
+    </div>
+    <div class="sc-context-card sc-context-after">
+      <div class="sc-ctx-label">クイックレポートで解決</div>
+      <ul class="sc-ctx-list">
+        <li>IFS Cloud 標準機能のみで同等の一覧を実現</li>
+        <li>開発不要・設定のみで即日稼働</li>
+        <li>Excel 手集計を廃止。データは常に最新</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">要件定義（INPUT）</div>
+  <div class="sc-req-box">
+    <table class="sc-req-table">
+      <thead><tr><th>項目</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td>対象ユーザー</td><td>調達担当者・調達マネージャー</td></tr>
+        <tr><td>目的</td><td>未着荷の発注残を一覧で把握し、納期遅延リスクを早期検知する</td></tr>
+        <tr><td>対象データ</td><td>購買発注ヘッダー／明細・仕入先・納期</td></tr>
+        <tr><td>抽出条件</td><td>ステータス＝発注済み かつ 予定納期 ≤ 今日＋7日</td></tr>
+        <tr><td>表示項目</td><td>発注番号・品目・仕入先・発注数・入荷済数・残数・予定納期</td></tr>
+        <tr><td>ソート</td><td>予定納期 昇順</td></tr>
+        <tr><td>出力形式</td><td>画面表示 ＋ Excel エクスポート</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-label">テスト結果</div>
+  <table class="sc-test-table">
+    <thead>
+      <tr><th>No.</th><th>テスト観点</th><th>期待結果</th><th>結果</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>ステータス「発注済み」のみ表示される</td><td>入荷済・キャンセル済は除外</td><td><span class="tc-pass">✓ OK</span></td></tr>
+      <tr><td>2</td><td>予定納期フィルタが正しく動作する</td><td>今日＋8日以降は表示されない</td><td><span class="tc-pass">✓ OK</span></td></tr>
+      <tr><td>3</td><td>残数 = 発注数 − 入荷済数 が正確</td><td>マイナスは 0 として扱う</td><td><span class="tc-pass">✓ OK</span></td></tr>
+      <tr><td>4</td><td>予定納期 昇順でソートされる</td><td>最も早い納期が先頭</td><td><span class="tc-pass">✓ OK</span></td></tr>
+      <tr><td>5</td><td>Excel エクスポートが正常動作する</td><td>ヘッダー・データ行が一致</td><td><span class="tc-pass">✓ OK</span></td></tr>
+      <tr><td>6</td><td>権限外データは表示されない</td><td>自社担当分のみ表示</td><td><span class="tc-pass">✓ OK</span></td></tr>
+      <tr><td>7</td><td>該当データなし時の表示</td><td>「データがありません」を表示</td><td><span class="tc-pass">✓ OK</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">実画面イメージ</div>
+  <div class="sc-mock">
+    <div class="sc-mock-bar">
+      <span class="sc-dot red"></span><span class="sc-dot yellow"></span><span class="sc-dot green"></span>
+      <span class="sc-mock-title">発注残確認レポート — IFS Cloud</span>
+    </div>
+    <div class="sc-mock-toolbar">
+      <label>予定納期（自）</label><span class="sc-input">2026-05-26</span>
+      <label>予定納期（至）</label><span class="sc-input">2026-06-02</span>
+      <span class="sc-btn-run">実行</span>
+      <span class="sc-btn-sub">Excel出力</span>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="sc-data-table">
+        <thead><tr><th>発注番号</th><th>品目</th><th>仕入先</th><th>発注数</th><th>入荷済</th><th>残数</th><th>予定納期</th></tr></thead>
+        <tbody>
+          <tr class="sc-row-warn"><td>PO-2026-0421</td><td>ボルト M10×30</td><td>山田製作所</td><td>500</td><td>200</td><td><strong>300</strong></td><td><span class="sc-date-warn">2026-05-27</span></td></tr>
+          <tr><td>PO-2026-0438</td><td>プレート 200×300</td><td>鈴木金属</td><td>120</td><td>0</td><td><strong>120</strong></td><td>2026-05-29</td></tr>
+          <tr><td>PO-2026-0445</td><td>シール材 A-Type</td><td>東洋工業</td><td>1,000</td><td>400</td><td><strong>600</strong></td><td>2026-05-30</td></tr>
+          <tr><td>PO-2026-0461</td><td>ケーブル 2m</td><td>日本電材</td><td>80</td><td>80</td><td><strong>0</strong></td><td>2026-06-01</td></tr>
+          <tr><td>PO-2026-0477</td><td>フィルタユニット</td><td>山田製作所</td><td>30</td><td>10</td><td><strong>20</strong></td><td>2026-06-02</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-mock-footer">5 件表示 / 全 5 件　合計残数: 1,040</div>
+  </div>
+  <p style="font-size:11px;color:var(--text-03);margin-top:8px;">※ 実際の操作画面を模したモックアップです。実運用データは含みません。</p>
+
+  <div class="section-label">期待効果</div>
+  <ul class="feature-list" style="max-width:720px;">
+    <li>毎朝の手集計 Excel 作業を廃止（約30分/日の削減）</li>
+    <li>納期遅延の早期把握により、代替手配を前倒しで検討可能</li>
+    <li>アドオン開発費ゼロ・保守コストゼロで同等の業務機能を実現</li>
+    <li>担当者が直接条件を変更できるため、IT部門依頼コストを削減</li>
+  </ul>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">クイックレポート — シナリオ 1</div>
+      <div class="footer-copy">© 2026 Tokku Team. IFS Cloud 25R2 ベース</div>
+    </div>
+    <div class="footer-links">
+      <a href="../index.html">← シナリオ一覧</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

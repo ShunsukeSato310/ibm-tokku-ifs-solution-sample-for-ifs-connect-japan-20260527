@@ -116,29 +116,24 @@ a:hover { text-decoration: underline; }
 /* ── Summary Block (main content) ── */
 .summary-block {
   display: flex;
-  gap: 40px;
-  align-items: center;
+  gap: 24px;
+  align-items: flex-start;
   background: var(--white);
   border: 1px solid var(--gray-20);
-  padding: 32px;
+  padding: 24px;
   margin-bottom: 40px;
   flex-wrap: wrap;
 }
 .summary-image-wrap {
-  flex: 0 0 auto;
-  width: 400px;
-  max-width: 400px;
+  flex: 1 1 0;
+  min-width: 240px;
 }
 .summary-img {
   display: block;
-  width: 400px;
-  max-width: 400px;
+  width: 100%;
   height: auto;
   border-radius: 4px;
 }
-.summary-desc { flex: 1; min-width: 240px; display: flex; flex-direction: column; justify-content: center; gap: 14px; }
-.summary-lead { font-size: 18px; font-weight: 700; color: var(--text-01); line-height: 1.5; }
-.summary-desc p { font-size: 13px; color: var(--text-02); line-height: 1.8; }
 
 /* ── Container ── */
 .container { max-width: 1100px; margin: 0 auto; padding: 40px; }
