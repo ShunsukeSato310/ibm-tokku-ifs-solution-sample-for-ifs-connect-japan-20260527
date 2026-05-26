@@ -7,7 +7,7 @@
   <Locked>false</Locked>
   <Component>PURCH</Component>
   <AurenaLobby>true</AurenaLobby>
-  <PageId>7ae03047-1782-4e44-bf40-0e624b7944f9</PageId>
+  <PageId>a7fd103c-f7b6-4c27-9f51-5de17d80bb07</PageId>
   <PageTitle>調達担当者ロビー</PageTitle>
   <Layout><Groups><Group><Elements>
     <!-- el-jp-kpi-008.xml -->
@@ -431,58 +431,6 @@
     <UnifiedElement />
     <ElementConfig />
 </List>
-    <!-- el-jp-pie-delay-005.xml -->
-    <PieChart>
-    <Author>IBM Tokku Team</Author>
-    <Keywords>調達,遅延,円グラフ</Keywords>
-    <LastModified>2026-05-26-00.00.00</LastModified>
-    <Locked>false</Locked>
-    <Component>PURCH</Component>
-    <Row>1</Row>
-    <Column>0</Column>
-    <RowSpan>2</RowSpan>
-    <ColumnSpan>2</ColumnSpan>
-    <Title>遅延ステータス構成（円グラフ）</Title>
-    <Background>#FFFFFFFF</Background>
-    <Foreground>#FF000000</Foreground>
-    <Name>JP PO Delay Pie</Name>
-    <ID>el-jp-pie-delay-005</ID>
-    <DataSourceId>ds-jp-delay-status-005</DataSourceId>
-    <ColumnMapping>
-        <MappedColumns>
-            <MappedColumn>
-                <Column>ORDER_NO</Column>
-                <Name>COUNT ORDER_NO</Name>
-                <DisplayName>COUNT ORDER_NO</DisplayName>
-                <Aggregate>COUNT</Aggregate>
-                <ConditionalFormats />
-            </MappedColumn>
-            <MappedColumn>
-                <Column>DELAY_STATUS</Column>
-                <Name>DELAY_STATUS</Name>
-                <DisplayName>DELAY_STATUS</DisplayName>
-                <Aggregate>NA</Aggregate>
-                <ConditionalFormats />
-            </MappedColumn>
-        </MappedColumns>
-    </ColumnMapping>
-    <DisplayNullValueAs>Zero</DisplayNullValueAs>
-    <GroupedDataSeries>
-        <TopNOptions>
-            <ShowOthers>true</ShowOthers>
-        </TopNOptions>
-        <GroupsColumn>
-            <Name>DELAY_STATUS</Name>
-            <Aggregate>NA</Aggregate>
-        </GroupsColumn>
-        <ValuesColumn>
-            <Name>ORDER_NO</Name>
-            <Aggregate>COUNT</Aggregate>
-        </ValuesColumn>
-    </GroupedDataSeries>
-    <UnifiedElement />
-    <ElementConfig />
-</PieChart>
     <!-- el-jp-status-gauge-013.xml -->
     <Counter>
     <Author>IBM Tokku Team</Author>
